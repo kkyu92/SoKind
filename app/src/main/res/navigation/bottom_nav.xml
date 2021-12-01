@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/csFragment"
+        android:name="com.sokind.ui.cs.CsFragment"
+        android:label="fragment_cs"
+        tools:layout="@layout/fragment_cs" />
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="com.sokind.ui.report.ReportFragment"
+        android:label="fragment_report"
+        tools:layout="@layout/fragment_report" />
+    <fragment
+        android:id="@+id/myFragment"
+        android:name="com.sokind.ui.my.MyFragment"
+        android:label="fragment_my"
+        tools:layout="@layout/fragment_my" />
+    <fragment
+        android:id="@+id/guideFragment"
+        android:name="com.sokind.ui.guide.GuideFragment"
+        android:label="fragment_guide"
+        tools:layout="@layout/fragment_guide" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.sokind.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+</navigation>

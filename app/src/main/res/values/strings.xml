@@ -17,4 +17,13 @@
     <string name="mic_permission">AI 교육을 위한 음석분석시 필요합니다.</string>
     <string name="permit">허용</string>
     <string name="show_permit">개인정보 처리방침 보기</string>
+    <string name="id">아이디</string>
+    <string name="id_hint">아이디를 입력해주세요.</string>
+    <string name="pw">비밀번호</string>
+    <string name="pw_hint">비밀번호를 입력해주세요.</string>
+    <string name="find_id">아이디찾기</string>
+    <string name="find_pw">비밀번호를 잊으셨나요?</string>
+    <string name="pw_error">8자~20자 영문 대 소문자, 숫자 특수문자를 사용해주세요.</string>
+    <string name="login">로그인</string>
+    <string name="join">회원가입하기</string>
 </resources>
