@@ -86,6 +86,7 @@
         <item name="android:paddingVertical">15dp</item>
         <item name="android:paddingHorizontal">10dp</item>
         <item name="android:textColor">@color/font_black</item>
+        <item name="android:textColorHint">@color/font_light_gray</item>
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/noto_sans_regular</item>
         <item name="android:background">@drawable/custom_input</item>

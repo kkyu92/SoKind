@@ -1,6 +1,7 @@
 package com.sokind.util
 
 import android.Manifest
+import java.util.regex.Pattern
 
 object Constants {
     const val MILLISECONDS = 1000L
@@ -12,4 +13,13 @@ object Constants {
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.RECORD_AUDIO
     )
+
+    fun validateId(id: String): Boolean {
+        val idRegex = Pattern.compile("^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#\$%^&*])(?=.*[0-9!@#\$%^&*]).{7,20}\$")
+        return idRegex.matcher(id).find()
+    }
+    fun validatePw(pw: String): Boolean {
+        val pwRegex = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[\$@\$!%*#?&]).{7,20}.\$")
+        return pwRegex.matcher(pw).find()
+    }
 }

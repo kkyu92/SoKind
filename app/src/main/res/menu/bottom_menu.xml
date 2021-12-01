@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/fragmentHome"
+        android:id="@+id/homeFragment"
         android:title=""
         android:icon="@drawable/selector_home"/>
 
     <item
-        android:id="@+id/fragmentGuide"
+        android:id="@+id/guideFragment"
         android:title=""
         android:icon="@drawable/selector_guide"/>
 
     <item
-        android:id="@+id/fragmentCs"
+        android:id="@+id/csFragment"
         android:title=""
         android:icon="@drawable/selector_cs" />
 
     <item
-        android:id="@+id/fragmentReport"
+        android:id="@+id/reportFragment"
         android:title=""
         android:icon="@drawable/selector_report"/>
 
     <item
-        android:id="@+id/fragmentMy"
+        android:id="@+id/myFragment"
         android:title=""
         android:icon="@drawable/selector_my"/>
 </menu>

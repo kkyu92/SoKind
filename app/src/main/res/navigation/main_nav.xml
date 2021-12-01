@@ -4,9 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
     app:startDestination="@id/splashFragment">
-
-
-    <include app:graph="@navigation/bottom_nav" />
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.sokind.ui.SplashFragment"
@@ -18,10 +15,8 @@
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_splashFragment_to_main_nav"
-            app:destination="@id/main_nav"
-            app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_splashFragment_to_bottomNavActivity"
+            app:destination="@id/bottomNavActivity" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -29,7 +24,12 @@
         android:label="login_fragment"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_main_nav2"
-            app:destination="@id/main_nav" />
+            android:id="@+id/action_loginFragment_to_bottomNavActivity"
+            app:destination="@id/bottomNavActivity" />
     </fragment>
+    <activity
+        android:id="@+id/bottomNavActivity"
+        android:name="com.sokind.ui.BottomNavActivity"
+        android:label="activity_bottom_nav"
+        tools:layout="@layout/activity_bottom_nav" />
 </navigation>

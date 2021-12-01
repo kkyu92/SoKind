@@ -28,7 +28,6 @@
         <activity
             android:name=".ui.BottomNavActivity"
             android:exported="true">
-
             <nav-graph android:value="@navigation/bottom_nav" />
         </activity>
     </application>
