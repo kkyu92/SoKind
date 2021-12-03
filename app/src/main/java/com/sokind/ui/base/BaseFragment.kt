@@ -19,11 +19,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.sokind.util.Constants
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.subjects.PublishSubject
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
 abstract class BaseFragment<B : ViewDataBinding>(
     @LayoutRes val layoutId: Int
@@ -31,7 +28,6 @@ abstract class BaseFragment<B : ViewDataBinding>(
     private var _binding: B? = null
     protected val binding get() = _binding!!
     protected val compositeDisposable = CompositeDisposable()
-    protected val backBtnSubject = PublishSubject.create<Boolean>()
 
     private lateinit var mListener: PermissionListener
 
@@ -43,36 +39,25 @@ abstract class BaseFragment<B : ViewDataBinding>(
         _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = this
-
-        compositeDisposable.add(
-            backBtnSubject
-                .debounce(100, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnNext{
-                    showToast("'뒤로' 버튼을 한 번 더 누르시면 종료됩니다.")
-                }
-                .timeInterval(TimeUnit.MILLISECONDS)
-                .skip(1)
-                .filter { interval ->
-                    Timber.v("backBtnSubject | interval: $interval")
-                    interval.time() < Constants.BACK_BTN_EXIT_TIMEOUT
-                }
-                .subscribe {
-                    requireActivity().finishActivity(0)
-                    requireActivity().finish()
-                }
-        )
 
         init()
     }
 
     override fun onDestroyView() {
         _binding = null
+        compositeDisposable.clear()
         super.onDestroyView()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.dispose()
+    }
+
     abstract fun init()
 
     protected fun onRequestPermission(
@@ -91,7 +76,11 @@ abstract class BaseFragment<B : ViewDataBinding>(
                     aPermission
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), aPermission)) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(
+                        requireActivity(),
+                        aPermission
+                    )
+                ) {
                     Timber.e("승인거절 한번 한 상태")
                 } else {
                     if (isFirstCheck) {
@@ -126,7 +115,11 @@ abstract class BaseFragment<B : ViewDataBinding>(
             for (i in deniedList.indices) {
                 deniedList[i] = permissionList[i]
             }
-            ActivityCompat.requestPermissions(requireActivity(), deniedList, Constants.PERMISSIONS_DATA)
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                deniedList,
+                Constants.PERMISSIONS_DATA
+            )
         }
     }
 
@@ -178,7 +171,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
         fun onDenied()
     }
 
-    companion object{
+    companion object {
         private const val TAG = "BaseFragment"
     }
 }
