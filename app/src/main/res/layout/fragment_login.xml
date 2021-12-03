@@ -55,7 +55,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/id_hint" />
+                android:hint="@string/id_hint"
+                android:imeOptions="actionNext"
+                android:nextFocusDown="@+id/et_pw_input" />
 
             <TextView
                 style="@style/black_16_500"

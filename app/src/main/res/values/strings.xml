@@ -26,4 +26,14 @@
     <string name="pw_error">8자~20자 영문 대 소문자, 숫자 특수문자를 사용해주세요.</string>
     <string name="login">로그인</string>
     <string name="join">회원가입하기</string>
+    <string name="find_id_content_1">회원가입시 입력하신 이메일을 입력해주세요!</string>
+    <string name="find_id_content_2">%s 으로 찾은 아이디입니다. 개인정보 보호를 위해 아이디의 일부는 *로 표기됩니다. 이메일 인증 후에 아이디 찾기가 완료됩니다.</string>
+    <string name="find_id_content_3">아이디 찾기가 완료되었습니다.</string>
+    <string name="name">이름</string>
+    <string name="hint_name">이름을 입력해주세요.</string>
+    <string name="hint_email">이메일 주소 전체를 입력해주세요.</string>
+    <string name="next">다음</string>
+    <string name="find_pw_title">비밀번호 재설정</string>
+    <string name="join_date">%s 가입</string>
+    <string name="hint_code">6자리 인증코드를 입력해주세요.</string>
 </resources>
