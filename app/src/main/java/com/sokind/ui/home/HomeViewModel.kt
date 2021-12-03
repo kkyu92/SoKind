@@ -1,9 +1,12 @@
 package com.sokind.ui.home
 
-import androidx.lifecycle.ViewModel
+import com.sokind.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel : ViewModel() {
+class HomeViewModel @Inject constructor(
+
+) : BaseViewModel() {
     // TODO: Implement the ViewModel
 }

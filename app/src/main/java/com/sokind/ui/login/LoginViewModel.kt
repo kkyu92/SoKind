@@ -1,9 +1,12 @@
 package com.sokind.ui.login
 
-import androidx.lifecycle.ViewModel
+import com.sokind.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel : ViewModel() {
+class LoginViewModel @Inject constructor(
+
+) : BaseViewModel() {
 
 }
