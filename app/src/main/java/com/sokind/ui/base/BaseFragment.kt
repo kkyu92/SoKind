@@ -19,8 +19,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.sokind.util.Constants
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.subjects.PublishSubject
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 abstract class BaseFragment<B : ViewDataBinding>(
     @LayoutRes val layoutId: Int
@@ -28,6 +31,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
     private var _binding: B? = null
     protected val binding get() = _binding!!
     protected val compositeDisposable = CompositeDisposable()
+    protected val backBtnSubject = PublishSubject.create<Boolean>()
 
     private lateinit var mListener: PermissionListener
 
@@ -42,8 +46,29 @@ abstract class BaseFragment<B : ViewDataBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = this
+
+        compositeDisposable.add(
+            backBtnSubject
+                .debounce(100, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext{
+                    showToast("'뒤로' 버튼을 한 번 더 누르시면 종료됩니다.")
+                }
+                .timeInterval(TimeUnit.MILLISECONDS)
+                .skip(1)
+                .filter { interval ->
+                    Timber.v("backBtnSubject | interval: $interval")
+                    interval.time() < Constants.BACK_BTN_EXIT_TIMEOUT
+                }
+                .subscribe {
+                    requireActivity().finishActivity(0)
+                    requireActivity().finish()
+                }
+        )
+
         init()
     }
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
@@ -151,5 +176,9 @@ abstract class BaseFragment<B : ViewDataBinding>(
     protected interface PermissionListener {
         fun onGranted()
         fun onDenied()
+    }
+
+    companion object{
+        private const val TAG = "BaseFragment"
     }
 }

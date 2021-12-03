@@ -1,11 +1,10 @@
 package com.sokind.ui.login
 
 import android.view.View
-import androidx.core.view.isVisible
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding4.view.clicks
-import com.jakewharton.rxbinding4.widget.textChangeEvents
 import com.jakewharton.rxbinding4.widget.textChanges
 import com.sokind.R
 import com.sokind.databinding.FragmentLoginBinding
@@ -23,6 +22,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     private var loginInfo = false
 
     override fun init() {
+        activity?.onBackPressedDispatcher?.addCallback(onBackPressedCallback)
+
         val idWatcher = binding.etIdInput.textChanges()
         val pwWatcher = binding.etPwInput.textChanges()
 
@@ -70,6 +71,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                         showToast("아이디와 비밀번호를 확인해주세요.")
                     }
                 }, { it.printStackTrace() })
+        }
+    }
+
+    // back 버튼 눌렀을 때
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            backBtnSubject.onNext(true)
         }
     }
 

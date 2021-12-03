@@ -6,6 +6,7 @@ import java.util.regex.Pattern
 object Constants {
     const val MILLISECONDS = 1000L
     const val THROTTLE = 2000L
+    const val BACK_BTN_EXIT_TIMEOUT = 2500L
     const val PERMISSIONS_DATA = 0
 
     val PERMISSIONS = arrayOf(
