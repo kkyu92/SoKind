@@ -7,7 +7,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.LayoutRes
@@ -18,9 +20,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import com.sokind.R
 import com.sokind.util.Constants
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import timber.log.Timber
+import android.app.Activity
+import android.view.inputmethod.InputMethodManager
+
+import androidx.core.content.ContextCompat.getSystemService
+
 
 abstract class BaseFragment<B : ViewDataBinding>(
     @LayoutRes val layoutId: Int
@@ -37,6 +45,13 @@ abstract class BaseFragment<B : ViewDataBinding>(
         savedInstanceState: Bundle?
     ): View? {
         _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+
+        binding.root.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                hideKeyboard()
+            }
+            true
+        }
         return binding.root
     }
 
@@ -164,6 +179,13 @@ abstract class BaseFragment<B : ViewDataBinding>(
         } else {
             loadingView.visibility = View.GONE
         }
+    }
+
+    open fun hideKeyboard() {
+        binding.root.clearFocus()
+        val imm =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
     protected interface PermissionListener {
