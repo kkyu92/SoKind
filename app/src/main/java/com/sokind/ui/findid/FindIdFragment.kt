@@ -31,7 +31,7 @@ class FindIdFragment : BaseFragment<FindIdFragmentBinding>(R.layout.find_id_frag
                         nameWatcher,
                         emailWatcher,
                         BiFunction { nameResult: CharSequence, emailResult: CharSequence ->
-                            return@BiFunction nameResult.isBlank() || emailResult.isBlank()
+                            return@BiFunction nameResult.isBlank() || emailResult.isBlank() || !Constants.validateEmail(emailResult.toString())
                         }
                     )
                     .subscribe({ blank ->
@@ -54,6 +54,14 @@ class FindIdFragment : BaseFragment<FindIdFragmentBinding>(R.layout.find_id_frag
             )
 
         binding.apply {
+            emailWatcher
+                .subscribe({
+                    if (Constants.validateEmail(it.toString()) || it.isNullOrEmpty()) {
+                        tvErrorEmail.visibility = View.GONE
+                    } else {
+                        tvErrorEmail.visibility = View.VISIBLE
+                    }
+                },{ it.printStackTrace() })
 
             btFindPw
                 .clicks()
@@ -73,6 +81,7 @@ class FindIdFragment : BaseFragment<FindIdFragmentBinding>(R.layout.find_id_frag
                             llContainer2.visibility = View.VISIBLE
                             llContainer3.visibility = View.GONE
                             btNext.isEnabled = false
+                            tvJoinDate.text = String.format(getString(R.string.join_date, "2021.12.06"))
                         }
                         llContainer2.isVisible -> {
                             llContainer1.visibility = View.GONE
@@ -85,6 +94,13 @@ class FindIdFragment : BaseFragment<FindIdFragmentBinding>(R.layout.find_id_frag
                             findNavController().popBackStack()
                         }
                     }
+                },{ it.printStackTrace() })
+
+            ivBack
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    findNavController().popBackStack()
                 },{ it.printStackTrace() })
         }
     }

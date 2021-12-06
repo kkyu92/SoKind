@@ -1,6 +1,7 @@
 package com.sokind.ui.login
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
@@ -22,7 +23,6 @@ import java.util.concurrent.TimeUnit
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
     private val viewModel by viewModels<LoginViewModel>()
-    private var loginTry = false
     private var loginInfo = false
     private val backBtnSubject = PublishSubject.create<Boolean>()
     private lateinit var callback: OnBackPressedCallback
@@ -43,6 +43,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
 
     override fun init() {
+        var loginTry = false
+
         compositeDisposable.add(
             backBtnSubject
                 .debounce(100, TimeUnit.MILLISECONDS)
@@ -85,7 +87,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 .textChanges()
                 .subscribe({
                     if (loginTry) {
-                        if (Constants.validatePw(it.toString())) {
+                        if (Constants.validatePw(it.toString()) || it.isNullOrEmpty()) {
                             tvErrorPw.visibility = View.GONE
                         } else {
                             tvErrorPw.visibility = View.VISIBLE
@@ -98,6 +100,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
                     findNavController().navigate(R.id.action_loginFragment_to_findIdFragment)
+                }, { it.printStackTrace() })
+
+            tvFindPw
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    findNavController().navigate(R.id.action_loginFragment_to_findPwFragment)
                 }, { it.printStackTrace() })
 
             btLogin

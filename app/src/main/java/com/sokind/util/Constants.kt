@@ -1,6 +1,7 @@
 package com.sokind.util
 
 import android.Manifest
+import android.util.Patterns
 import java.util.regex.Pattern
 
 object Constants {
@@ -22,5 +23,9 @@ object Constants {
     fun validatePw(pw: String): Boolean {
         val pwRegex = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[\$@\$!%*#?&]).{7,20}.\$")
         return pwRegex.matcher(pw).find()
+    }
+    fun validateEmail(email: String): Boolean {
+        val emailRegex = Patterns.EMAIL_ADDRESS
+        return emailRegex.matcher(email).find()
     }
 }

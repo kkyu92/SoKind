@@ -82,6 +82,15 @@
                     android:layout_marginTop="27dp"
                     android:hint="@string/hint_email"
                     android:inputType="textEmailAddress" />
+
+                <TextView
+                    android:id="@+id/tv_error_email"
+                    style="@style/orange_12_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/email_error"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
