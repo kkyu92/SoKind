@@ -20,6 +20,8 @@ android {
 
         buildConfigField("String", "BASE_API_KEY", "\"" + getBaseApiKey() + "\"")
         buildConfigField("String", "BASE_URL", "\"https://address/\"")
+        buildConfigField("String", "TEST_API_KEY", "\"" + getTestApiKey() + "\"")
+        buildConfigField("String", "TEST_URL", "\"https://run.mocky.io/v3/\"")
     }
 
     buildTypes {
@@ -86,4 +88,7 @@ dependencies {
 }
 def getBaseApiKey() {
     return project.findProperty("base_api_key")
+}
+def getTestApiKey() {
+    return project.findProperty("test_api_key")
 }
