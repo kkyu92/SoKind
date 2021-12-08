@@ -54,6 +54,9 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_loginFragment_to_joinFragment"
+            app:destination="@id/joinFragment" />
     </fragment>
     <activity
         android:id="@+id/bottomNavActivity"
@@ -78,4 +81,9 @@
         android:id="@+id/findPwFragment"
         android:name="com.sokind.ui.findpw.FindPwFragment"
         android:label="FindPwFragment" />
+    <fragment
+        android:id="@+id/joinFragment"
+        android:name="com.sokind.ui.join.JoinFragment"
+        android:label="fragment_join"
+        tools:layout="@layout/fragment_join" />
 </navigation>

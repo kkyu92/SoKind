@@ -120,6 +120,14 @@
         <item name="android:includeFontPadding">false</item>
     </style>
 
+    <style name="black_13_400">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:fontFamily">@font/noto_sans_regular</item>
+        <item name="android:textColor">@color/font_black</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
     <style name="black_14_400">
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">14sp</item>

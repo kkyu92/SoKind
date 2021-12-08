@@ -4,8 +4,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="horizontal"
-        android:paddingVertical="10dp">
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/iv_search_icon"
@@ -15,10 +16,10 @@
 
         <TextView
             android:id="@+id/tv_search_enterprise"
-            style="@style/black_16_500"
+            style="@style/black_13_400"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp" />
     </LinearLayout>
 </layout>
