@@ -21,7 +21,7 @@ class EnterpriseSearchAdapter(
     override fun getItem(position: Int): String = list[position]
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view =
-            LayoutInflater.from(mContext).inflate(R.layout.item_search_auto_complete, null, false)
+            LayoutInflater.from(mContext).inflate(R.layout.item_search_enterprise, null, false)
         val textView: TextView = view.findViewById(R.id.tv_search_enterprise)
         Timber.e("getview : ${list[position]}")
         textView.text = list[position]
@@ -70,4 +70,7 @@ class EnterpriseSearchAdapter(
         list.addAll(changedList)
     }
 
+    fun sendWord(word: String) {
+
+    }
 }

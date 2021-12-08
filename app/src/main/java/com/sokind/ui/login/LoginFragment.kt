@@ -125,6 +125,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                         showToast("아이디와 비밀번호를 확인해주세요.")
                     }
                 }, { it.printStackTrace() })
+
+            tvJoin
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                           findNavController().navigate(R.id.action_loginFragment_to_joinFragment)
+                },{ it.printStackTrace() })
         }
     }
 

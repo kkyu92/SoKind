@@ -2,6 +2,8 @@ package com.sokind.ui.join
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.sokind.data.remote.test.TestRequest
+import com.sokind.data.repository.test.TestRepository
 import com.sokind.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -12,10 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class JoinViewModel @Inject constructor(
-
+    private val repository: TestRepository
 ) : BaseViewModel() {
-    private val _titleInputText: MutableLiveData<String> = MutableLiveData()
-    val titleInputText: LiveData<String> get() = _titleInputText
 
     private val _autoText: MutableLiveData<List<String>> = MutableLiveData()
     val autoText: LiveData<List<String>> get() = _autoText
@@ -28,24 +28,21 @@ class JoinViewModel @Inject constructor(
                 .subscribeOn(Schedulers.newThread())
                 .throttleLast(2500, TimeUnit.MILLISECONDS)
                 .concatMap {
-                    Timber.e("test $it")
-
-                    repository.getMovieT itleList(it, null).toObservable()
+                    Timber.e("get words : $it")
+                    repository.test().toObservable()
                 }
-                .map { it.map { it.title.htmlToString() } }
                 .subscribe({
-                    Timber.e("test $it")
-                    _autoText.postValue(it)
+                    Timber.e("test ${it.results}")
+                    _autoText.postValue(it.results)
                 }, {
-                    Timber.e("test $it")
+                    Timber.e("error $it")
                 }, {
-
+                    Timber.e("complete")
                 })
         )
     }
 
-    fun onContentTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        _titleInputText.value = s.toString()
-        autoTextBehaviorSubject.onNext(_titleInputText.value ?: "")
+    fun searchEnterprise(words: CharSequence) {
+        autoTextBehaviorSubject.onNext(words.toString())
     }
 }

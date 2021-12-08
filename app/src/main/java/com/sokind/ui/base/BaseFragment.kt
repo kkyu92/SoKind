@@ -9,8 +9,9 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnTouchListener
 import android.view.ViewGroup
+import android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -20,14 +21,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import com.sokind.R
 import com.sokind.util.Constants
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import timber.log.Timber
-import android.app.Activity
-import android.view.inputmethod.InputMethodManager
-
-import androidx.core.content.ContextCompat.getSystemService
 
 
 abstract class BaseFragment<B : ViewDataBinding>(
@@ -44,6 +40,8 @@ abstract class BaseFragment<B : ViewDataBinding>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        requireActivity().window.setSoftInputMode(SOFT_INPUT_ADJUST_PAN)
+
         _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
 
         binding.root.setOnTouchListener { _, event ->
