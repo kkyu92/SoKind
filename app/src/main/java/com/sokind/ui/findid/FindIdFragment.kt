@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxbinding4.widget.textChanges
 import com.sokind.R
-import com.sokind.databinding.FindIdFragmentBinding
+import com.sokind.databinding.FragmentFindIdBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,7 +16,7 @@ import io.reactivex.rxjava3.functions.BiFunction
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
-class FindIdFragment : BaseFragment<FindIdFragmentBinding>(R.layout.find_id_fragment) {
+class FindIdFragment : BaseFragment<FragmentFindIdBinding>(R.layout.fragment_find_id) {
     private val viewModel by viewModels<FindIdViewModel>()
 
     override fun init() {
