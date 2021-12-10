@@ -84,42 +84,55 @@ abstract class BaseFragment<B : ViewDataBinding>(
         val isFirstCheck = preference.getBoolean("isFirstPermissionCheck", true)
 
         for (aPermission in permissions) {
-            if (ContextCompat.checkSelfPermission(
+            when {
+                ContextCompat.checkSelfPermission(
                     requireContext(),
                     aPermission
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(
-                        requireActivity(),
-                        aPermission
-                    )
-                ) {
-                    Timber.e("승인거절 한번 한 상태")
-                } else {
-                    if (isFirstCheck) {
-                        // 처음 물었는지 여부를 저장
-                        preference.edit().putBoolean("isFirstPermissionCheck", false).apply()
-                        Timber.e("처음여부")
-                    } else {
-                        // 다시 표시하지 않음
-                        val snackBar = Snackbar.make(
-                            layout,
-                            "다음 권한의 허용이 필요합니다. 확인을 누르시면 설정화면으로 이동합니다.",
-                            Snackbar.LENGTH_INDEFINITE
+                ) != PackageManager.PERMISSION_GRANTED -> {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(
+                            requireActivity(),
+                            aPermission
                         )
-                        snackBar.setAction("확인") {
-                            val intent = Intent()
-                            intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                            val uri = Uri.fromParts("package", requireActivity().packageName, null)
-                            intent.data = uri
-                            startActivity(intent)
+                    ) {
+                        Timber.e("승인거절 한번 한 상태")
+                    } else {
+                        if (isFirstCheck) {
+                            // 처음 물었는지 여부를 저장
+                            preference.edit().putBoolean("isFirstPermissionCheck", false).apply()
+                            Timber.e("처음여부")
+                        } else {
+                            // 다시 표시하지 않음
+                            val snackBar = Snackbar.make(
+                                layout,
+                                "다음 권한의 허용이 필요합니다. 확인을 누르시면 설정화면으로 이동합니다.",
+                                Snackbar.LENGTH_INDEFINITE
+                            )
+                            snackBar.setAction("확인") {
+                                val intent = Intent()
+                                intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                                val uri = Uri.fromParts("package", requireActivity().packageName, null)
+                                intent.data = uri
+                                startActivity(intent)
+                            }
+                            snackBar.show()
+                            return
                         }
-                        snackBar.show()
-                        return
                     }
+                    permissionList.add(aPermission)
+                    Timber.e("권한이 거절된 상태")
                 }
-                permissionList.add(aPermission)
-                Timber.e("권한이 거절된 상태")
+                ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    aPermission
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    Timber.e("권한이 승인된 상태")
+                }
+                else -> {
+                    Timber.e("PERMISSION : ${ContextCompat.checkSelfPermission(
+                        requireContext(),
+                        aPermission
+                    )}")
+                }
             }
         }
 
@@ -128,11 +141,12 @@ abstract class BaseFragment<B : ViewDataBinding>(
             for (i in deniedList.indices) {
                 deniedList[i] = permissionList[i]
             }
-            ActivityCompat.requestPermissions(
-                requireActivity(),
+            requestPermissions(
                 deniedList,
                 Constants.PERMISSIONS_DATA
             )
+        } else {
+            mListener.onGranted()
         }
     }
 

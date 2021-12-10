@@ -12,6 +12,7 @@ import com.sokind.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
@@ -24,29 +25,25 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
             ivLogo.startAnimation(logoAnim)
             tvSplash.startAnimation(textAnim)
 
-            compositeDisposable.add(
-                btDoPermit
-                    .clicks()
-                    .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
-                    .subscribe({
-                        onRequestPermission(
-                            mPermissionListener,
-                            Constants.PERMISSIONS,
-                            clSplash
-                        )
-                    }, { it.printStackTrace() })
-            )
+            btDoPermit
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    onRequestPermission(
+                        mPermissionListener,
+                        Constants.PERMISSIONS,
+                        clSplash
+                    )
+                }, { it.printStackTrace() })
 
-            compositeDisposable.add(
-                tvShowPermit
-                    .clicks()
-                    .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
-                    .subscribe({
-                        showToast("개인정보 처리방침 화면이동")
-                        //TODO 개인정보 처리방침 화면이동
-                        // startActivity(Intent().setClass(applicationContext, ::class.java))
-                    }, { it.printStackTrace() })
-            )
+            tvShowPermit
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    showToast("개인정보 처리방침 화면이동")
+                    //TODO 개인정보 처리방침 화면이동
+                    // startActivity(Intent().setClass(applicationContext, ::class.java))
+                }, { it.printStackTrace() })
         }
 
         logoAnim.setAnimationListener(object : Animation.AnimationListener {
@@ -61,7 +58,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({
                             findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
-                        },{
+                        }, {
                             it.printStackTrace()
                         })
                 } else {
