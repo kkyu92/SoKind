@@ -1,7 +1,6 @@
 package com.sokind.ui.login
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
@@ -130,8 +129,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                           findNavController().navigate(R.id.action_loginFragment_to_joinFragment)
-                },{ it.printStackTrace() })
+                    findNavController().navigate(R.id.action_loginFragment_to_joinFirstFragment)
+                }, { it.printStackTrace() })
         }
     }
 

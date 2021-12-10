@@ -1,5 +1,6 @@
 package com.sokind.ui
 
+import android.content.Context
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -76,6 +77,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
         PermissionListener {
         override fun onGranted() {
             findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+            val preference = requireActivity().getPreferences(Context.MODE_PRIVATE)
+            preference.edit().putBoolean("isFirstPermissionCheck", true).apply()
+            Timber.e(preference.getBoolean("isFirstPermissionCheck", false).toString())
         }
 
         override fun onDenied() {
