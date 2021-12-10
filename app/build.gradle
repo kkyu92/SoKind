@@ -41,6 +41,8 @@ android {
 }
 
 dependencies {
+    // m1
+    kapt 'org.xerial:sqlite-jdbc:3.34.0'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
