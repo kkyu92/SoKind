@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.join.JoinFragment">
+    tools:context=".ui.join.second.JoinSecondFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="30dp"
                 android:padding="10dp"
-                android:src="@drawable/icon_close"
+                android:src="@drawable/icon_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,140 +43,86 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/join_content"
+                android:text="@string/join_content_2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_join_title" />
 
             <LinearLayout
                 android:id="@+id/ll_container_1"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical"
-                android:paddingVertical="30dp"
-                android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@+id/bt_next"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_join_content">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    app:boxBackgroundMode="none"
-                    app:endIconDrawable="@drawable/icon_close_circle"
-                    app:endIconMode="clear_text"
-                    app:endIconTintMode="screen"
-                    app:hintEnabled="false">
-
-                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/autoSearchView"
-                        style="@style/EditText.Input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:completionThreshold="2"
-                        android:drawableEnd="@drawable/icon_search"
-                        android:hint="@string/hint_join_enterprise"
-                        android:paddingStart="20dp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_enterprise"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="30dp"
-                    android:nestedScrollingEnabled="false"
-                    android:overScrollMode="never"
-                    android:visibility="visible"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_search_enterprise" />
-
-                <LinearLayout
-                    android:id="@+id/ll_no_enterprise_result"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/icon_alert" />
-
-                    <TextView
-                        android:id="@+id/tv_no_enterprise"
-                        style="@style/black_14_400"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/no_enterprise_content_1" />
-
-                    <TextView
-                        style="@style/lightGray_13_400"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/no_enterprise_content_2" />
-                </LinearLayout>
-
-                <EditText
-                    android:id="@+id/et_enterprise_code_input"
-                    style="@style/EditText.Input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="27dp"
-                    android:hint="@string/hint_enterprise_code"
-                    android:visibility="gone" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_container_2"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical"
-                android:visibility="gone"
+                android:paddingHorizontal="20dp"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_join_content">
 
                 <TextView
+                    android:id="@+id/tv_name_title"
                     style="@style/lightGray_12_400"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/name" />
+                    android:text="@string/name"
+                    android:textColor="@color/main_color"
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/et_name_input"
                     style="@style/EditText.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="5dp"
-                    android:hint="@string/hint_name" />
+                    android:hint="@string/hint_name"
+                    android:imeOptions="actionNext"
+                    android:maxLength="20"
+                    android:nextFocusDown="@+id/et_email_input" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="27dp" />
+
+                <TextView
+                    android:id="@+id/tv_email_title"
+                    style="@style/lightGray_12_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email"
+                    android:textColor="@color/main_color"
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/et_email_input"
                     style="@style/EditText.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="27dp"
+                    android:layout_marginTop="5dp"
                     android:hint="@string/hint_email"
-                    android:inputType="textEmailAddress" />
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:nextFocusDown="@+id/et_code_input" />
 
                 <TextView
                     android:id="@+id/tv_error_email"
                     style="@style/orange_12_400"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="5dp"
                     android:text="@string/email_error"
+                    android:visibility="gone" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="27dp" />
+
+                <TextView
+                    android:id="@+id/tv_code_title"
+                    style="@style/lightGray_12_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/code"
+                    android:textColor="@color/main_color"
                     android:visibility="gone" />
 
                 <EditText
@@ -184,37 +130,49 @@
                     style="@style/EditText.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="27dp"
-                    android:hint="@string/hint_code" />
+                    android:layout_marginTop="5dp"
+                    android:hint="@string/hint_code"
+                    android:maxLength="6" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_container_3"
+                android:id="@+id/ll_container_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical"
+                android:paddingHorizontal="20dp"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_join_content">
 
                 <TextView
+                    android:id="@+id/tv_id_title"
                     style="@style/lightGray_12_400"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/id" />
+                    android:text="@string/id"
+                    android:textColor="@color/main_color"
+                    android:visibility="gone" />
 
                 <EditText
                     android:id="@+id/et_id_input"
                     style="@style/EditText.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="5dp"
-                    android:hint="@string/hint_join_id" />
+                    android:hint="@string/hint_join_id_short"
+                    android:maxLength="12" />
+
+                <TextView
+                    android:id="@+id/tv_error_id"
+                    style="@style/orange_12_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/hint_join_id"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton

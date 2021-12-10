@@ -1,4 +1,4 @@
-package com.sokind.ui.join
+package com.sokind.ui.join.first
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,7 +7,6 @@ import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -16,7 +15,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sokind.databinding.ItemSearchEnterpriseBinding
-import timber.log.Timber
 
 class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
     private var enterpriseList: MutableList<String> = mutableListOf()
@@ -43,42 +41,75 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun setClear() {
+        searchWord = ""
+        enterpriseList.clear()
+        notifyDataSetChanged()
+    }
+
     inner class SearchViewHolder(
         private val binding: ItemSearchEnterpriseBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("ClickableViewAccessibility")
         fun bind(enterprise: String) {
+            itemView.setOnClickListener {
+                listener.onItemClick(it, enterprise, adapterPosition)
+            }
             itemView.setOnTouchListener { _, motionEvent ->
                 when (motionEvent.action) {
                     MotionEvent.ACTION_DOWN -> {
                         hideKeyboard(binding.root)
+                        false
                     }
+                    else -> false
                 }
-                true
             }
-            itemView.setOnClickListener {
-                listener.onItemClick(it, enterprise, adapterPosition)
-            }
-            Timber.e("searchWord: $searchWord")
-            Timber.e("itemWord: $enterprise")
-            Timber.e("indexOf: ${enterprise.indexOf(searchWord)}")
-            for (i in searchWord.indices) {
-                //searchWord 하나씩 앞에거 짤라서 쓰기
-                if (enterprise.indexOf(searchWord) != -1) {
-                    val spannableString = SpannableString(enterprise)
-                    val start: Int = enterprise.indexOf(searchWord)
-                    val end: Int = enterprise.indexOf(searchWord)
-
-                    spannableString.setSpan(
-                        ForegroundColorSpan(Color.parseColor("#6967F9")),
-                        start,
-                        end,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                    );
-                    binding.tvSearchEnterprise.text = spannableString
-                } else {
+//            Timber.e("searchWord: $searchWord") // 올리
+//            Timber.e("itemWord: $enterprise") // 기업명
+//            Timber.e("indexOf: ${enterprise.indexOf(searchWord)}")
+            if (searchWord.isNotEmpty()) {
+                if (enterprise.indexOf(searchWord) == -1) {
                     binding.tvSearchEnterprise.text = enterprise
+                } else {
+                    val start: Int = enterprise.indexOf(searchWord[0])
+//                    val end: Int = enterprise.indexOf(searchWord[searchWord.length - 1]) + 1
+                    var end: Int = start
+                    val spannableString = SpannableString(enterprise)
+//
+//                    for (i in 1 until searchWord.length) {
+//                        if (enterprise.indexOf(searchWord[i]) == enterprise.indexOf(searchWord[i-1]) + 1) {
+//                            Timber.e("searchWord[i] = ${enterprise.indexOf(searchWord[i])}")
+//                            Timber.e("searchWord[i-1] + 1 = ${enterprise.indexOf(searchWord[i-1]) + 1}")
+//                            end++
+//                            Timber.e("$end")
+//                        } else {
+//                            break
+//                        }
+//                    }
+                    for (i in searchWord.indices) {
+                        if (enterprise[i] == searchWord[i]) {
+                            end++
+                        } else {
+                            break
+                        }
+                    }
+
+                    spannableString.apply {
+                        setSpan(
+                            StyleSpan(Typeface.BOLD),
+                            start,
+                            end,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
+                        setSpan(
+                            ForegroundColorSpan(Color.parseColor("#6967F9")),
+                            start,
+                            end,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
+                    }
+                    binding.tvSearchEnterprise.text = spannableString
                 }
             }
         }

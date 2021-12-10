@@ -55,8 +55,12 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out" />
         <action
-            android:id="@+id/action_loginFragment_to_joinFragment"
-            app:destination="@id/joinFragment" />
+            android:id="@+id/action_loginFragment_to_joinFirstFragment"
+            app:destination="@id/joinFirstFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out" />
     </fragment>
     <activity
         android:id="@+id/bottomNavActivity"
@@ -82,8 +86,21 @@
         android:name="com.sokind.ui.findpw.FindPwFragment"
         android:label="FindPwFragment" />
     <fragment
-        android:id="@+id/joinFragment"
-        android:name="com.sokind.ui.join.JoinFragment"
-        android:label="fragment_join"
-        tools:layout="@layout/fragment_join" />
+        android:id="@+id/joinFirstFragment"
+        android:name="com.sokind.ui.join.first.JoinFirstFragment"
+        android:label="fragment_join_first"
+        tools:layout="@layout/fragment_join_first" >
+        <action
+            android:id="@+id/action_joinFirstFragment_to_joinSecondFragment"
+            app:destination="@id/joinSecondFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/joinSecondFragment"
+        android:name="com.sokind.ui.join.second.JoinSecondFragment"
+        android:label="fragment_join_second"
+        tools:layout="@layout/fragment_join_second" />
 </navigation>

@@ -25,6 +25,7 @@
     <string name="find_pw">비밀번호를 잊으셨나요?</string>
     <string name="login">로그인</string>
     <string name="join">회원가입하기</string>
+    <string name="code">인증코드</string>
     <string name="next">다음</string>
     <string name="continue_text">계속하기</string>
     <string name="check">확인</string>
@@ -48,7 +49,9 @@
     <string name="find_pw_content2">비밀번호 재설정 메일을 발송했습니다!:)</string>
     <string name="name">이름</string>
     <string name="join_title">쏘카인드를\n시작해볼까요?</string>
-    <string name="join_content">먼저 재직중인 기업명을 검색해주세요!:)</string>
+    <string name="join_content_1">먼저 재직중인 기업명을 검색해주세요!:)</string>
+    <string name="join_content_2">회원님의 정보를 입력해주세요!:)</string>
+    <string name="join_content_3">가입 완료까지 얼마 안 남았어요!:D</string>
 
     <string name="id_hint">아이디를 입력해주세요.</string>
     <string name="pw_hint">비밀번호를 입력해주세요.</string>
@@ -57,5 +60,6 @@
     <string name="hint_code">6자리 인증코드를 입력해주세요.</string>
     <string name="hint_enterprise_code">기업 코드를 입력해주세요.</string>
     <string name="hint_join_enterprise">기업명을 검색해주세요.</string>
+    <string name="hint_join_id_short">아이디 6~12자 영문,숫자,기호(-_)</string>
     <string name="hint_join_id">아이디 6~12자 영문,숫자,기호(-_)만 사용 가능합니다.</string>
 </resources>
