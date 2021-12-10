@@ -1,9 +1,8 @@
 package com.sokind.data.di
 
 import com.sokind.data.repository.test.TestRepository
-import com.sokind.data.repository.test.TestRepositoryImpl
-import com.sokind.ui.join.JoinViewModel
-import com.sokind.ui.login.LoginViewModel
+import com.sokind.ui.join.first.JoinFirstViewModel
+import com.sokind.ui.join.second.JoinSecondViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,8 +12,8 @@ import dagger.hilt.android.components.ActivityComponent
 @Module
 object ViewModelModule {
     @Provides
-    fun provideLoginViewModel(repository: TestRepository): JoinViewModel {
-        return JoinViewModel(repository)
+    fun provideJoinFirstViewModel(repository: TestRepository): JoinFirstViewModel {
+        return JoinFirstViewModel(repository)
     }
 //    @Provides
 //    fun provideMyPageViewModel(repository: MyPageRepository): MyPageViewModel {
