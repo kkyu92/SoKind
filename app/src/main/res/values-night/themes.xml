@@ -23,6 +23,14 @@
         <item name="android:background">@drawable/bottom_nav_bg</item>
     </style>
 
+    <style name="back_bt_icon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
     <style name="Button.Fill.Black" parent="Widget.MaterialComponents.Button">
         <item name="android:layout_height">50dp</item>
         <item name="backgroundTint">@color/font_black</item>
@@ -136,6 +144,17 @@
     </style>
 
 
+    <style name="Spinner.Item" parent="android:Widget.Spinner">
+        <item name="android:textColor">@color/font_black</item>
+        <item name="android:textColorHint">@color/font_light_gray</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/noto_sans_regular</item>
+        <item name="android:background">@drawable/custom_spinner_bg</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:paddingStart">5dp</item>
+        <item name="android:paddingEnd">35dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+    </style>
 
 
     <style name="white_20_500">

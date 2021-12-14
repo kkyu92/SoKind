@@ -2,6 +2,7 @@ package com.sokind.ui.join.first
 
 import android.text.Html
 import android.view.View
+import android.widget.AdapterView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,9 +21,14 @@ class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragme
     private val viewModel by viewModels<JoinFirstViewModel>()
 
     private lateinit var searchAdapter: SearchAdapter
+    private lateinit var departmentAdapter: SpinnerAdapter
+    private lateinit var positionAdapter: SpinnerAdapter
+    private val listOfDepartment = ArrayList<String>()
+    private val listOfPosition = ArrayList<String>()
 
     override fun init() {
         setBinding()
+        setSpinner()
 
         viewModel.autoText.observe(viewLifecycleOwner, {
             val searchWord = binding.autoSearchView.text.toString()
@@ -42,6 +48,26 @@ class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragme
         })
     }
 
+    private fun setSpinner() {
+        val departments = resources.getStringArray(R.array.department_test)
+        for (i in departments.indices) {
+            val department = departments[i]
+            listOfDepartment.add(department)
+        }
+        departmentAdapter =
+            SpinnerAdapter(requireContext(), R.layout.item_enterprise_list, listOfDepartment)
+        binding.spEnterpriseDepartment.adapter = departmentAdapter
+
+        val positions = resources.getStringArray(R.array.position_test)
+        for (i in positions.indices) {
+            val position = positions[i]
+            listOfPosition.add(position)
+        }
+        positionAdapter =
+            SpinnerAdapter(requireContext(), R.layout.item_enterprise_list, listOfPosition)
+        binding.spEnterprisePosition.adapter = positionAdapter
+    }
+
     private fun setBinding() {
         searchAdapter = SearchAdapter()
 
@@ -53,21 +79,18 @@ class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragme
                 override fun onItemClick(v: View, enterprise: String, pos: Int) {
                     autoSearchView.setText(enterprise)
                     rvEnterprise.visibility = View.GONE
-                    etEnterpriseCodeInput.visibility = View.VISIBLE
+                    llContainerCode.visibility = View.VISIBLE
                     etEnterpriseCodeInput.requestFocus()
                 }
             })
 
-            autoSearchView
-                .focusChanges()
-                .subscribe({
-                    titleFocus(tvEnterpriseTitle, it)
-                },{ it.printStackTrace() })
-
             // endIcon event
             tiLayout.setEndIconOnClickListener {
                 autoSearchView.text.clear()
+                etEnterpriseCodeInput.text.clear()
                 searchAdapter.setClear()
+                rvEnterprise.visibility = View.VISIBLE
+                llContainerCode.visibility = View.GONE
                 hideKeyboard()
             }
 
@@ -89,9 +112,52 @@ class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragme
                 .textChanges()
                 .subscribe({
                     btNext.isEnabled = it.isNotEmpty()
+                    if (it.isNotEmpty()) {
+                        llContainerMore.visibility = View.VISIBLE
+                    } else {
+                        llContainerMore.visibility = View.GONE
+                    }
+                }, { it.printStackTrace() })
+
+            // change focus title
+            autoSearchView
+                .focusChanges()
+                .subscribe({
+                    titleFocus(tvEnterpriseTitle, it)
+                }, { it.printStackTrace() })
+            etEnterpriseCodeInput
+                .focusChanges()
+                .subscribe({
+                    titleFocus(tvEnterpriseCode, it)
+                }, { it.printStackTrace() })
+            spEnterpriseDepartment
+                .focusChanges()
+                .subscribe({
+                    titleFocus(tvEnterpriseDepartment, it)
+                }, { it.printStackTrace() })
+            spEnterprisePosition
+                .focusChanges()
+                .subscribe({
+                    titleFocus(tvEnterprisePosition, it)
                 }, { it.printStackTrace() })
 
             // clicks
+            spEnterpriseDepartment.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+
+            }
             ivBack
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
@@ -108,6 +174,6 @@ class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragme
     }
 
     companion object {
-//        fun newInstance() = JoinFirstFragment()
+        fun newInstance() = JoinFirstFragment()
     }
 }

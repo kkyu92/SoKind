@@ -32,6 +32,9 @@
     <string name="continue_text">계속하기</string>
     <string name="check">확인</string>
     <string name="enterprise_title">기업명</string>
+    <string name="enterprise_code">기업코드</string>
+    <string name="enterprise_department">소속(부서 또는 점포)</string>
+    <string name="enterprise_position">직책</string>
     <string name="gender">성별</string>
     <string name="male">남성</string>
     <string name="female">여성</string>
@@ -83,6 +86,7 @@
     // dialog
     <string name="dialog_logout">정말 로그아웃을 하시겠어요?</string>
     <string name="dialog_secession">정말 탈퇴 신청을 하시겠어요?</string>
+
 
     // %s
     <string name="join_date">%s 가입</string>

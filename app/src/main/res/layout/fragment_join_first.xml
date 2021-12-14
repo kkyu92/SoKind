@@ -16,11 +16,7 @@
 
             <ImageView
                 android:id="@+id/iv_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
-                android:padding="10dp"
+                style="@style/back_bt_icon"
                 android:src="@drawable/icon_close"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -130,14 +126,67 @@
                         android:text="@string/no_enterprise_content_2" />
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/et_enterprise_code_input"
-                    style="@style/EditText.Input"
+                <LinearLayout
+                    android:id="@+id/ll_container_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="27dp"
-                    android:hint="@string/hint_enterprise_code"
-                    android:visibility="gone" />
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_enterprise_code"
+                        style="@style/lightGray_12_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/enterprise_code" />
+
+                    <EditText
+                        android:id="@+id/et_enterprise_code_input"
+                        style="@style/EditText.Input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:hint="@string/hint_enterprise_code" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_container_more"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/tv_enterprise_department"
+                        style="@style/lightGray_12_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/enterprise_department" />
+
+                    <Spinner
+                        android:id="@+id/sp_enterprise_department"
+                        style="@style/Spinner.Item"
+                        android:background="@drawable/custom_spinner_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tv_enterprise_position"
+                        style="@style/lightGray_12_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/enterprise_position" />
+
+                    <Spinner
+                        android:id="@+id/sp_enterprise_position"
+                        style="@style/Spinner.Item"
+                        android:background="@drawable/custom_spinner_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
