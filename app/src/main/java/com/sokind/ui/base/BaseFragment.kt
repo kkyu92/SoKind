@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +22,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import com.sokind.R
 import com.sokind.util.Constants
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import timber.log.Timber
@@ -198,6 +200,26 @@ abstract class BaseFragment<B : ViewDataBinding>(
         val imm =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
+    }
+
+    open fun getColor(color: Int): Int {
+        return requireContext().getColor(color)
+    }
+
+    open fun titleFocus(textView: TextView, visible: Boolean) {
+        if (visible) {
+            textView.setTextColor(getColor(R.color.main_color))
+        } else {
+            textView.setTextColor(getColor(R.color.font_light_gray))
+        }
+    }
+
+    open fun errorVisible(textView: TextView, visible: Boolean) {
+        if (visible) {
+            textView.visibility = View.VISIBLE
+        } else {
+            textView.visibility = View.GONE
+        }
     }
 
     protected interface PermissionListener {

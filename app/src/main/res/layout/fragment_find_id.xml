@@ -58,6 +58,7 @@
                 android:visibility="visible">
 
                 <TextView
+                    android:id="@+id/tv_name_title"
                     style="@style/lightGray_12_400"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -74,12 +75,20 @@
                     android:imeOptions="actionNext"
                     android:nextFocusDown="@+id/et_email_input" />
 
+                <TextView
+                    android:id="@+id/tv_email_title"
+                    style="@style/lightGray_12_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/email" />
+
                 <EditText
                     android:id="@+id/et_email_input"
                     style="@style/EditText.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="27dp"
+                    android:layout_marginTop="5dp"
                     android:hint="@string/hint_email"
                     android:inputType="textEmailAddress" />
 
@@ -137,24 +146,59 @@
                     android:layout_marginTop="20dp"
                     android:background="@color/light_gray2" />
 
+                <TextView
+                    android:id="@+id/tv_email_2_title"
+                    style="@style/lightGray_12_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/email_" />
+
                 <EditText
                     android:id="@+id/et_email_input_2"
                     style="@style/EditText.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="5dp"
                     android:hint="@string/hint_email"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
                     android:nextFocusDown="@+id/et_code_input" />
+
+                <TextView
+                    android:id="@+id/tv_error_email_2"
+                    style="@style/orange_12_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/email_error"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_code_title"
+                    style="@style/lightGray_12_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/code" />
 
                 <EditText
                     android:id="@+id/et_code_input"
                     style="@style/EditText.Input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="27dp"
-                    android:hint="@string/hint_code" />
+                    android:layout_marginTop="5dp"
+                    android:hint="@string/hint_code"
+                    android:maxLength="6" />
+
+                <TextView
+                    android:id="@+id/tv_error_code"
+                    style="@style/orange_12_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/code_error"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout

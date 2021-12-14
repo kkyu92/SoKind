@@ -4,6 +4,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding4.view.clicks
+import com.jakewharton.rxbinding4.view.focusChanges
 import com.jakewharton.rxbinding4.widget.textChanges
 import com.sokind.R
 import com.sokind.databinding.FragmentFindPwBinding
@@ -19,9 +20,16 @@ class FindPwFragment : BaseFragment<FragmentFindPwBinding>(R.layout.fragment_fin
 
     override fun init() {
         binding.apply {
+            // focusChanges
+            etEmailInput
+                .focusChanges()
+                .subscribe({
+                    titleFocus(tvEmailTitle, it)
+                },{ it.printStackTrace() })
             etEmailInput
                 .textChanges()
                 .subscribe({
+                    errorVisible(tvErrorEmail, (!Constants.validateEmail(it.toString()) && it.isNotEmpty()))
                     btNext.isEnabled = Constants.validateEmail(it.toString())
                 }, { it.printStackTrace() })
 

@@ -17,11 +17,11 @@ object Constants {
     )
 
     fun validateId(id: String): Boolean {
-        val idRegex = Pattern.compile("^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z_\$-])(?=.*[0-9_\$-]).{6,12}\$")
+        val idRegex = Pattern.compile("^(?=.*[a-zA-Z])[A-Za-z0-9_\$-]{6,12}\$")
         return idRegex.matcher(id).find()
     }
     fun validatePw(pw: String): Boolean {
-        val pwRegex = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[\$@\$!%*#?&]).{8,20}.\$")
+        val pwRegex = Pattern.compile("^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[\$@!%*#?&]).{7,20}.\$")
         return pwRegex.matcher(pw).find()
     }
     fun validateEmail(email: String): Boolean {
