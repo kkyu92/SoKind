@@ -27,7 +27,6 @@ import com.sokind.util.Constants
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import timber.log.Timber
 
-
 abstract class BaseFragment<B : ViewDataBinding>(
     @LayoutRes val layoutId: Int
 ) : Fragment() {

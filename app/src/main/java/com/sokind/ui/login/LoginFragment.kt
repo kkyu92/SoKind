@@ -119,7 +119,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                         //TODO api
                         // 결과값으로 비밀번호 에러 표시
                         showToast("api 확인")
-                        findNavController().navigate(R.id.action_loginFragment_to_bottomNavActivity)
+                        if (onBoardingFinished()) {
+                            findNavController().navigate(R.id.action_loginFragment_to_bottomNavActivity)
+                        } else {
+                            findNavController().navigate(R.id.action_loginFragment_to_boardingFragment)
+                        }
                     } else {
                         showToast("아이디와 비밀번호를 확인해주세요.")
                     }
@@ -132,6 +136,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                     findNavController().navigate(R.id.action_loginFragment_to_joinFirstFragment)
                 }, { it.printStackTrace() })
         }
+    }
+
+    private fun onBoardingFinished(): Boolean {
+        val sharedPref = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
+        return sharedPref.getBoolean("Finished", false)
     }
 
     companion object {

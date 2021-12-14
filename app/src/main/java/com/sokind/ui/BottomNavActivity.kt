@@ -14,11 +14,38 @@ import com.sokind.ui.guide.GuideFragment
 import com.sokind.ui.home.HomeFragment
 import com.sokind.ui.my.MyFragment
 import com.sokind.ui.report.ReportFragment
+import com.sokind.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.subjects.PublishSubject
+import timber.log.Timber
+import java.util.concurrent.TimeUnit
+import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class BottomNavActivity : BaseActivity<ActivityBottomNavBinding>(R.layout.activity_bottom_nav) {
+    private val backBtnSubject = PublishSubject.create<Boolean>()
+
     override fun init() {
+        compositeDisposable.add(
+            backBtnSubject
+                .debounce(100, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext {
+                    showToast("'뒤로' 버튼을 한 번 더 누르시면 종료됩니다.")
+                }
+                .timeInterval(TimeUnit.MILLISECONDS)
+                .skip(1)
+                .filter { interval ->
+                    Timber.v("backBtnSubject | interval: $interval")
+                    interval.time() < Constants.BACK_BTN_EXIT_TIMEOUT
+                }
+                .subscribe {
+                    finishAffinity()
+                    exitProcess(0)
+                }
+        )
+
         val navController = findNavController(R.id.fragmentContainerView_bottom)
         binding.bottomNav.itemIconTintList = null
         binding.bottomNav.setupWithNavController(navController)
@@ -72,5 +99,9 @@ class BottomNavActivity : BaseActivity<ActivityBottomNavBinding>(R.layout.activi
             replace(R.id.fragmentContainerView_bottom, fragment)
             commit()
         }
+    }
+
+    override fun onBackPressed() {
+        backBtnSubject.onNext(true)
     }
 }

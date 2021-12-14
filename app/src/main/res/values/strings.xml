@@ -35,13 +35,8 @@
     <string name="gender">성별</string>
     <string name="male">남성</string>
     <string name="female">여성</string>
-
-    // %s
-    <string name="join_date">%s 가입</string>
-    <string name="send_email_content"><b>%s</b> 으로\n비밀번호 변경 이메일을 발송했습니다.</string>
-    <string name="change_main_color"><![CDATA[<font color=\'#6967F9\'><b>%s</b></font>]]></string>
-    <string name="no_enterprise_content_1"><![CDATA[<font color=\'#6967F9\'><b>%s</b></font>에 대한 검색 결과가 없습니다.]]></string>
-    <string name="no_enterprise_content_2">입력하신 검색어를 확인해주세요.</string>
+    <string name="yes">예</string>
+    <string name="no">아니요</string>
 
     <string name="login_pw_error">8자~20자 영문 대 소문자, 숫자 특수문자를 사용해주세요.</string>
     <string name="join_pw_error">특수문자는 ‘! @ # $ % ^ &amp; *’만 사용 가능합니다.</string>
@@ -81,4 +76,19 @@
     <string name="terms_agree_3">[필수]개인정보 수집 및 이용 동의.</string>
     <string name="terms_agree_4">[선택]이벤트, 서브스안내 수신 동의.</string>
     <string name="join_finish">가입하기</string>
+
+    // boarding
+    <string name="boarding_content">우리 기업의 CS교육 매뉴얼에 맞게\n고객 만족 교육을 단계별로 학습할 수 있어요.</string>
+
+    // dialog
+    <string name="dialog_logout">정말 로그아웃을 하시겠어요?</string>
+    <string name="dialog_secession">정말 탈퇴 신청을 하시겠어요?</string>
+
+    // %s
+    <string name="join_date">%s 가입</string>
+    <string name="send_email_content"><b>%s</b> 으로\n비밀번호 변경 이메일을 발송했습니다.</string>
+    <string name="change_main_color"><![CDATA[<font color=\'#6967F9\'><b>%s</b></font>]]></string>
+    <string name="no_enterprise_content_1"><![CDATA[<font color=\'#6967F9\'><b>%s</b></font>에 대한 검색 결과가 없습니다.]]></string>
+    <string name="no_enterprise_content_2">입력하신 검색어를 확인해주세요.</string>
+    <string name="boarding_title"><![CDATA[환영합니다, <b>%s!</b><br>인공지능 CS교육 솔루션,<br><font color=\'#6967F9\'><b>쏘카인드</b></font>입니다.]]></string>
 </resources>

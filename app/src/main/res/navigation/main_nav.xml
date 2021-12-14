@@ -21,25 +21,16 @@
         <action
             android:id="@+id/action_splashFragment_to_bottomNavActivity"
             app:destination="@id/bottomNavActivity"
-            app:popUpTo="@id/splashFragment"
-            app:popUpToInclusive="true"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out"/>
+            app:popExitAnim="@anim/slide_out" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.sokind.ui.login.LoginFragment"
         android:label="login_fragment"
         tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_bottomNavActivity"
-            app:destination="@id/bottomNavActivity"
-            app:enterAnim="@anim/slide_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out" />
         <action
             android:id="@+id/action_loginFragment_to_findIdFragment"
             app:destination="@id/findIdFragment"
@@ -62,8 +53,23 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out" />
         <action
-            android:id="@+id/action_loginFragment_to_joinFourthFragment"
-            app:destination="@id/joinFourthFragment" />
+            android:id="@+id/action_loginFragment_to_boardingFragment"
+            app:destination="@id/boardingFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_loginFragment_to_bottomNavActivity"
+            app:destination="@id/bottomNavActivity"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out" />
     </fragment>
     <activity
         android:id="@+id/bottomNavActivity"
@@ -110,7 +116,11 @@
         tools:layout="@layout/fragment_join_second" >
         <action
             android:id="@+id/action_joinSecondFragment_to_joinThirdFragment"
-            app:destination="@id/joinThirdFragment" />
+            app:destination="@id/joinThirdFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out" />
     </fragment>
     <fragment
         android:id="@+id/joinThirdFragment"
@@ -119,7 +129,11 @@
         tools:layout="@layout/fragment_join_third" >
         <action
             android:id="@+id/action_joinThirdFragment_to_joinFourthFragment"
-            app:destination="@id/joinFourthFragment" />
+            app:destination="@id/joinFourthFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out" />
     </fragment>
     <fragment
         android:id="@+id/joinFourthFragment"
@@ -128,6 +142,25 @@
         tools:layout="@layout/fragment_join_fourth" >
         <action
             android:id="@+id/action_joinFourthFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/boardingFragment"
+        android:name="com.sokind.ui.onboarding.BoardingFragment"
+        android:label="fragment_boarding"
+        tools:layout="@layout/fragment_boarding" >
+        <action
+            android:id="@+id/action_boardingFragment_to_bottomNavActivity"
+            app:destination="@id/bottomNavActivity"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out" />
     </fragment>
 </navigation>
