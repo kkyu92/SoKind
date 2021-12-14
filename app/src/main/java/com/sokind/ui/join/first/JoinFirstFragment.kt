@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding4.view.clicks
+import com.jakewharton.rxbinding4.view.focusChanges
 import com.jakewharton.rxbinding4.widget.textChanges
 import com.sokind.R
 import com.sokind.databinding.FragmentJoinFirstBinding
@@ -57,12 +58,11 @@ class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragme
                 }
             })
 
-            ivBack
-                .clicks()
-                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+            autoSearchView
+                .focusChanges()
                 .subscribe({
-                    findNavController().popBackStack()
-                }, { it.printStackTrace() })
+                    titleFocus(tvEnterpriseTitle, it)
+                },{ it.printStackTrace() })
 
             // endIcon event
             tiLayout.setEndIconOnClickListener {
@@ -91,6 +91,13 @@ class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragme
                     btNext.isEnabled = it.isNotEmpty()
                 }, { it.printStackTrace() })
 
+            // clicks
+            ivBack
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    findNavController().popBackStack()
+                }, { it.printStackTrace() })
             btNext
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)

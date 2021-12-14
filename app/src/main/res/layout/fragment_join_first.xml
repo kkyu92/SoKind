@@ -54,17 +54,25 @@
                 android:layout_marginTop="15dp"
                 android:orientation="vertical"
                 android:paddingVertical="30dp"
+                android:paddingHorizontal="20dp"
                 android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/bt_next"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_join_content">
 
+                <TextView
+                    android:id="@+id/tv_enterprise_title"
+                    style="@style/lightGray_12_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enterprise_title" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/ti_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="5dp"
                     app:boxBackgroundMode="none"
                     app:endIconDrawable="@drawable/icon_close_circle"
                     app:endIconMode="clear_text"
@@ -86,7 +94,6 @@
                     android:id="@+id/rv_enterprise"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="30dp"
                     android:nestedScrollingEnabled="false"
                     android:overScrollMode="never"
@@ -129,7 +136,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="27dp"
-                    android:layout_marginHorizontal="20dp"
                     android:hint="@string/hint_enterprise_code"
                     android:visibility="gone" />
             </LinearLayout>

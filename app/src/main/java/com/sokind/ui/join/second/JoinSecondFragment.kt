@@ -36,19 +36,10 @@ class JoinSecondFragment : BaseFragment<FragmentJoinSecondBinding>(R.layout.frag
                         etEmailInput.textChanges(),
                         etCodeInput.textChanges(),
                         Function3 { nameResult: CharSequence, emailResult: CharSequence, codeResult: CharSequence ->
-                            when {
-                                !Constants.validateEmail(emailResult.toString()) && emailResult.isNotEmpty() -> {
-                                    Timber.e("validateEmail : ${Constants.validateEmail(emailResult.toString())}")
-                                    tvErrorEmail.visibility = View.VISIBLE
-                                    return@Function3 true
-                                }
-                                else -> {
-                                    tvErrorEmail.visibility = View.GONE
-                                    return@Function3 nameResult.isBlank() || emailResult.isBlank() || codeResult.isBlank()
-                                            || !Constants.validateEmail(emailResult.toString()) || codeResult.length != 6
-                                }
+                            errorVisible(tvErrorEmail, (!Constants.validateEmail(emailResult.toString()) && emailResult.isNotEmpty()))
+                            return@Function3 nameResult.isBlank() || emailResult.isBlank() || codeResult.isBlank()
+                                    || !Constants.validateEmail(emailResult.toString()) || codeResult.length != 6
                             }
-                        }
                     )
                     .subscribe({ blank ->
                         Timber.e("blank : $blank")
@@ -69,22 +60,22 @@ class JoinSecondFragment : BaseFragment<FragmentJoinSecondBinding>(R.layout.frag
             etNameInput
                 .focusChanges()
                 .subscribe({
-                    focusChangeTitle(it, tvNameTitle)
+                    titleFocus(tvNameTitle, it)
                 }, { it.printStackTrace() })
             etEmailInput
                 .focusChanges()
                 .subscribe({
-                    focusChangeTitle(it, tvEmailTitle)
+                    titleFocus(tvEmailTitle, it)
                 }, { it.printStackTrace() })
             etCodeInput
                 .focusChanges()
                 .subscribe({
-                    focusChangeTitle(it, tvCodeTitle)
+                    titleFocus(tvCodeTitle, it)
                 }, { it.printStackTrace() })
             etIdInput
                 .focusChanges()
                 .subscribe({
-                    focusChangeTitle(it, tvIdTitle)
+                    titleFocus(tvIdTitle, it)
                 }, { it.printStackTrace() })
 
             // clicks
@@ -105,19 +96,11 @@ class JoinSecondFragment : BaseFragment<FragmentJoinSecondBinding>(R.layout.frag
                             llContainer2.visibility = View.VISIBLE
                         }
                         llContainer2.isVisible -> {
-
+                            findNavController().navigate(R.id.action_joinSecondFragment_to_joinThirdFragment)
                         }
                         else -> {}
                     }
                 }, { it.printStackTrace() })
-        }
-    }
-
-    private fun focusChangeTitle(isFocus: Boolean, titleView: TextView) {
-        if (isFocus) {
-            titleView.visibility = View.VISIBLE
-        } else {
-            titleView.visibility = View.GONE
         }
     }
 

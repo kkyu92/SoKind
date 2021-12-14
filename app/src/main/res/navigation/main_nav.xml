@@ -61,6 +61,9 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_loginFragment_to_joinFourthFragment"
+            app:destination="@id/joinFourthFragment" />
     </fragment>
     <activity
         android:id="@+id/bottomNavActivity"
@@ -96,11 +99,35 @@
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out" />
+            app:popExitAnim="@anim/slide_out"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/joinSecondFragment"
         android:name="com.sokind.ui.join.second.JoinSecondFragment"
         android:label="fragment_join_second"
-        tools:layout="@layout/fragment_join_second" />
+        tools:layout="@layout/fragment_join_second" >
+        <action
+            android:id="@+id/action_joinSecondFragment_to_joinThirdFragment"
+            app:destination="@id/joinThirdFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/joinThirdFragment"
+        android:name="com.sokind.ui.join.third.JoinThirdFragment"
+        android:label="fragment_join_third"
+        tools:layout="@layout/fragment_join_third" >
+        <action
+            android:id="@+id/action_joinThirdFragment_to_joinFourthFragment"
+            app:destination="@id/joinFourthFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/joinFourthFragment"
+        android:name="com.sokind.ui.join.fourth.JoinFourthFragment"
+        android:label="fragment_join_fourth"
+        tools:layout="@layout/fragment_join_fourth" >
+        <action
+            android:id="@+id/action_joinFourthFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

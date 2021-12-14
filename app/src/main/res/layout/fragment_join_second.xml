@@ -64,9 +64,7 @@
                     style="@style/lightGray_12_400"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/name"
-                    android:textColor="@color/main_color"
-                    android:visibility="gone" />
+                    android:text="@string/name" />
 
                 <EditText
                     android:id="@+id/et_name_input"
@@ -88,9 +86,7 @@
                     style="@style/lightGray_12_400"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/email"
-                    android:textColor="@color/main_color"
-                    android:visibility="gone" />
+                    android:text="@string/email" />
 
                 <EditText
                     android:id="@+id/et_email_input"
@@ -121,9 +117,7 @@
                     style="@style/lightGray_12_400"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/code"
-                    android:textColor="@color/main_color"
-                    android:visibility="gone" />
+                    android:text="@string/code" />
 
                 <EditText
                     android:id="@+id/et_code_input"
@@ -133,6 +127,15 @@
                     android:layout_marginTop="5dp"
                     android:hint="@string/hint_code"
                     android:maxLength="6" />
+
+                <TextView
+                    android:id="@+id/tv_error_code"
+                    style="@style/orange_12_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/code_error"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
@@ -152,9 +155,7 @@
                     style="@style/lightGray_12_400"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/id"
-                    android:textColor="@color/main_color"
-                    android:visibility="gone" />
+                    android:text="@string/id" />
 
                 <EditText
                     android:id="@+id/et_id_input"
