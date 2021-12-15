@@ -2,18 +2,20 @@ package com.sokind.ui.join.first
 
 import android.text.Html
 import android.view.View
-import android.widget.AdapterView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxbinding4.view.focusChanges
+import com.jakewharton.rxbinding4.widget.itemSelections
 import com.jakewharton.rxbinding4.widget.textChanges
 import com.sokind.R
 import com.sokind.databinding.FragmentJoinFirstBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.functions.BiFunction
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
@@ -94,7 +96,21 @@ class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragme
                 hideKeyboard()
             }
 
-            // enterprise autoSearch event
+            compositeDisposable.add(
+                Observable
+                    .combineLatest(
+                        spEnterpriseDepartment.itemSelections(),
+                        spEnterprisePosition.itemSelections(),
+                        BiFunction { departmentSelect: Int, positionSelect: Int ->
+                            return@BiFunction departmentSelect > 0 && positionSelect > 0
+                        }
+                    )
+                    .subscribe({
+                        btNext.isEnabled = it
+                    }, { it.printStackTrace() })
+            )
+
+            // textChanges
             autoSearchView
                 .textChanges()
                 .subscribe({
@@ -106,12 +122,9 @@ class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragme
                         searchAdapter.setClear()
                     }
                 }, { it.printStackTrace() })
-
-            // enterprise enter code
             etEnterpriseCodeInput
                 .textChanges()
                 .subscribe({
-                    btNext.isEnabled = it.isNotEmpty()
                     if (it.isNotEmpty()) {
                         llContainerMore.visibility = View.VISIBLE
                     } else {
@@ -119,7 +132,7 @@ class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragme
                     }
                 }, { it.printStackTrace() })
 
-            // change focus title
+            // focusChanges
             autoSearchView
                 .focusChanges()
                 .subscribe({
@@ -130,34 +143,8 @@ class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragme
                 .subscribe({
                     titleFocus(tvEnterpriseCode, it)
                 }, { it.printStackTrace() })
-            spEnterpriseDepartment
-                .focusChanges()
-                .subscribe({
-                    titleFocus(tvEnterpriseDepartment, it)
-                }, { it.printStackTrace() })
-            spEnterprisePosition
-                .focusChanges()
-                .subscribe({
-                    titleFocus(tvEnterprisePosition, it)
-                }, { it.printStackTrace() })
 
             // clicks
-            spEnterpriseDepartment.onItemSelectedListener = object :
-                AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    TODO("Not yet implemented")
-                }
-
-            }
             ivBack
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)

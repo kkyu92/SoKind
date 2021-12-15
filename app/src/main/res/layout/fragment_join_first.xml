@@ -169,6 +169,7 @@
                         android:id="@+id/sp_enterprise_department"
                         style="@style/Spinner.Item"
                         android:background="@drawable/custom_spinner_bg"
+                        android:spinnerMode="dropdown"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -184,6 +185,7 @@
                         android:id="@+id/sp_enterprise_position"
                         style="@style/Spinner.Item"
                         android:background="@drawable/custom_spinner_bg"
+                        android:spinnerMode="dropdown"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>

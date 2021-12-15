@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="department_test">
-        <item>naver.com</item>
+        <item>소속</item>
         <item>gmail.com</item>
         <item>daum.net</item>
         <item>hanmail.net</item>
@@ -13,7 +13,7 @@
         <item>lycos.co.kr</item>
     </string-array>
     <string-array name="position_test">
-        <item>naver.com</item>
+        <item>직책</item>
         <item>gmail.com</item>
         <item>daum.net</item>
         <item>hanmail.net</item>
