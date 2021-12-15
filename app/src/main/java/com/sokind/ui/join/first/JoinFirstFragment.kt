@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxbinding4.view.focusChanges
+import com.jakewharton.rxbinding4.widget.itemClicks
 import com.jakewharton.rxbinding4.widget.itemSelections
 import com.jakewharton.rxbinding4.widget.textChanges
 import com.sokind.R
@@ -93,7 +94,7 @@ class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragme
                 searchAdapter.setClear()
                 rvEnterprise.visibility = View.VISIBLE
                 llContainerCode.visibility = View.GONE
-                hideKeyboard()
+                llContainerMore.visibility = View.GONE
             }
 
             compositeDisposable.add(
@@ -115,11 +116,16 @@ class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragme
                 .textChanges()
                 .subscribe({
                     if (it.isNotEmpty()) {
-                        if (Constants.validateKo(it.toString())) {
+                        if (Constants.validateKo(it.toString()) || Constants.validateEn(it.toString())) {
                             viewModel.searchEnterprise(it)
                         }
                     } else {
+                        autoSearchView.text.clear()
+                        etEnterpriseCodeInput.text.clear()
                         searchAdapter.setClear()
+                        rvEnterprise.visibility = View.VISIBLE
+                        llContainerCode.visibility = View.GONE
+                        llContainerMore.visibility = View.GONE
                     }
                 }, { it.printStackTrace() })
             etEnterpriseCodeInput
@@ -127,6 +133,7 @@ class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragme
                 .subscribe({
                     if (it.isNotEmpty()) {
                         llContainerMore.visibility = View.VISIBLE
+                        hideKeyboard()
                     } else {
                         llContainerMore.visibility = View.GONE
                     }

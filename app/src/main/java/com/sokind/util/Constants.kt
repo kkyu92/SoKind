@@ -32,4 +32,8 @@ object Constants {
         val koRegex = Pattern.compile("^[가-힣\\s]*$")
         return koRegex.matcher(text).find()
     }
+    fun validateEn(text: String): Boolean {
+        val enRegex = Pattern.compile("^[a-zA-Z\\s]*$")
+        return enRegex.matcher(text).find()
+    }
 }

@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sokind.data.repository.test.TestRepository
 import com.sokind.ui.base.BaseViewModel
+import com.sokind.util.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.core.ObservableSource
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 import timber.log.Timber
@@ -26,7 +28,7 @@ class JoinFirstViewModel @Inject constructor(
         compositeDisposable.add(
             autoTextBehaviorSubject
                 .subscribeOn(Schedulers.newThread())
-                .throttleLast(1500, TimeUnit.MILLISECONDS)
+                .throttleLast(1000, TimeUnit.MILLISECONDS)
                 .concatMap {
                     Timber.e("get words : $it")
                     repository.test().toObservable()
