@@ -87,6 +87,16 @@
     <string name="dialog_logout">정말 로그아웃을 하시겠어요?</string>
     <string name="dialog_secession">정말 탈퇴 신청을 하시겠어요?</string>
 
+    // home
+    <string name="home_hello">안녕하세요,</string>
+    <string name="home_name">%s!</string>
+    <string name="continue_cs">CS교육 이어하기</string>
+    <string name="proceed_cs">참여중인 CS교육</string>
+    <string name="basic_cs">기본응대 CS교육</string>
+    <string name="deep_cs">상황응대 CS교육</string>
+    <string name="no_cs_1">최근 학습한 CS교육이 없어요!</string>
+    <string name="no_cs_2">원하는 CS교육을 선택하고\n학습을 시작해보세요.</string>
+    <string name="more">더보기</string>
 
     // %s
     <string name="join_date">%s 가입</string>

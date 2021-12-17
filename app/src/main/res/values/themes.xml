@@ -31,6 +31,19 @@
         <item name="android:padding">10dp</item>
     </style>
 
+    <style name="Button.Fill.White" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_height">40dp</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/sub_color1</item>
+        <item name="cornerRadius">6dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:fontFamily">@font/noto_sans_regular</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
     <style name="Button.Fill.Black" parent="Widget.MaterialComponents.Button">
         <item name="android:layout_height">50dp</item>
         <item name="backgroundTint">@color/font_black</item>
@@ -157,6 +170,13 @@
     </style>
 
 
+    <style name="CardView.Default" parent="Widget.MaterialComponents.CardView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardCornerRadius">10dp</item>
+        <item name="cardElevation">5dp</item>
+    </style>
+
     <style name="white_20_500">
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/noto_sans_medium</item>
@@ -176,6 +196,14 @@
     <style name="black_14_400">
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/noto_sans_regular</item>
+        <item name="android:textColor">@color/font_black</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="black_16_400">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/noto_sans_regular</item>
         <item name="android:textColor">@color/font_black</item>
         <item name="android:includeFontPadding">false</item>
@@ -221,6 +249,13 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/font_light_gray</item>
         <item name="android:fontFamily">@font/noto_sans_regular</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="lightGray_16_500">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/font_light_gray</item>
+        <item name="android:fontFamily">@font/noto_sans_medium</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 

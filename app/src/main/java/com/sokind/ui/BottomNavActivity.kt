@@ -15,6 +15,7 @@ import com.sokind.ui.home.HomeFragment
 import com.sokind.ui.my.MyFragment
 import com.sokind.ui.report.ReportFragment
 import com.sokind.util.Constants
+import com.sokind.util.ShowFragmentListener
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
@@ -25,6 +26,11 @@ import kotlin.system.exitProcess
 @AndroidEntryPoint
 class BottomNavActivity : BaseActivity<ActivityBottomNavBinding>(R.layout.activity_bottom_nav) {
     private val backBtnSubject = PublishSubject.create<Boolean>()
+    private val homeFragment = HomeFragment()
+    private val guideFragment = GuideFragment()
+    private val csFragment = CsFragment()
+    private val reportFragment = ReportFragment()
+    private val myFragment = MyFragment()
 
     override fun init() {
         compositeDisposable.add(
@@ -50,26 +56,29 @@ class BottomNavActivity : BaseActivity<ActivityBottomNavBinding>(R.layout.activi
         binding.bottomNav.itemIconTintList = null
         binding.bottomNav.setupWithNavController(navController)
 
-        val homeFragment = HomeFragment()
-        val guideFragment = GuideFragment()
-        val csFragment = CsFragment()
-        val reportFragment = ReportFragment()
-        val myFragment = MyFragment()
-
         underlineSelectedItem(binding.clMain, R.id.homeFragment) //select first item
-        makeCurrentFragment(homeFragment)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView_bottom, homeFragment, "home")
+            .commitAllowingStateLoss()
 
         binding.bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.homeFragment -> makeCurrentFragment(homeFragment)
-                R.id.guideFragment -> makeCurrentFragment(guideFragment)
-                R.id.csFragment -> makeCurrentFragment(csFragment)
-                R.id.reportFragment -> makeCurrentFragment(reportFragment)
-                R.id.myFragment -> makeCurrentFragment(myFragment)
+                R.id.homeFragment -> showFragment("home")
+                R.id.guideFragment -> showFragment("guide")
+                R.id.csFragment -> showFragment("cs")
+                R.id.reportFragment -> showFragment("report")
+                R.id.myFragment -> showFragment("my")
             }
             underlineSelectedItem(binding.clMain, it.itemId)
             true
         }
+
+        homeFragment.setShowCsFragmentListener(object : ShowFragmentListener {
+            override fun showCsFragment() {
+                underlineSelectedItem(binding.clMain, R.id.csFragment)
+                showFragment("cs")
+            }
+        })
     }
 
     private fun underlineSelectedItem(view: View, itemId: Int) {
@@ -94,10 +103,122 @@ class BottomNavActivity : BaseActivity<ActivityBottomNavBinding>(R.layout.activi
         }
     }
 
-    private fun makeCurrentFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragmentContainerView_bottom, fragment)
-            commit()
+    private fun showFragment(tag: String) {
+        val fm = supportFragmentManager
+        when (tag) {
+            "home" -> {
+                binding.bottomNav.menu.findItem(R.id.homeFragment).isChecked = true
+                if (fm.findFragmentByTag("home") != null) {
+                    fm.beginTransaction().show(fm.findFragmentByTag("home")!!).commit()
+                } else {
+                    fm.beginTransaction()
+                        .add(R.id.fragmentContainerView_bottom, homeFragment, "home").commit()
+                }
+
+                if (fm.findFragmentByTag("guide") != null) {
+                    fm.beginTransaction().hide(guideFragment).commit()
+                }
+                if (fm.findFragmentByTag("cs") != null) {
+                    fm.beginTransaction().hide(csFragment).commit()
+                }
+                if (fm.findFragmentByTag("report") != null) {
+                    fm.beginTransaction().hide(reportFragment).commit()
+                }
+                if (fm.findFragmentByTag("my") != null) {
+                    fm.beginTransaction().hide(myFragment).commit()
+                }
+            }
+            "guide" -> {
+                binding.bottomNav.menu.findItem(R.id.guideFragment).isChecked = true
+                if (fm.findFragmentByTag("home") != null) {
+                    fm.beginTransaction().hide(homeFragment).commit()
+                }
+
+                if (fm.findFragmentByTag("guide") != null) {
+                    fm.beginTransaction().show(fm.findFragmentByTag("guide")!!).commit()
+                } else {
+                    fm.beginTransaction()
+                        .add(R.id.fragmentContainerView_bottom, guideFragment, "guide").commit()
+                }
+
+                if (fm.findFragmentByTag("cs") != null) {
+                    fm.beginTransaction().hide(csFragment).commit()
+                }
+                if (fm.findFragmentByTag("report") != null) {
+                    fm.beginTransaction().hide(reportFragment).commit()
+                }
+                if (fm.findFragmentByTag("my") != null) {
+                    fm.beginTransaction().hide(myFragment).commit()
+                }
+            }
+            "cs" -> {
+                binding.bottomNav.menu.findItem(R.id.csFragment).isChecked = true
+                if (fm.findFragmentByTag("home") != null) {
+                    fm.beginTransaction().hide(homeFragment).commit()
+                }
+                if (fm.findFragmentByTag("guide") != null) {
+                    fm.beginTransaction().hide(guideFragment).commit()
+                }
+
+                if (fm.findFragmentByTag("cs") != null) {
+                    fm.beginTransaction().show(fm.findFragmentByTag("cs")!!).commit()
+                } else {
+                    fm.beginTransaction().add(R.id.fragmentContainerView_bottom, csFragment, "cs")
+                        .commit()
+                }
+
+                if (fm.findFragmentByTag("report") != null) {
+                    fm.beginTransaction().hide(reportFragment).commit()
+                }
+                if (fm.findFragmentByTag("my") != null) {
+                    fm.beginTransaction().hide(myFragment).commit()
+                }
+            }
+            "report" -> {
+                binding.bottomNav.menu.findItem(R.id.reportFragment).isChecked = true
+                if (fm.findFragmentByTag("home") != null) {
+                    fm.beginTransaction().hide(homeFragment).commit()
+                }
+                if (fm.findFragmentByTag("guide") != null) {
+                    fm.beginTransaction().hide(guideFragment).commit()
+                }
+                if (fm.findFragmentByTag("cs") != null) {
+                    fm.beginTransaction().hide(csFragment).commit()
+                }
+
+                if (fm.findFragmentByTag("report") != null) {
+                    fm.beginTransaction().show(fm.findFragmentByTag("report")!!).commit()
+                } else {
+                    fm.beginTransaction()
+                        .add(R.id.fragmentContainerView_bottom, reportFragment, "report").commit()
+                }
+
+                if (fm.findFragmentByTag("my") != null) {
+                    fm.beginTransaction().hide(myFragment).commit()
+                }
+            }
+            "my" -> {
+                binding.bottomNav.menu.findItem(R.id.myFragment).isChecked = true
+                if (fm.findFragmentByTag("home") != null) {
+                    fm.beginTransaction().hide(homeFragment).commit()
+                }
+                if (fm.findFragmentByTag("guide") != null) {
+                    fm.beginTransaction().hide(guideFragment).commit()
+                }
+                if (fm.findFragmentByTag("cs") != null) {
+                    fm.beginTransaction().hide(csFragment).commit()
+                }
+                if (fm.findFragmentByTag("report") != null) {
+                    fm.beginTransaction().hide(reportFragment).commit()
+                }
+
+                if (fm.findFragmentByTag("my") != null) {
+                    fm.beginTransaction().show(fm.findFragmentByTag("my")!!).commit()
+                } else {
+                    fm.beginTransaction().add(R.id.fragmentContainerView_bottom, myFragment, "my")
+                        .commit()
+                }
+            }
         }
     }
 
