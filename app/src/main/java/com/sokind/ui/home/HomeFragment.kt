@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val viewModel by viewModels<HomeViewModel>()
 
-    private lateinit var listener: ShowFragmentListener
+    private lateinit var showListener: ShowFragmentListener
     private lateinit var homeBaseCsAdapter: HomeBaseCsAdapter
     private lateinit var tabLayoutMediator: TabLayoutMediator
     val dummyData = mutableListOf<CsBase>()
@@ -43,10 +43,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         setTabLayout()
         setBinding()
 
+        // refresh
+
+
         // 기본응대 cs 교육 > 더보기
         csBaseFragment.setShowCsFragmentListener(object : ShowFragmentListener {
             override fun showCsFragment() {
-                listener.showCsFragment()
+                showListener.showCsFragment()
             }
         })
     }
@@ -119,13 +122,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    listener.showCsFragment()
+                    showListener.showCsFragment()
                 }, { it.printStackTrace() })
         }
     }
 
     fun setShowCsFragmentListener(listener: ShowFragmentListener) {
-        this.listener = listener
+        this.showListener = listener
     }
 
     override fun onDetach() {
@@ -134,6 +137,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     companion object {
-        fun newInstance() = HomeFragment()
+
     }
 }

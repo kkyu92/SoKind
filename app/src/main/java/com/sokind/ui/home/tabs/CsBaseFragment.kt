@@ -1,12 +1,7 @@
 package com.sokind.ui.home.tabs
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.tabs.TabLayoutMediator
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.data.remote.home.CsBase
@@ -14,6 +9,7 @@ import com.sokind.databinding.FragmentCsBaseBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.ui.home.HomeBaseCsAdapter
 import com.sokind.util.Constants
+import com.sokind.util.RefreshFragmentListener
 import com.sokind.util.ShowFragmentListener
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
@@ -23,7 +19,8 @@ class CsBaseFragment : BaseFragment<FragmentCsBaseBinding>(R.layout.fragment_cs_
     private var param1: String? = null
     private var param2: String? = null
 
-    private lateinit var listener: ShowFragmentListener
+    private lateinit var showListener: ShowFragmentListener
+    private lateinit var refreshListener: RefreshFragmentListener
     private lateinit var homeBaseCsAdapter: HomeBaseCsAdapter
     val dummyData = mutableListOf<CsBase>()
 
@@ -68,13 +65,13 @@ class CsBaseFragment : BaseFragment<FragmentCsBaseBinding>(R.layout.fragment_cs_
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    listener.showCsFragment()
+                    showListener.showCsFragment()
                 },{ it.printStackTrace() })
         }
     }
 
     fun setShowCsFragmentListener(listener: ShowFragmentListener) {
-        this.listener = listener
+        this.showListener = listener
     }
 
     companion object {

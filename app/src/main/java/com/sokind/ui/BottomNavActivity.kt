@@ -3,7 +3,6 @@ package com.sokind.ui
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.sokind.R
@@ -15,6 +14,7 @@ import com.sokind.ui.home.HomeFragment
 import com.sokind.ui.my.MyFragment
 import com.sokind.ui.report.ReportFragment
 import com.sokind.util.Constants
+import com.sokind.util.RefreshFragmentListener
 import com.sokind.util.ShowFragmentListener
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -26,13 +26,21 @@ import kotlin.system.exitProcess
 @AndroidEntryPoint
 class BottomNavActivity : BaseActivity<ActivityBottomNavBinding>(R.layout.activity_bottom_nav) {
     private val backBtnSubject = PublishSubject.create<Boolean>()
-    private val homeFragment = HomeFragment()
-    private val guideFragment = GuideFragment()
-    private val csFragment = CsFragment()
-    private val reportFragment = ReportFragment()
-    private val myFragment = MyFragment()
+    private lateinit var homeFragment: HomeFragment
+    private lateinit var guideFragment: GuideFragment
+    private lateinit var csFragment: CsFragment
+    private lateinit var reportFragment: ReportFragment
+    private lateinit var myFragment: MyFragment
+
+    private lateinit var refreshListener: RefreshFragmentListener
 
     override fun init() {
+        homeFragment = HomeFragment()
+        guideFragment = GuideFragment()
+        csFragment = CsFragment()
+        reportFragment = ReportFragment()
+        myFragment = MyFragment()
+
         compositeDisposable.add(
             backBtnSubject
                 .debounce(100, TimeUnit.MILLISECONDS)
@@ -135,6 +143,7 @@ class BottomNavActivity : BaseActivity<ActivityBottomNavBinding>(R.layout.activi
                 }
 
                 if (fm.findFragmentByTag("guide") != null) {
+                    refreshListener.refreshGuideFragment()
                     fm.beginTransaction().show(fm.findFragmentByTag("guide")!!).commit()
                 } else {
                     fm.beginTransaction()
@@ -161,6 +170,7 @@ class BottomNavActivity : BaseActivity<ActivityBottomNavBinding>(R.layout.activi
                 }
 
                 if (fm.findFragmentByTag("cs") != null) {
+                    refreshListener.refreshCsFragment()
                     fm.beginTransaction().show(fm.findFragmentByTag("cs")!!).commit()
                 } else {
                     fm.beginTransaction().add(R.id.fragmentContainerView_bottom, csFragment, "cs")
@@ -220,6 +230,10 @@ class BottomNavActivity : BaseActivity<ActivityBottomNavBinding>(R.layout.activi
                 }
             }
         }
+    }
+
+    fun setRefreshFragmentListener(listener: RefreshFragmentListener) {
+        this.refreshListener = listener
     }
 
     override fun onBackPressed() {
