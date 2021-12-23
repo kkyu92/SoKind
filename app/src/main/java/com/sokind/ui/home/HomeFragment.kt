@@ -15,9 +15,10 @@ import com.sokind.databinding.FragmentHomeBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.ui.home.tabs.CsBaseFragment
 import com.sokind.ui.home.tabs.CsDeepFragment
-import com.sokind.ui.home.tabs.HomeTabAdapter
+import com.sokind.util.adapter.BaseCsAdapter
 import com.sokind.util.Constants
 import com.sokind.util.ShowFragmentListener
+import com.sokind.util.adapter.TabAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 
@@ -26,12 +27,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val viewModel by viewModels<HomeViewModel>()
 
     private lateinit var showListener: ShowFragmentListener
-    private lateinit var homeBaseCsAdapter: HomeBaseCsAdapter
+    private lateinit var baseCsAdapter: BaseCsAdapter
     private lateinit var tabLayoutMediator: TabLayoutMediator
     val dummyData = mutableListOf<CsBase>()
 
-    private val csBaseFragment = CsBaseFragment()
-    private val csDeepFragment = CsDeepFragment()
+    private val csBaseFragment = CsBaseFragment("Home")
+    private val csDeepFragment = CsDeepFragment("Home")
     private val fragmentList = arrayListOf<Fragment>(
         csBaseFragment,
         csDeepFragment
@@ -56,33 +57,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     fun initializeList() { //임의로 데이터 넣어서 만들어봄
         with(dummyData) {
-            add(CsBase("기본응대 - 1", "긍정 에너지를 전파하는 입점인사", null, "10분 전"))
-            add(CsBase("상황응대 - 1", "제품에 불만이 있는 고객을 대할 때", null, "2일 전"))
-            add(CsBase("기본응대 - 2", "긍정 에너지를 전파하는 입점인사", null, "10분 전"))
-            add(CsBase("상황응대 - 2", "제품에 불만이 있는 고객을 대할 때", null, "2일 전"))
-            add(CsBase("기본응대 - 3", "긍정 에너지를 전파하는 입점인사", null, "10분 전"))
-            add(CsBase("상황응대 - 3", "제품에 불만이 있는 고객을 대할 때", null, "2일 전"))
-            add(CsBase("기본응대 - 4", "긍정 에너지를 전파하는 입점인사", null, "10분 전"))
-            add(CsBase("상황응대 - 4", "제품에 불만이 있는 고객을 대할 때", null, "2일 전"))
-            add(CsBase("기본응대 - 5", "긍정 에너지를 전파하는 입점인사", null, "10분 전"))
-            add(CsBase("상황응대 - 5", "제품에 불만이 있는 고객을 대할 때", null, "2일 전"))
-            add(CsBase("기본응대 - 6", "긍정 에너지를 전파하는 입점인사", null, "10분 전"))
-            add(CsBase("상황응대 - 6", "제품에 불만이 있는 고객을 대할 때", null, "2일 전"))
+            add(CsBase("기본응대 - 1", "긍정 에너지를 전파하는 입점인사", true))
+            add(CsBase("상황응대 - 1", "제품에 불만이 있는 고객을 대할 때", true))
+            add(CsBase("기본응대 - 2", "긍정 에너지를 전파하는 입점인사", true))
+            add(CsBase("상황응대 - 2", "제품에 불만이 있는 고객을 대할 때", false))
+            add(CsBase("기본응대 - 1", "긍정 에너지를 전파하는 입점인사", false))
+            add(CsBase("상황응대 - 1", "제품에 불만이 있는 고객을 대할 때", false))
+            add(CsBase("기본응대 - 2", "긍정 에너지를 전파하는 입점인사", false))
+            add(CsBase("상황응대 - 2", "제품에 불만이 있는 고객을 대할 때", false))
+            add(CsBase("기본응대 - 1", "긍정 에너지를 전파하는 입점인사", false))
+            add(CsBase("상황응대 - 1", "제품에 불만이 있는 고객을 대할 때", false))
+            add(CsBase("기본응대 - 2", "긍정 에너지를 전파하는 입점인사", false))
+            add(CsBase("상황응대 - 2", "제품에 불만이 있는 고객을 대할 때", false))
         }
     }
 
     private fun setRecyclerView() {
-        homeBaseCsAdapter = HomeBaseCsAdapter()
-        homeBaseCsAdapter.csBaseList = dummyData
+        baseCsAdapter = BaseCsAdapter("Home")
+        baseCsAdapter.csBaseList = dummyData
         binding.rvHome.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvHome.adapter = homeBaseCsAdapter
+        binding.rvHome.adapter = baseCsAdapter
     }
 
     private fun setTabLayout() {
         binding.apply {
             vpHome.apply {
                 offscreenPageLimit = 2
-                adapter = HomeTabAdapter(fragmentList, childFragmentManager, lifecycle)
+                adapter = TabAdapter(fragmentList, childFragmentManager, lifecycle)
                 isSaveEnabled = false
             }
 

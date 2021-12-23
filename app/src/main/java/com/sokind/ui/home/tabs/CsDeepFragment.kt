@@ -1,36 +1,24 @@
 package com.sokind.ui.home.tabs
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sokind.R
-import com.sokind.data.remote.home.CsBase
 import com.sokind.data.remote.home.CsDeep
 import com.sokind.databinding.FragmentCsDeepBinding
 import com.sokind.ui.base.BaseFragment
-import com.sokind.ui.home.HomeBaseCsAdapter
-import com.sokind.ui.home.HomeDeepCsAdapter
+import com.sokind.util.adapter.DeepCsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CsDeepFragment : BaseFragment<FragmentCsDeepBinding>(R.layout.fragment_cs_deep) {
-    private var param1: String? = null
-    private var param2: String? = null
+class CsDeepFragment(
+    private val tabName: String
+) : BaseFragment<FragmentCsDeepBinding>(R.layout.fragment_cs_deep) {
 
-    private lateinit var homeDeepCsAdapter: HomeDeepCsAdapter
+    private lateinit var deepCsAdapter: DeepCsAdapter
     val dummyData = mutableListOf<CsDeep>()
 
     override fun init() {
         initializeList()
         setRecyclerView()
-
-        arguments?.let {
-            param1 = it.getString("ARG_PARAM1")
-            param2 = it.getString("ARG_PARAM2")
-        }
     }
 
     fun initializeList() { //임의로 데이터 넣어서 만들어봄
@@ -48,21 +36,14 @@ class CsDeepFragment : BaseFragment<FragmentCsDeepBinding>(R.layout.fragment_cs_
     }
 
     private fun setRecyclerView() {
-        homeDeepCsAdapter = HomeDeepCsAdapter()
-        homeDeepCsAdapter.csDeepList = dummyData
+        deepCsAdapter = DeepCsAdapter(tabName)
+        deepCsAdapter.csDeepList = dummyData
         binding.rvHomeDeepCs.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.rvHomeDeepCs.adapter = homeDeepCsAdapter
+        binding.rvHomeDeepCs.adapter = deepCsAdapter
     }
 
     companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CsDeepFragment().apply {
-                arguments = Bundle().apply {
-                    putString("ARG_PARAM1", param1)
-                    putString("ARG_PARAM2", param2)
-                }
-            }
+
     }
 }

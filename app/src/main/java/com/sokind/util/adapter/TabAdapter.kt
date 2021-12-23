@@ -1,11 +1,11 @@
-package com.sokind.ui.onboarding
+package com.sokind.util.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class BoardingAdapter(
+class TabAdapter(
     list: ArrayList<Fragment>,
     fm: FragmentManager,
     lifecycle: Lifecycle

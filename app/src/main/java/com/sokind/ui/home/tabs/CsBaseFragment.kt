@@ -1,13 +1,13 @@
 package com.sokind.ui.home.tabs
 
-import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.data.remote.home.CsBase
 import com.sokind.databinding.FragmentCsBaseBinding
 import com.sokind.ui.base.BaseFragment
-import com.sokind.ui.home.HomeBaseCsAdapter
+import com.sokind.util.adapter.BaseCsAdapter
 import com.sokind.util.Constants
 import com.sokind.util.RefreshFragmentListener
 import com.sokind.util.ShowFragmentListener
@@ -15,48 +15,43 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
-class CsBaseFragment : BaseFragment<FragmentCsBaseBinding>(R.layout.fragment_cs_base) {
-    private var param1: String? = null
-    private var param2: String? = null
+class CsBaseFragment(
+    private val tabName: String
+) : BaseFragment<FragmentCsBaseBinding>(R.layout.fragment_cs_base) {
 
     private lateinit var showListener: ShowFragmentListener
     private lateinit var refreshListener: RefreshFragmentListener
-    private lateinit var homeBaseCsAdapter: HomeBaseCsAdapter
+    private lateinit var baseCsAdapter: BaseCsAdapter
     val dummyData = mutableListOf<CsBase>()
 
     override fun init() {
         initializeList()
         setRecyclerView()
         setBinding()
-
-        arguments?.let {
-            param1 = it.getString("ARG_PARAM1")
-            param2 = it.getString("ARG_PARAM2")
-        }
     }
 
     fun initializeList(){ //임의로 데이터 넣어서 만들어봄
         with(dummyData){
-            add(CsBase("기본응대 - 1","긍정 에너지를 전파하는 입점인사",null,"10분 전"))
-            add(CsBase("상황응대 - 1","제품에 불만이 있는 고객을 대할 때",null,"2일 전"))
-            add(CsBase("기본응대 - 2","긍정 에너지를 전파하는 입점인사",null,"10분 전"))
-            add(CsBase("상황응대 - 2","제품에 불만이 있는 고객을 대할 때",null,"2일 전"))
-            add(CsBase("기본응대 - 3","긍정 에너지를 전파하는 입점인사",null,"10분 전"))
-            add(CsBase("상황응대 - 3","제품에 불만이 있는 고객을 대할 때",null,"2일 전"))
-            add(CsBase("기본응대 - 4","긍정 에너지를 전파하는 입점인사",null,"10분 전"))
-            add(CsBase("상황응대 - 4","제품에 불만이 있는 고객을 대할 때",null,"2일 전"))
-            add(CsBase("기본응대 - 5","긍정 에너지를 전파하는 입점인사",null,"10분 전"))
-            add(CsBase("상황응대 - 5","제품에 불만이 있는 고객을 대할 때",null,"2일 전"))
-            add(CsBase("기본응대 - 6","긍정 에너지를 전파하는 입점인사",null,"10분 전"))
-            add(CsBase("상황응대 - 6","제품에 불만이 있는 고객을 대할 때",null,"2일 전"))
+            add(CsBase("기본응대 - 1", "긍정 에너지를 전파하는 입점인사", true))
+            add(CsBase("상황응대 - 1", "제품에 불만이 있는 고객을 대할 때", true))
+            add(CsBase("기본응대 - 2", "긍정 에너지를 전파하는 입점인사", true))
+            add(CsBase("상황응대 - 2", "제품에 불만이 있는 고객을 대할 때", false))
+            add(CsBase("기본응대 - 1", "긍정 에너지를 전파하는 입점인사", false))
+            add(CsBase("상황응대 - 1", "제품에 불만이 있는 고객을 대할 때", false))
+            add(CsBase("기본응대 - 2", "긍정 에너지를 전파하는 입점인사", false))
+            add(CsBase("상황응대 - 2", "제품에 불만이 있는 고객을 대할 때", false))
+            add(CsBase("기본응대 - 1", "긍정 에너지를 전파하는 입점인사", false))
+            add(CsBase("상황응대 - 1", "제품에 불만이 있는 고객을 대할 때", false))
+            add(CsBase("기본응대 - 2", "긍정 에너지를 전파하는 입점인사", false))
+            add(CsBase("상황응대 - 2", "제품에 불만이 있는 고객을 대할 때", false))
         }
     }
 
     private fun setRecyclerView() {
-        homeBaseCsAdapter = HomeBaseCsAdapter()
-        homeBaseCsAdapter.csBaseList = dummyData
+        baseCsAdapter = BaseCsAdapter(tabName)
+        baseCsAdapter.csBaseList = dummyData
         binding.rvHomeBaseCs.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvHomeBaseCs.adapter = homeBaseCsAdapter
+        binding.rvHomeBaseCs.adapter = baseCsAdapter
     }
 
     private fun setBinding() {
@@ -67,6 +62,10 @@ class CsBaseFragment : BaseFragment<FragmentCsBaseBinding>(R.layout.fragment_cs_
                 .subscribe({
                     showListener.showCsFragment()
                 },{ it.printStackTrace() })
+
+            if (tabName == "Cs") {
+                tvBaseMore.visibility = View.GONE
+            }
         }
     }
 
@@ -75,13 +74,6 @@ class CsBaseFragment : BaseFragment<FragmentCsBaseBinding>(R.layout.fragment_cs_
     }
 
     companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CsBaseFragment().apply {
-                arguments = Bundle().apply {
-                    putString("ARG_PARAM1", param1)
-                    putString("ARG_PARAM2", param2)
-                }
-            }
+
     }
 }

@@ -11,6 +11,7 @@ import com.sokind.ui.onboarding.screen.FirstScreen
 import com.sokind.ui.onboarding.screen.SecondScreen
 import com.sokind.ui.onboarding.screen.ThirdScreen
 import com.sokind.util.Constants
+import com.sokind.util.adapter.TabAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
@@ -63,7 +64,7 @@ class BoardingFragment : BaseFragment<FragmentBoardingBinding>(R.layout.fragment
             SecondScreen(),
             ThirdScreen()
         )
-        val adapter = BoardingAdapter(
+        val adapter = TabAdapter(
             fragmentList,
             requireActivity().supportFragmentManager,
             lifecycle

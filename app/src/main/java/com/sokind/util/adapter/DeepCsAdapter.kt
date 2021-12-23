@@ -1,14 +1,14 @@
-package com.sokind.ui.home
+package com.sokind.util.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.tabs.TabLayoutMediator
-import com.sokind.data.remote.home.CsBase
 import com.sokind.data.remote.home.CsDeep
 import com.sokind.databinding.ItemDeepCsBinding
 
-class HomeDeepCsAdapter : RecyclerView.Adapter<HomeDeepCsAdapter.HomeCsViewHolder>() {
+class DeepCsAdapter(
+    private val tabName: String
+) : RecyclerView.Adapter<DeepCsAdapter.HomeCsViewHolder>() {
     var csDeepList: List<CsDeep> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeCsViewHolder {
@@ -43,5 +43,13 @@ class HomeDeepCsAdapter : RecyclerView.Adapter<HomeDeepCsAdapter.HomeCsViewHolde
                 ivCsDeepBg.setImageResource(csDeep.src ?: 0)
             }
         }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 }
