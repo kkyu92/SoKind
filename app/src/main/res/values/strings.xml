@@ -98,6 +98,34 @@
     <string name="no_cs_2">원하는 CS교육을 선택하고\n학습을 시작해보세요.</string>
     <string name="more">더보기</string>
 
+    // guide
+    <string name="guide">가이드</string>
+    <string name="speech">말</string>
+    <string name="expression">표정</string>
+    <string name="posture">자세</string>
+    <string name="guide_tab_1">회사 메뉴얼</string>
+    <string name="guide_tab_2">기본응대CS</string>
+    <string name="guide_tab_3">상황응대CS</string>
+    // guide_base
+    <string name="guide_base_speech_title">손님들이 원하는 목소리!</string>
+    <string name="guide_base_speech_sub_title">나의 목소리는 어떤지 쏘카인드를 통해\n억양, 톤, 빠르기를 확인해보세요!</string>
+    <string name="guide_base_speech_content">우리 직원님의 목소리 톤은 ‘솔’ 톤(Tone)에가까워요!🎼</string>
+    <string name="guide_base_expression_title">서비스 직원의 생명은 표정!</string>
+    <string name="guide_base_expression_sub_title">
+        CS교육생이 쏘카인드에서 교육을 받는 동안\n
+        놀람, 공포, 행복, 슬픔, 화남, 중립\n
+        6가지 감정의 평균 비율을 안면분석을 통해 체크합니다.
+    </string>
+    <string name="guide_base_expression_content">우리 직원님은 해당 교육에서 ‘놀람’ 표정이 많이드러났어요!️❗</string>
+    <string name="guide_base_posture_title">바른 자세로 이야기해요!</string>
+    <string name="guide_base_posture_sub_title">허리를 펴고 손님의 눈을 바라보아요!\n쏘카인드는 잘못된 자세를 바로잡아드려요!</string>
+    <string name="guide_base_posture_content">우리 직원님은 어깨와 머리각도가 일정하며, 바른 자세로 손님을 응대하고 계십니다!👍🏻</string>
+
+    // cs edu
+    <string name="cs">CS교육</string>
+    <string name="cs_continue">다음교육 바로 이어하기</string>
+    <string name="cs_tab_title">우리회사 CS교육 과정</string>
+
     // %s
     <string name="join_date">%s 가입</string>
     <string name="send_email_content"><b>%s</b> 으로\n비밀번호 변경 이메일을 발송했습니다.</string>
@@ -105,4 +133,11 @@
     <string name="no_enterprise_content_1"><![CDATA[<font color=\'#6967F9\'><b>%s</b></font>에 대한 검색 결과가 없습니다.]]></string>
     <string name="no_enterprise_content_2">입력하신 검색어를 확인해주세요.</string>
     <string name="boarding_title"><![CDATA[환영합니다, <b>%s!</b><br>인공지능 CS교육 솔루션,<br><font color=\'#6967F9\'><b>쏘카인드</b></font>입니다.]]></string>
+
+    <string name="dummy">
+        우리 올리브영에서는 선창, 후창으로 직원들이 입점인사를 합니다. 입점 손님을 먼저 발견한 직원은 선창으로 힘차게 아래와 같이 말합니다.\n\n
+        선창: “반갑습니다. 올리브영입니다~!” 목소리 톤: 밝고 긍정적인 목소리, 끝음은 살짝올림\n\n
+        후창으로는 동일한 멘트로 나머지 직원이 입점인사를 합니다. *입점인사는 매장(점포)마다 상이할 수 있습니다. \n\n
+        그 주 특가 상품이나 행사 내용을 넣어 입점인사를 하는 경우도 있습니다. 본 CS교육시에는 기본입점인사로 평가합니다.
+    </string>
 </resources>

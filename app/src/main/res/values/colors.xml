@@ -21,4 +21,6 @@
     <color name="font_black">#333333</color>
     <color name="font_gray">#666666</color>
     <color name="font_light_gray">#999999</color>
+    <color name="pb_background">#F0F0F0</color>
+    <color name="pb_bar">#7569FA</color>
 </resources>

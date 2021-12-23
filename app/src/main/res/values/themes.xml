@@ -172,6 +172,7 @@
 
     <style name="CardView.Default" parent="Widget.MaterialComponents.CardView">
         <item name="android:layout_width">0dp</item>
+        <item name="android:background">@color/white</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="cardCornerRadius">10dp</item>
         <item name="cardElevation">5dp</item>
@@ -197,6 +198,14 @@
         <item name="android:textStyle">normal</item>
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/noto_sans_regular</item>
+        <item name="android:textColor">@color/font_black</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="black_14_500">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/noto_sans_medium</item>
         <item name="android:textColor">@color/font_black</item>
         <item name="android:includeFontPadding">false</item>
     </style>
