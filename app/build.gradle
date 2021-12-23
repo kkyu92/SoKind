@@ -87,6 +87,9 @@ dependencies {
     // hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    // dot indicator
+    implementation 'com.tbuonomo:dotsindicator:4.2'
 }
 def getBaseApiKey() {
     return project.findProperty("base_api_key")
