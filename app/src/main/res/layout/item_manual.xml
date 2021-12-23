@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/CardView.Default"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="5dp"
+        android:animateLayoutChanges="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingVertical="20dp">
+
+            <TextView
+                android:id="@+id/tv_manual_title"
+                style="@style/orange_12_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="기본응대 - 1" />
+
+            <TextView
+                android:id="@+id/tv_manual_sub_title"
+                style="@style/black_14_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/tv_manual_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_manual_title"
+                tools:text="긍정 에너지를 전파하는 입점인" />
+
+            <ImageButton
+                android:id="@+id/iv_expand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="@null"
+                android:padding="10dp"
+                android:src="@drawable/icon_arrow_down"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_manual_sub_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_manual_title" />
+
+            <LinearLayout
+                android:id="@+id/ll_expand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_manual_sub_title">
+
+                <TextView
+                    android:id="@+id/tv_manual_content"
+                    style="@style/black_14_400"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -1,17 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.guide.GuideFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/font_gray">
+        android:fillViewport="true">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Guide Fragment" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/black_16_500"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="@string/guide" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tl_guide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@color/white"
+                app:tabIndicator="@drawable/custom_tab_indicator"
+                app:tabIndicatorAnimationMode="elastic"
+                app:tabMode="fixed"
+                android:paddingBottom="10dp"
+                app:tabSelectedTextColor="@color/main_color"
+                app:tabTextAppearance="@style/lightGray_14_400"
+                app:tabTextColor="@color/font_light_gray" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/background" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_guide"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>
