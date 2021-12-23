@@ -1,8 +1,10 @@
 package com.sokind.ui.base
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -203,6 +205,11 @@ abstract class BaseFragment<B : ViewDataBinding>(
 
     open fun getColor(color: Int): Int {
         return requireContext().getColor(color)
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    open fun getDrawable(drawable: Int): Drawable? {
+        return requireContext().getDrawable(drawable)
     }
 
     open fun titleFocus(textView: TextView, visible: Boolean) {

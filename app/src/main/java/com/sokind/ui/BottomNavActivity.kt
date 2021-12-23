@@ -143,7 +143,6 @@ class BottomNavActivity : BaseActivity<ActivityBottomNavBinding>(R.layout.activi
                 }
 
                 if (fm.findFragmentByTag("guide") != null) {
-                    refreshListener.refreshGuideFragment()
                     fm.beginTransaction().show(fm.findFragmentByTag("guide")!!).commit()
                 } else {
                     fm.beginTransaction()
@@ -170,7 +169,6 @@ class BottomNavActivity : BaseActivity<ActivityBottomNavBinding>(R.layout.activi
                 }
 
                 if (fm.findFragmentByTag("cs") != null) {
-                    refreshListener.refreshCsFragment()
                     fm.beginTransaction().show(fm.findFragmentByTag("cs")!!).commit()
                 } else {
                     fm.beginTransaction().add(R.id.fragmentContainerView_bottom, csFragment, "cs")

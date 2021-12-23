@@ -229,7 +229,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                app:tabIndicator="@drawable/custom_tab_selector"
+                app:tabIndicator="@drawable/custom_tab_indicator"
                 app:tabIndicatorAnimationMode="elastic"
                 app:tabMode="auto"
                 app:tabPaddingEnd="20dp"
