@@ -1,18 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.cs.CsFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/main_color2">
+        android:fitsSystemWindows="true">
 
-        <TextView
+        <com.sokind.util.StickyScrollView
+            android:id="@+id/sv_sticky"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="CS Fragment" />
+            android:fillViewport="true">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/black_16_500"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:text="@string/cs" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="30dp">
+
+                    <ImageView
+                        android:id="@+id/iv_cs_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img_profile"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_cs_user_name"
+                        style="@style/black_18_700"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_cs_user_enterprise"
+                        app:layout_constraintStart_toEndOf="@+id/iv_cs_profile"
+                        app:layout_constraintTop_toTopOf="@+id/iv_cs_profile"
+                        tools:text="김진철 사원" />
+
+                    <TextView
+                        android:id="@+id/tv_cs_user_enterprise"
+                        style="@style/gray_14_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_cs_profile"
+                        app:layout_constraintStart_toStartOf="@+id/tv_cs_user_name"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_cs_user_name"
+                        tools:text="CJ올리브영 / 공덕점" />
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/pb_cs_lv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:indeterminateOnly="false"
+                        android:max="100"
+                        android:progress="20"
+                        app:indicatorColor="@color/pb_bar"
+                        app:indicatorSize="56dp"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_cs_day"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:trackColor="@color/pb_background"
+                        app:trackCornerRadius="20dp"
+                        app:trackThickness="5dp" />
+
+                    <TextView
+                        android:id="@+id/tv_cs_day"
+                        style="@style/black_13_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/pb_cs_lv"
+                        app:layout_constraintStart_toStartOf="@+id/pb_cs_lv"
+                        app:layout_constraintTop_toBottomOf="@+id/pb_cs_lv"
+                        tools:text="교육 1일차" />
+
+                    <TextView
+                        android:id="@+id/tv_cs_lv"
+                        style="@style/black_14_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/pb_cs_lv"
+                        app:layout_constraintEnd_toEndOf="@+id/pb_cs_lv"
+                        app:layout_constraintStart_toStartOf="@+id/pb_cs_lv"
+                        app:layout_constraintTop_toTopOf="@+id/pb_cs_lv"
+                        tools:text="Lv.1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <include
+                    android:id="@+id/lv_chart"
+                    layout="@layout/chart_lv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cv_cs_continue"
+                    style="@style/CardView.Default"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:clickable="true"
+                    app:cardBackgroundColor="@color/main_color">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="17dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            style="@style/black_16_500"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cs_continue"
+                            android:textColor="@color/white"
+                            app:drawableEndCompat="@drawable/icon_arrow_forward" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_cs_continue"
+                            style="@style/black_14_400"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@color/light_gray2" />
+
+                <LinearLayout
+                    android:id="@+id/ll_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/black_16_500"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="30dp"
+                        android:text="@string/cs_tab_title" />
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tl_cs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:tabIndicator="@drawable/custom_tab_indicator"
+                        app:tabIndicatorAnimationMode="elastic"
+                        app:tabMode="auto"
+                        app:tabPaddingEnd="20dp"
+                        app:tabPaddingStart="20dp"
+                        app:tabSelectedTextColor="@color/main_color"
+                        app:tabTextAppearance="@style/lightGray_16_500"
+                        app:tabTextColor="@color/font_light_gray" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/light_gray2" />
+                </LinearLayout>
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vp_cs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </com.sokind.util.StickyScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
