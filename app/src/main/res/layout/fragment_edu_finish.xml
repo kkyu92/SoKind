@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.edu.finish.EduFinishFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/bt_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ripple"
+            android:padding="10dp"
+            android:src="@drawable/icon_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/black_16_500"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cs"
+            app:layout_constraintBottom_toBottomOf="@+id/bt_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bt_back" />
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:layout_editor_absoluteX="10dp">
+
+            <TextView
+                style="@style/black_14_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edu_finish_text_1" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv_edu_title"
+                    style="@style/black_14_500"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_btn_disabled"
+                    android:paddingHorizontal="40dp"
+                    android:paddingVertical="22dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="'긍정 에너지를 전파하는 입점인사'" />
+
+                <TextView
+                    style="@style/white_12_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/custom_radius_sub_color"
+                    android:paddingHorizontal="5dp"
+                    android:paddingVertical="2dp"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_edu_title"
+                    app:layout_constraintStart_toStartOf="@+id/tv_edu_title"
+                    app:layout_constraintTop_toTopOf="@+id/tv_edu_title"
+                    tools:text="기본응대 - 1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                style="@style/black_14_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/edu_finish_text_2" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <LinearLayout
+                    android:id="@+id/ll_go_report"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ripple"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingVertical="10dp"
+                    app:layout_constraintEnd_toStartOf="@+id/ll_go_retry"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_report_cs" />
+
+                    <TextView
+                        style="@style/black_12_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/edu_finish_report" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_go_retry"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ripple"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingVertical="10dp"
+                    app:layout_constraintEnd_toStartOf="@+id/ll_go_list"
+                    app:layout_constraintStart_toEndOf="@+id/ll_go_report">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_retry" />
+
+                    <TextView
+                        style="@style/black_12_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/edu_finish_retry" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_go_list"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ripple"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingVertical="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ll_go_retry">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_list" />
+
+                    <TextView
+                        style="@style/black_12_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/edu_finish_list" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_next"
+            style="@style/black_16_500"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/edu_finish_next"
+            app:layout_constraintBottom_toTopOf="@+id/card_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_view"
+            style="@style/CardView.Default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_next">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/tv_cs_base_title"
+                    style="@style/orange_12_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="기본응대 - 1" />
+
+                <TextView
+                    android:id="@+id/tv_cs_base_sub_title"
+                    style="@style/black_14_400"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="20dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_cs_base_title"
+                    tools:text="긍정 에너지를 전파하는 입점인사" />
+
+                <ImageView
+                    android:id="@+id/iv_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_arrow_right"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

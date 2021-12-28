@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/edu_nav"
+    app:startDestination="@id/eduFragment">
+
+    <fragment
+        android:id="@+id/eduFragment"
+        android:name="com.sokind.ui.edu.EduFragment"
+        android:label="fragment_edu"
+        tools:layout="@layout/fragment_edu" >
+        <action
+            android:id="@+id/action_eduFragment_to_eduFinishFragment"
+            app:destination="@id/eduFinishFragment"
+            app:popUpTo="@id/edu_nav"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/eduFinishFragment"
+        android:name="com.sokind.ui.edu.finish.EduFinishFragment"
+        android:label="fragment_edu_finish"
+        tools:layout="@layout/fragment_edu_finish" >
+        <action
+            android:id="@+id/action_eduFinishFragment_to_eduFragment"
+            app:destination="@id/eduFragment"
+            app:popUpTo="@id/edu_nav"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

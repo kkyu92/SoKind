@@ -1,5 +1,5 @@
 package com.sokind.util
 
-interface ShowFragmentListener {
+interface ShowCsFragmentListener {
     fun showCsFragment()
 }
