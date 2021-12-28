@@ -125,6 +125,25 @@
     <string name="cs">CS교육</string>
     <string name="cs_continue">다음교육 바로 이어하기</string>
     <string name="cs_tab_title">우리회사 CS교육 과정</string>
+    <string name="deep_cs_no_title">수강할 수 있는 상황응대 CS교육이 없어요!</string>
+    <string name="deep_cs_no_content">기본응대 CS교육을 전부 이수한 후\n학습을 시작해보세요.</string>
+
+    // edu유
+    <string name="edu_ready_text">
+        조용하고, 밝은 장소에서 카메라를
+        \n눈높이에 맞춰 고정시킨 후, 화면에 비치는
+        \n김친절님의 눈을 바라보며 교육을 시행해주세요.
+    </string>
+    <string name="edu_practice"><u>AI교육 전 연습이 필요하신가요?</u></string>
+    <string name="edu_start_text"><u>준비가 되셨다면 위 마이크 버튼을 눌러주세요!</u></string>
+    <string name="edu_ing_text">교육중입니다.</string>
+    <string name="edu_end_text"><u>대답을 마치시려면 위 버튼을 눌러주세요</u></string>
+    <string name="edu_finish_text_1">수고하셨습니다.</string>
+    <string name="edu_finish_text_2">교육이 종료되었습니다.</string>
+    <string name="edu_finish_report">분석결과 보기</string>
+    <string name="edu_finish_retry">처음부터 다시하기</string>
+    <string name="edu_finish_list">CS교육 목록으로</string>
+    <string name="edu_finish_next">다음 교육을 이어서 진행할까요?</string>
 
     // %s
     <string name="join_date">%s 가입</string>
