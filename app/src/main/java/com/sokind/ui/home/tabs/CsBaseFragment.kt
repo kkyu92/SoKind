@@ -10,7 +10,7 @@ import com.sokind.ui.base.BaseFragment
 import com.sokind.util.adapter.BaseCsAdapter
 import com.sokind.util.Constants
 import com.sokind.util.RefreshFragmentListener
-import com.sokind.util.ShowFragmentListener
+import com.sokind.util.ShowCsFragmentListener
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 
@@ -19,8 +19,7 @@ class CsBaseFragment(
     private val tabName: String
 ) : BaseFragment<FragmentCsBaseBinding>(R.layout.fragment_cs_base) {
 
-    private lateinit var showListener: ShowFragmentListener
-    private lateinit var refreshListener: RefreshFragmentListener
+    private lateinit var showCsListener: ShowCsFragmentListener
     private lateinit var baseCsAdapter: BaseCsAdapter
     val dummyData = mutableListOf<CsBase>()
 
@@ -60,7 +59,7 @@ class CsBaseFragment(
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    showListener.showCsFragment()
+                    showCsListener.showCsFragment()
                 },{ it.printStackTrace() })
 
             if (tabName == "Cs") {
@@ -69,8 +68,8 @@ class CsBaseFragment(
         }
     }
 
-    fun setShowCsFragmentListener(listener: ShowFragmentListener) {
-        this.showListener = listener
+    fun setShowCsFragmentListener(listenerCs: ShowCsFragmentListener) {
+        this.showCsListener = listenerCs
     }
 
     companion object {

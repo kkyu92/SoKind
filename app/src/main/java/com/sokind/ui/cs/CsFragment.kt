@@ -1,9 +1,13 @@
 package com.sokind.ui.cs
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
@@ -11,10 +15,13 @@ import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.data.remote.home.CsBase
 import com.sokind.databinding.FragmentCsBinding
+import com.sokind.ui.EduNavActivity
 import com.sokind.ui.base.BaseFragment
 import com.sokind.ui.home.tabs.CsBaseFragment
 import com.sokind.ui.home.tabs.CsDeepFragment
 import com.sokind.util.Constants
+import com.sokind.util.ShowCsFragmentListener
+import com.sokind.util.ShowReportFragmentListener
 import com.sokind.util.adapter.TabAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -24,6 +31,7 @@ import java.util.concurrent.TimeUnit
 class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
     private val viewModel by viewModels<CsViewModel>()
 
+    private lateinit var showReportFragmentListener: ShowReportFragmentListener
     private lateinit var tabLayoutMediator: TabLayoutMediator
     val dummyData = mutableListOf<CsBase>()
 
@@ -34,7 +42,20 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
         csDeepFragment
     )
 
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == RESULT_OK) {
+            val go = it.data?.getStringExtra(Constants.MOVE_TO)
+            Timber.e("data: ${ it.data}")
+            Timber.e("go to : $go")
+            when(go) {
+                "cs" -> showToast("reload")
+                "report" -> showReportFragmentListener.showReportFragment()
+            }
+        }
+    }
+
     override fun init() {
+        Timber.e("size: ${dummyData.size}")
         initializeList()
         setTabLayout()
         setBinding()
@@ -105,13 +126,14 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-
+                    val intent = Intent(requireContext(), EduNavActivity::class.java)
+                    startForResult.launch(intent)
                 }, { it.printStackTrace() })
 
             svSticky.run {
                 header = llHeader
                 stickListener = { _ ->
-                    Timber.e( "stickListener")
+                    Timber.e("stickListener")
                 }
                 freeListener = { _ ->
                     Timber.e("freeListener")
@@ -125,7 +147,11 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
         tabLayoutMediator.detach()
     }
 
+    fun setShowReportFragmentListener(listener: ShowReportFragmentListener) {
+        this.showReportFragmentListener = listener
+    }
+
     companion object {
-        fun newInstance() = CsFragment()
+
     }
 }

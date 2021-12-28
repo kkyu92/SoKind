@@ -15,7 +15,8 @@ import com.sokind.ui.my.MyFragment
 import com.sokind.ui.report.ReportFragment
 import com.sokind.util.Constants
 import com.sokind.util.RefreshFragmentListener
-import com.sokind.util.ShowFragmentListener
+import com.sokind.util.ShowCsFragmentListener
+import com.sokind.util.ShowReportFragmentListener
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
@@ -81,10 +82,16 @@ class BottomNavActivity : BaseActivity<ActivityBottomNavBinding>(R.layout.activi
             true
         }
 
-        homeFragment.setShowCsFragmentListener(object : ShowFragmentListener {
+        homeFragment.setShowCsFragmentListener(object : ShowCsFragmentListener {
             override fun showCsFragment() {
                 underlineSelectedItem(binding.clMain, R.id.csFragment)
                 showFragment("cs")
+            }
+        })
+        csFragment.setShowReportFragmentListener(object : ShowReportFragmentListener {
+            override fun showReportFragment() {
+                underlineSelectedItem(binding.clMain, R.id.reportFragment)
+                showFragment("report")
             }
         })
     }

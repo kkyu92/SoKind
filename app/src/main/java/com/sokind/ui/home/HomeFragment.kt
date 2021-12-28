@@ -17,7 +17,7 @@ import com.sokind.ui.home.tabs.CsBaseFragment
 import com.sokind.ui.home.tabs.CsDeepFragment
 import com.sokind.util.adapter.BaseCsAdapter
 import com.sokind.util.Constants
-import com.sokind.util.ShowFragmentListener
+import com.sokind.util.ShowCsFragmentListener
 import com.sokind.util.adapter.TabAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val viewModel by viewModels<HomeViewModel>()
 
-    private lateinit var showListener: ShowFragmentListener
+    private lateinit var showCsListener: ShowCsFragmentListener
     private lateinit var baseCsAdapter: BaseCsAdapter
     private lateinit var tabLayoutMediator: TabLayoutMediator
     val dummyData = mutableListOf<CsBase>()
@@ -48,9 +48,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
 
         // 기본응대 cs 교육 > 더보기
-        csBaseFragment.setShowCsFragmentListener(object : ShowFragmentListener {
+        csBaseFragment.setShowCsFragmentListener(object : ShowCsFragmentListener {
             override fun showCsFragment() {
-                showListener.showCsFragment()
+                showCsListener.showCsFragment()
             }
         })
     }
@@ -123,13 +123,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    showListener.showCsFragment()
+                    showCsListener.showCsFragment()
                 }, { it.printStackTrace() })
         }
     }
 
-    fun setShowCsFragmentListener(listener: ShowFragmentListener) {
-        this.showListener = listener
+    fun setShowCsFragmentListener(listenerCs: ShowCsFragmentListener) {
+        this.showCsListener = listenerCs
     }
 
     override fun onDetach() {
