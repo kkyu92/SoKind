@@ -39,10 +39,8 @@ package="com.sokind">
         <nav-graph android:value="@navigation/edu_nav" />
     </activity>
     <activity
-        android:name="com.sokind.ui.edu.EduActivity"
-        android:exported="false"
-
-        />
+        android:name="com.sokind.ui.report.detail.DetailReportActivity"
+        android:exported="true" />
     <!-- FileProvider used to share media with other apps -->
     <provider
         android:name="androidx.core.content.FileProvider"

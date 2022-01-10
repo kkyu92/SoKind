@@ -121,6 +121,7 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
 
         cameraProviderFuture.addListener({
             val cameraProvider = cameraProviderFuture.get()
+            cameraProvider.unbindAll()
             camera = cameraProvider.bindToLifecycle(
                 this,
                 cameraSelector,
