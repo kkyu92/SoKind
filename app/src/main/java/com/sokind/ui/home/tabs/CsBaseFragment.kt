@@ -9,7 +9,6 @@ import com.sokind.databinding.FragmentCsBaseBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.util.adapter.BaseCsAdapter
 import com.sokind.util.Constants
-import com.sokind.util.RefreshFragmentListener
 import com.sokind.util.ShowCsFragmentListener
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit

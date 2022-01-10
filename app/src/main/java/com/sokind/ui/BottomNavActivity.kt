@@ -14,7 +14,6 @@ import com.sokind.ui.home.HomeFragment
 import com.sokind.ui.my.MyFragment
 import com.sokind.ui.report.ReportFragment
 import com.sokind.util.Constants
-import com.sokind.util.RefreshFragmentListener
 import com.sokind.util.ShowCsFragmentListener
 import com.sokind.util.ShowReportFragmentListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,8 +31,6 @@ class BottomNavActivity : BaseActivity<ActivityBottomNavBinding>(R.layout.activi
     private lateinit var csFragment: CsFragment
     private lateinit var reportFragment: ReportFragment
     private lateinit var myFragment: MyFragment
-
-    private lateinit var refreshListener: RefreshFragmentListener
 
     override fun init() {
         homeFragment = HomeFragment()
@@ -235,10 +232,6 @@ class BottomNavActivity : BaseActivity<ActivityBottomNavBinding>(R.layout.activi
                 }
             }
         }
-    }
-
-    fun setRefreshFragmentListener(listener: RefreshFragmentListener) {
-        this.refreshListener = listener
     }
 
     override fun onBackPressed() {
