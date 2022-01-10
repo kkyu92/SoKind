@@ -3,26 +3,28 @@ package com.sokind.util
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
-import com.sokind.databinding.DialogBottomSheetBinding
+import com.sokind.databinding.DialogExplainBottomSheetBinding
 import java.util.concurrent.TimeUnit
 
-class BottomSheetDialog(
-    private val question: String,
-    val itemClick: (Boolean) -> Unit
+class BottomSheetExplainDialog(
+    private val title: String,
+    private val content: String,
+    private val content2: String?
 ) : BottomSheetDialogFragment() {
-    private lateinit var binding: DialogBottomSheetBinding
+    private lateinit var binding: DialogExplainBottomSheetBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_bottom_sheet, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_explain_bottom_sheet, container, false)
         return binding.root
     }
 
@@ -30,21 +32,18 @@ class BottomSheetDialog(
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            tvDialogQuestion.text = getString(R.string.dialog_logout)
+            tvDialogTitle.text = title
+            tvDialogContent.text = content
+            tvDialogContent2.text = content2
 
-            btNo
+            if (content2.isNullOrEmpty()) {
+                tvDialogContent2.visibility = GONE
+            }
+
+            btCheck
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    itemClick(false)
-                    dialog?.dismiss()
-                }, { it.printStackTrace() })
-
-            btYes
-                .clicks()
-                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
-                .subscribe({
-                    itemClick(true)
                     dialog?.dismiss()
                 }, { it.printStackTrace() })
         }
@@ -53,10 +52,11 @@ class BottomSheetDialog(
 
     companion object {
         fun newInstance(
-            question: String,
-            itemClick: (Boolean) -> Unit
+            title: String,
+            content: String,
+            content2: String?,
         ): BottomSheetDialogFragment {
-            return BottomSheetDialog(question, itemClick)
+            return BottomSheetExplainDialog(title, content, content2)
         }
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver
-import android.widget.ScrollView
 import androidx.core.widget.NestedScrollView
 
 class StickyScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListener {
@@ -32,16 +31,33 @@ class StickyScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListen
                 }
             }
         }
+    var header2: View? = null
+        set(value) {
+            field = value
+            field?.let {
+                it.translationZ = 1f
+                it.setOnClickListener { _ ->
+                    //클릭 시, 헤더뷰가 최상단으로 오게 스크롤 이동
+                    this.smoothScrollTo(scrollX, it.top)
+                    callStickListener()
+                }
+            }
+        }
 
     var stickListener: (View) -> Unit = {}
     var freeListener: (View) -> Unit = {}
 
     private var mIsHeaderSticky = false
+    private var mIsHeaderSticky2 = false
 
     private var mHeaderInitPosition = 0f
+    private var mHeaderInitPosition2 = 0f
+    private var mHeaderHeight = 0f
 
     override fun onGlobalLayout() {
         mHeaderInitPosition = header?.top?.toFloat() ?: 0f
+        mHeaderInitPosition2 = header2?.top?.toFloat() ?: 0f
+        mHeaderHeight = header2?.height?.toFloat() ?: 0f
     }
 
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
@@ -50,13 +66,21 @@ class StickyScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListen
         val scrolly = t
 
         if (scrolly > mHeaderInitPosition) {
-            stickHeader(scrolly - mHeaderInitPosition)
+            stickHeader(header,scrolly - mHeaderInitPosition)
         } else {
-            freeHeader()
+            freeHeader(header)
+        }
+        if (header2 != null) {
+            if (scrolly > mHeaderInitPosition2) {
+                freeHeader(header)
+                stickHeader(header2,scrolly - mHeaderInitPosition2)
+            } else {
+                freeHeader(header2)
+            }
         }
     }
 
-    private fun stickHeader(position: Float) {
+    private fun stickHeader(header: View?, position: Float) {
         header?.translationY = position
         callStickListener()
     }
@@ -65,10 +89,16 @@ class StickyScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListen
         if (!mIsHeaderSticky) {
             stickListener(header ?: return)
             mIsHeaderSticky = true
+            mIsHeaderSticky2 = false
+        }
+        if (!mIsHeaderSticky2) {
+            stickListener(header2 ?: return)
+            mIsHeaderSticky = false
+            mIsHeaderSticky2 = true
         }
     }
 
-    private fun freeHeader() {
+    private fun freeHeader(header: View?) {
         header?.translationY = 0f
         callFreeListener()
     }
@@ -77,6 +107,10 @@ class StickyScrollView : NestedScrollView, ViewTreeObserver.OnGlobalLayoutListen
         if (mIsHeaderSticky) {
             freeListener(header ?: return)
             mIsHeaderSticky = false
+        }
+        if (mIsHeaderSticky2) {
+            freeListener(header2 ?: return)
+            mIsHeaderSticky2 = false
         }
     }
 
