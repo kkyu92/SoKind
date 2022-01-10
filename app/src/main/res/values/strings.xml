@@ -145,6 +145,40 @@
     <string name="edu_finish_list">CS교육 목록으로</string>
     <string name="edu_finish_next">다음 교육을 이어서 진행할까요?</string>
 
+    // report
+    <string name="report">리포트</string>
+    <string name="report_title">학습리포트</string>수
+    <string name="report_kind">현재까지 종합친절도</string>
+    <string name="report_quality">고객응대 퀄리티</string>
+    <string name="report_detail">교육별 상세 리포트</string>
+    <string name="report_total_point">종합점수</string>
+    <string name="hundred">100점</string>
+    <string name="zero">0점</string>
+    <string name="report_kind_point_1">내 <font color='#6967F9'><b>CS점수</b></font>는</string>
+    <string name="report_kind_point_2">평균보다</string>
+    <string name="report_kind_point_3">높아요</string>
+
+    <!--    <string name="report_sample"><![CDATA[<font size="22" color=\'#6967F9\'><b>%s</b></font>]]></string>-->
+    <string name="report_sample">김친절 님은 AI 교육평가 결과 CS 종합등급은 <font color='#6967F9'>A</font> 입니다.</string>
+
+    // report detail
+    <string name="report_detail_title">상세 리포트</string>
+    <string name="total">종합</string>
+    <string name="report_video">교육영상</string>
+
+    // speech
+    <string name="ment">멘트</string>
+    <string name="accent">억양</string>
+    <string name="tone">목소리 톤</string>
+    <string name="speed">말 빠르기</string>
+    <string name="repeat_txt">다시 들어보기</string>
+    <string name="speed_sps">syllable per second\n초당 음절 수</string>
+
+    // explain
+    <string name="kind_title">종합친절도란?</string>
+    <string name="kind_content">종합친절도는 현재까지 이수한 CS교육의 개발 종합점수를 평균값으로 계산한 것입니다. 종합친절도 100점에 가까울수록 친절도가 우수함을 나타냅니다.</string>
+    <string name="kind_content2">* 개별 종합점수 평가 기준 - 행동, 감정, 자세, 언어, 소리 데이터 분석 값</string>
+
     // %s
     <string name="join_date">%s 가입</string>
     <string name="send_email_content"><b>%s</b> 으로\n비밀번호 변경 이메일을 발송했습니다.</string>

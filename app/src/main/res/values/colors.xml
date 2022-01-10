@@ -11,6 +11,8 @@
 
     <color name="main_color">#6967F9</color>
     <color name="main_color2">#997FFF</color>
+    <color name="main_color_alpha">#AB6967F9</color>
+    <color name="main_color2_alpha">#C3997FFF</color>
     <color name="sub_color1">#FF6D3B</color>
     <color name="sub_color2">#FABF48</color>
     <color name="sub_color3">#FCE0DC</color>
@@ -25,4 +27,5 @@
     <color name="pb_bar">#7569FA</color>
 
     <color name="white_blur">#80FFFFFF</color>
+    <color name="seekbar_bg">#F2EEFC</color>
 </resources>

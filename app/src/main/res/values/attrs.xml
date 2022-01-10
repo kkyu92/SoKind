@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="chart">
+        <attr name="chart_first" format="integer" />
+        <attr name="chart_second" format="integer" />
+        <attr name="chart_third" format="integer" />
+        <attr name="chart_fourth" format="integer" />
+        <attr name="chart_fifth" format="integer" />
+        <attr name="chart_sixth" format="integer" />
+        <attr name="chart_full_image" format="integer" />
+        <attr name="chart_stroke_image" format="integer" />
+        <attr name="chart_line_width" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="bar">
+        <attr name="custom_background" format="integer|color" />
+        <attr name="custom_gauge" format="integer|color" />
+        <attr name="gauge" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="shoulder">
+        <attr name="shoulder_stroke_image" format="integer" />
+        <attr name="shoulder_line_width" format="dimension" />
+    </declare-styleable>
+</resources>

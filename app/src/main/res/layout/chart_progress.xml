@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="160dp">
+
+        <ImageView
+            android:id="@+id/iv_gradation_bg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="5dp"
+            android:src="@drawable/gradation_seek_bar"
+            app:layout_constraintBottom_toBottomOf="@+id/sb_total_point"
+            app:layout_constraintEnd_toEndOf="@+id/sb_total_point"
+            app:layout_constraintStart_toStartOf="@+id/sb_total_point"
+            app:layout_constraintTop_toTopOf="@+id/sb_total_point" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_gradation_bg"
+            app:layout_constraintEnd_toEndOf="@+id/iv_gradation_bg"
+            app:layout_constraintStart_toStartOf="@+id/iv_gradation_bg"
+            app:layout_constraintTop_toTopOf="@+id/iv_gradation_bg">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_kind_point"
+                    style="@style/main_18_700"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    tools:text="90" />
+
+                <TextView
+                    style="@style/lightGray_14_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="점" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <me.tankery.lib.circularseekbar.CircularSeekBar
+            android:id="@+id/sb_total_point"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:cs_circle_color="@color/seekbar_bg"
+            app:cs_circle_fill="@color/transparent"
+            app:cs_circle_progress_color="@color/main_color"
+            app:cs_circle_stroke_width="5dp"
+            app:cs_circle_style="round"
+            app:cs_circle_x_radius="200dp"
+            app:cs_circle_y_radius="200dp"
+            app:cs_disable_pointer="false"
+            app:cs_disable_progress_glow="false"
+            app:cs_end_angle="0"
+            app:cs_hide_progress_when_empty="false"
+            app:cs_lock_enabled="true"
+            app:cs_maintain_equal_circle="true"
+            app:cs_max="100"
+            app:cs_move_outside_circle="false"
+            app:cs_negative_enabled="false"
+            app:cs_pointer_alpha_ontouch="10"
+            app:cs_pointer_angle="0"
+            app:cs_pointer_color="@color/main_color"
+            app:cs_pointer_halo_border_width="0dp"
+            app:cs_pointer_halo_color="@color/main_color"
+            app:cs_pointer_halo_color_ontouch="@color/main_color"
+            app:cs_pointer_halo_width="0dp"
+            app:cs_pointer_stroke_width="10dp"
+            app:cs_progress="50"
+            app:cs_start_angle="180"
+            app:cs_use_custom_radii="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="@+id/sb_total_point"
+            app:layout_constraintEnd_toEndOf="@+id/sb_total_point"
+            app:layout_constraintStart_toStartOf="@+id/sb_total_point"
+            app:layout_constraintTop_toTopOf="@+id/sb_total_point" />
+
+        <TextView
+            style="@style/lightGray_12_400"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zero"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_gradation_bg"
+            app:layout_constraintEnd_toStartOf="@+id/iv_gradation_bg"
+            app:layout_constraintStart_toStartOf="@+id/iv_gradation_bg"
+            app:layout_constraintTop_toTopOf="@+id/iv_gradation_bg"
+            app:layout_constraintVertical_bias="0.6" />
+
+        <TextView
+            style="@style/lightGray_12_400"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hundred"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_gradation_bg"
+            app:layout_constraintEnd_toEndOf="@+id/iv_gradation_bg"
+            app:layout_constraintStart_toEndOf="@+id/iv_gradation_bg"
+            app:layout_constraintTop_toTopOf="@+id/iv_gradation_bg"
+            app:layout_constraintVertical_bias="0.6" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

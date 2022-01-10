@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.report.detail.DetailReportActivity">
+
+        <com.sokind.util.StickyScrollView
+            android:id="@+id/sv_sticky"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/bt_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:padding="10dp"
+                        android:src="@drawable/icon_back"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textView3" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        style="@style/black_16_500"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="30dp"
+                        android:text="@string/report_detail_title"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp">
+
+                    <ImageView
+                        android:id="@+id/iv_cs_profile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/img_profile"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_cs_user_name"
+                        style="@style/black_18_700"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_cs_user_enterprise"
+                        app:layout_constraintStart_toEndOf="@+id/iv_cs_profile"
+                        app:layout_constraintTop_toTopOf="@+id/iv_cs_profile"
+                        tools:text="김진철 사원" />
+
+                    <TextView
+                        android:id="@+id/tv_cs_user_enterprise"
+                        style="@style/gray_14_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_cs_profile"
+                        app:layout_constraintStart_toStartOf="@+id/tv_cs_user_name"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_cs_user_name"
+                        tools:text="CJ올리브영 / 공덕점" />
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/pb_cs_lv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:indeterminateOnly="false"
+                        android:max="100"
+                        android:progress="20"
+                        app:indicatorColor="@color/pb_bar"
+                        app:indicatorSize="56dp"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_cs_day"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:trackColor="@color/pb_background"
+                        app:trackCornerRadius="20dp"
+                        app:trackThickness="5dp" />
+
+                    <TextView
+                        android:id="@+id/tv_cs_day"
+                        style="@style/black_13_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/pb_cs_lv"
+                        app:layout_constraintStart_toStartOf="@+id/pb_cs_lv"
+                        app:layout_constraintTop_toBottomOf="@+id/pb_cs_lv"
+                        tools:text="교육 1일차" />
+
+                    <TextView
+                        android:id="@+id/tv_cs_lv"
+                        style="@style/black_14_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/pb_cs_lv"
+                        app:layout_constraintEnd_toEndOf="@+id/pb_cs_lv"
+                        app:layout_constraintStart_toStartOf="@+id/pb_cs_lv"
+                        app:layout_constraintTop_toTopOf="@+id/pb_cs_lv"
+                        tools:text="Lv.1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    style="@style/orange_12_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    tools:text="기본응대 - 1" />
+
+                <TextView
+                    style="@style/black_16_500"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    tools:text="긍정 에너지를 전파하는 입점인사" />
+
+                <TextView
+                    style="@style/lightGray_13_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    tools:text="교육일자 : 2021.09.30 (금)" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tl_report_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingVertical="10dp"
+                    android:background="@color/white"
+                    android:clipToPadding="true"
+                    app:tabIconTint="#ffffff"
+                    app:tabIconTintMode="multiply"
+                    app:tabIndicator="@drawable/custom_tab_indicator"
+                    app:tabIndicatorAnimationMode="elastic"
+                    app:tabMode="fixed"
+                    app:tabSelectedTextColor="@color/main_color"
+                    app:tabTextAppearance="@style/lightGray_14_400"
+                    app:tabTextColor="@color/font_light_gray" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vp_report_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </com.sokind.util.StickyScrollView>
+</layout>
