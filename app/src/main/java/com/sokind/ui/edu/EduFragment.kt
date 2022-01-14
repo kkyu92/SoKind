@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
@@ -81,7 +80,7 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
                     llContainerQuestion.visibility = View.GONE
                     llContainerCount.visibility = View.GONE
                     GlideApp.with(requireContext()).load(R.drawable.loading_stop).into(ivLoading)
-                    GlideApp.with(requireContext()).load(0).into(pbLoading.loadingGif)
+                    GlideApp.with(requireContext()).clear(pbLoading.loadingGif)
                     showLoading(false, pbLoading.loadingContainer)
                 }
                 START -> {
