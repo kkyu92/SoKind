@@ -1,7 +1,7 @@
 package com.sokind.data.di
 
-import com.sokind.data.repository.test.TestRepository
-import com.sokind.data.repository.test.TestRepositoryImpl
+import com.sokind.data.repository.member.MemberRepository
+import com.sokind.data.repository.member.MemberRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -12,9 +12,9 @@ import dagger.hilt.components.SingletonComponent
 abstract class RepositoryModule {
 
     @Binds
-    abstract fun bindsTestRepository(
-        repositoryImpl: TestRepositoryImpl
-    ): TestRepository
+    abstract fun bindsMemberRepository(
+        repositoryImpl: MemberRepositoryImpl
+    ): MemberRepository
 
 //    @Binds
 //    abstract fun bindsMyPageRepository(

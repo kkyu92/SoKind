@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
     private val viewModel by viewModels<LoginViewModel>()
+    private var loginTry = false
     private var loginInfo = false
     private val backBtnSubject = PublishSubject.create<Boolean>()
     private lateinit var callback: OnBackPressedCallback
@@ -42,8 +43,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
 
     override fun init() {
-        var loginTry = false
-
+        setBinding()
         compositeDisposable.add(
             backBtnSubject
                 .debounce(100, TimeUnit.MILLISECONDS)
@@ -63,6 +63,29 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 }
         )
 
+        viewModel.apply {
+            loginResult.observe(viewLifecycleOwner, {
+                if (it) {
+                    if (onBoardingFinished()) {
+                        findNavController().navigate(R.id.action_loginFragment_to_bottomNavActivity)
+                    } else {
+                        findNavController().navigate(R.id.action_loginFragment_to_boardingFragment)
+                    }
+                } else {
+                    showToast("")
+                }
+            })
+            isLoading.observe(viewLifecycleOwner, { isLoading ->
+                if (isLoading) {
+                    showLoading(true, binding.pbLoading)
+                } else {
+                    showLoading(false, binding.pbLoading)
+                }
+            })
+        }
+    }
+
+    private fun setBinding() {
         val idWatcher = binding.etIdInput.textChanges()
         val pwWatcher = binding.etPwInput.textChanges()
 
@@ -116,14 +139,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                         loginTry = true
                     }
                     if (loginInfo) {
-                        //TODO api
-                        // 결과값으로 비밀번호 에러 표시
-                        showToast("api 확인")
-                        if (onBoardingFinished()) {
-                            findNavController().navigate(R.id.action_loginFragment_to_bottomNavActivity)
-                        } else {
-                            findNavController().navigate(R.id.action_loginFragment_to_boardingFragment)
-                        }
+                        viewModel.doLoginRequest(
+                            binding.etIdInput.text.toString(),
+                            binding.etPwInput.text.toString()
+                        )
                     } else {
                         showToast("아이디와 비밀번호를 확인해주세요.")
                     }

@@ -49,8 +49,8 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="15dp"
                 android:orientation="vertical"
-                android:paddingVertical="30dp"
                 android:paddingHorizontal="20dp"
+                android:paddingVertical="30dp"
                 android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/bt_next"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -100,7 +100,8 @@
                 <LinearLayout
                     android:id="@+id/ll_no_enterprise_result"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:visibility="gone">
@@ -148,6 +149,15 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:hint="@string/hint_enterprise_code" />
+
+                    <TextView
+                        android:id="@+id/tv_code_error"
+                        style="@style/orange_12_400"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/hint_enterprise_code_error"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -155,10 +165,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <TextView
-                        android:id="@+id/tv_enterprise_department"
+                        android:id="@+id/tv_enterprise_store"
                         style="@style/lightGray_12_400"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -166,12 +176,12 @@
                         android:text="@string/enterprise_department" />
 
                     <Spinner
-                        android:id="@+id/sp_enterprise_department"
+                        android:id="@+id/sp_enterprise_store"
                         style="@style/Spinner.Item"
-                        android:background="@drawable/custom_spinner_bg"
-                        android:spinnerMode="dropdown"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/custom_spinner_bg"
+                        android:spinnerMode="dropdown" />
 
                     <TextView
                         android:id="@+id/tv_enterprise_position"
@@ -184,10 +194,10 @@
                     <Spinner
                         android:id="@+id/sp_enterprise_position"
                         style="@style/Spinner.Item"
-                        android:background="@drawable/custom_spinner_bg"
-                        android:spinnerMode="dropdown"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/custom_spinner_bg"
+                        android:spinnerMode="dropdown" />
                 </LinearLayout>
             </LinearLayout>
 

@@ -1,8 +1,5 @@
 package com.sokind.ui.join.third
 
-import android.provider.CalendarContract
-import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding4.view.clicks
@@ -15,7 +12,6 @@ import com.sokind.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.functions.BiFunction
-import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
@@ -23,6 +19,14 @@ class JoinThirdFragment : BaseFragment<FragmentJoinThirdBinding>(R.layout.fragme
     private val viewModel by viewModels<JoinThirdViewModel>()
 
     override fun init() {
+        arguments?.apply {
+            mEnterpriseKey = getInt("enterprise_key")
+            mStoreKey = getInt("store_key")
+            mPositionKey = getInt("position_key")
+            mName = getString("member_name", null)
+            mEmail = getString("member_email", null)
+            mId = getString("member_id", null)
+        }
         setBinding()
 
     }
@@ -70,12 +74,27 @@ class JoinThirdFragment : BaseFragment<FragmentJoinThirdBinding>(R.layout.fragme
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    findNavController().navigate(R.id.action_joinThirdFragment_to_joinFourthFragment)
+                    val action = JoinThirdFragmentDirections.actionJoinThirdFragmentToJoinFourthFragment(
+                        mEnterpriseKey,
+                        mStoreKey,
+                        mPositionKey,
+                        mName,
+                        mEmail,
+                        mId,
+                        memberPw = etPwInput.text.toString()
+                    )
+                    findNavController().navigate(action)
                 }, { it.printStackTrace() })
         }
     }
 
     companion object {
-        private const val TAG = "JoinThirdFragment"
+        fun newInstance() = JoinThirdFragment()
+        private var mEnterpriseKey: Int = 0
+        private var mStoreKey: Int = 0
+        private var mPositionKey: Int = 0
+        private lateinit var mName: String
+        private lateinit var mEmail: String
+        private lateinit var mId: String
     }
 }

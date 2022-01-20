@@ -1,7 +1,7 @@
 package com.sokind.data.di
 
-import com.sokind.data.remote.test.TestDataSource
-import com.sokind.data.remote.test.TestDataSourceImpl
+import com.sokind.data.remote.member.MemberDataSource
+import com.sokind.data.remote.member.MemberDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -11,7 +11,7 @@ import dagger.hilt.components.SingletonComponent
 @Module
 abstract class RemoteDataModule {
     @Binds
-    abstract fun bindTestDataSource(testDataSourceImpl: TestDataSourceImpl) : TestDataSource
+    abstract fun bindMemberDataSource(memberDataSourceImpl: MemberDataSourceImpl): MemberDataSource
 //
 //    @Binds
 //    abstract fun bindSearchDataSource(searchDataSourceImpl: SearchDataSourceImpl) : SearchDataSource

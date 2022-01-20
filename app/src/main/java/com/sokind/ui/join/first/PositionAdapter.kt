@@ -7,26 +7,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.annotation.LayoutRes
+import com.sokind.data.remote.member.join.Position
 import com.sokind.databinding.ItemEnterpriseListBinding
 
-class SpinnerAdapter(
+class PositionAdapter(
     context: Context,
     @LayoutRes private val resId: Int,
-    private val values: MutableList<String>
-) : ArrayAdapter<String>(context, resId, values) {
+    private val positionList: MutableList<Position>
+) : ArrayAdapter<Position>(context, resId, positionList) {
 
-    override fun getCount() = values.size
+    override fun getCount() = positionList.size
 
 
-    override fun getItem(position: Int) = values[position]
+    override fun getItem(position: Int) = positionList[position]
 
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val binding = ItemEnterpriseListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val text = values[position]
+        val pos = positionList[position]
         try {
             binding.apply {
-                tvEnterpriseList.text = text
+                tvEnterpriseList.text = pos.positionName
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -36,9 +37,9 @@ class SpinnerAdapter(
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         val binding = ItemEnterpriseListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val text = values[position]
+        val pos = positionList[position]
         try {
-            binding.tvEnterpriseList.text = text
+            binding.tvEnterpriseList.text = pos.positionName
         } catch (e: Exception) {
             e.printStackTrace()
         }

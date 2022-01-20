@@ -84,16 +84,35 @@
                     android:layout_height="wrap_content"
                     android:text="@string/email" />
 
-                <EditText
-                    android:id="@+id/et_email_input"
-                    style="@style/EditText.Input"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:hint="@string/hint_email"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress"
-                    android:nextFocusDown="@+id/et_code_input" />
+                    android:layout_marginTop="5dp">
+
+                    <EditText
+                        android:id="@+id/et_email_input"
+                        style="@style/EditText.Input"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/hint_email"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="36"
+                        android:nextFocusDown="@+id/et_code_input" />
+
+                    <TextView
+                        android:id="@+id/tv_email_check"
+                        style="@style/lightGray_14_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:paddingHorizontal="20dp"
+                        android:text="인증하기"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 <TextView
                     android:id="@+id/tv_error_email"
@@ -115,14 +134,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/code" />
 
-                <EditText
-                    android:id="@+id/et_code_input"
-                    style="@style/EditText.Input"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:hint="@string/hint_code"
-                    android:maxLength="6" />
+                    android:layout_marginTop="5dp">
+
+                    <EditText
+                        android:id="@+id/et_code_input"
+                        style="@style/EditText.Input"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/hint_code"
+                        android:maxLength="6" />
+
+                    <TextView
+                        android:id="@+id/tv_code_check"
+                        style="@style/lightGray_14_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:paddingHorizontal="20dp"
+                        android:text="인증확인"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/tv_error_code"
@@ -153,14 +189,31 @@
                     android:layout_height="wrap_content"
                     android:text="@string/id" />
 
-                <EditText
-                    android:id="@+id/et_id_input"
-                    style="@style/EditText.Input"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:hint="@string/hint_join_id_short"
-                    android:maxLength="12" />
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_id_input"
+                        style="@style/EditText.Input"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:hint="@string/hint_join_id_short"
+                        android:maxLength="12" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/bt_id_check"
+                        style="@style/Button.Fill.Main.Selector"
+                        android:layout_width="92dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="5dp"
+                        android:enabled="false"
+                        android:text="중복체크"
+                        android:textSize="14sp" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_error_id"
@@ -184,6 +237,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <include
+                android:id="@+id/pb_loading"
+                layout="@layout/layout_loading" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

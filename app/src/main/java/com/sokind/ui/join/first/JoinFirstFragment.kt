@@ -7,10 +7,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxbinding4.view.focusChanges
-import com.jakewharton.rxbinding4.widget.itemClicks
 import com.jakewharton.rxbinding4.widget.itemSelections
 import com.jakewharton.rxbinding4.widget.textChanges
 import com.sokind.R
+import com.sokind.data.remote.member.join.Enterprise
+import com.sokind.data.remote.member.join.Position
+import com.sokind.data.remote.member.join.Store
 import com.sokind.databinding.FragmentJoinFirstBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.util.Constants
@@ -23,91 +25,108 @@ import java.util.concurrent.TimeUnit
 class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragment_join_first) {
     private val viewModel by viewModels<JoinFirstViewModel>()
 
+    private var mEnterpriseKey: Int = 0
+    private var mStoreKey: Int = 0
+    private var mPositionKey: Int = 0
+    private lateinit var mCode: String
+
     private lateinit var searchAdapter: SearchAdapter
-    private lateinit var departmentAdapter: SpinnerAdapter
-    private lateinit var positionAdapter: SpinnerAdapter
-    private val listOfDepartment = ArrayList<String>()
-    private val listOfPosition = ArrayList<String>()
+    private lateinit var storeAdapter: StoreAdapter
+    private lateinit var positionAdapter: PositionAdapter
+    private val storeList: MutableList<Store> = mutableListOf()
+    private val positionList: MutableList<Position> = mutableListOf()
 
     override fun init() {
         setBinding()
+        setSearch()
         setSpinner()
+    }
 
+    private fun setSearch() {
         viewModel.autoText.observe(viewLifecycleOwner, {
             val searchWord = binding.autoSearchView.text.toString()
-
-            if (it.isEmpty()) {
-                binding.rvEnterprise.visibility = View.GONE
-                binding.tvNoEnterprise.text = Html.fromHtml(
-                    String.format(
-                        getString(R.string.no_enterprise_content_1),
-                        searchWord
+            if (searchWord.isNotEmpty()) {
+                if (it.data.isEmpty()) {
+                    binding.rvEnterprise.visibility = View.GONE
+                    binding.tvNoEnterprise.text = Html.fromHtml(
+                        String.format(
+                            getString(R.string.no_enterprise_content_1),
+                            searchWord
+                        )
                     )
-                )
-                binding.llNoEnterpriseResult.visibility = View.VISIBLE
-            } else {
-                searchAdapter.setData(it, searchWord)
+                    binding.llNoEnterpriseResult.visibility = View.VISIBLE
+                } else {
+                    binding.rvEnterprise.visibility = View.VISIBLE
+                    binding.llNoEnterpriseResult.visibility = View.GONE
+                    searchAdapter.setData(it.data, searchWord)
+                }
             }
         })
-    }
-
-    private fun setSpinner() {
-        val departments = resources.getStringArray(R.array.department_test)
-        for (i in departments.indices) {
-            val department = departments[i]
-            listOfDepartment.add(department)
-        }
-        departmentAdapter =
-            SpinnerAdapter(requireContext(), R.layout.item_enterprise_list, listOfDepartment)
-        binding.spEnterpriseDepartment.adapter = departmentAdapter
-
-        val positions = resources.getStringArray(R.array.position_test)
-        for (i in positions.indices) {
-            val position = positions[i]
-            listOfPosition.add(position)
-        }
-        positionAdapter =
-            SpinnerAdapter(requireContext(), R.layout.item_enterprise_list, listOfPosition)
-        binding.spEnterprisePosition.adapter = positionAdapter
-    }
-
-    private fun setBinding() {
-        searchAdapter = SearchAdapter()
 
         binding.apply {
             rvEnterprise.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             rvEnterprise.adapter = searchAdapter
             searchAdapter.setOnItemClickListener(object : SearchAdapter.OnItemClickListener {
-                override fun onItemClick(v: View, enterprise: String, pos: Int) {
-                    autoSearchView.setText(enterprise)
+                override fun onItemClick(v: View, enterprise: Enterprise, pos: Int) {
+                    autoSearchView.setText(enterprise.enterpriseName)
+                    autoSearchView.isEnabled = false
                     rvEnterprise.visibility = View.GONE
                     llContainerCode.visibility = View.VISIBLE
                     etEnterpriseCodeInput.requestFocus()
+                    viewModel.getStoreList(enterprise.enterpriseCode, enterprise.enterpriseKey)
+                    mCode = enterprise.enterpriseCode
+                    mEnterpriseKey = enterprise.enterpriseKey
                 }
             })
 
             // endIcon event
             tiLayout.setEndIconOnClickListener {
-                autoSearchView.text.clear()
-                etEnterpriseCodeInput.text.clear()
-                searchAdapter.setClear()
-                rvEnterprise.visibility = View.VISIBLE
-                llContainerCode.visibility = View.GONE
-                llContainerMore.visibility = View.GONE
+                setClear()
             }
+        }
+    }
 
+    private fun setSpinner() {
+        viewModel.storeList.observe(viewLifecycleOwner, {
+            storeList.add(Store(0, "- 점포를 선택해주세요 -", ""))
+            for (i in it.indices) {
+                storeList.add(it[i])
+            }
+            storeAdapter =
+                StoreAdapter(requireContext(), R.layout.item_enterprise_list, storeList)
+            binding.spEnterpriseStore.adapter = storeAdapter
+        })
+        viewModel.positionList.observe(viewLifecycleOwner, {
+            positionList.add(Position(0, "- 직책을 선택해주세요 -"))
+            for (i in it.indices) {
+                positionList.add(it[i])
+            }
+            positionAdapter =
+                PositionAdapter(requireContext(), R.layout.item_enterprise_list, positionList)
+            binding.spEnterprisePosition.adapter = positionAdapter
+        })
+    }
+
+    private fun setBinding() {
+        searchAdapter = SearchAdapter()
+
+        binding.apply {
             compositeDisposable.add(
                 Observable
                     .combineLatest(
-                        spEnterpriseDepartment.itemSelections(),
+                        spEnterpriseStore.itemSelections(),
                         spEnterprisePosition.itemSelections(),
-                        BiFunction { departmentSelect: Int, positionSelect: Int ->
-                            return@BiFunction departmentSelect > 0 && positionSelect > 0
+                        BiFunction { storeSelect: Int, positionSelect: Int ->
+                            if (storeSelect > 0 && positionSelect > 0) {
+                                mStoreKey = storeList[storeSelect].storeKey
+                                mPositionKey = positionList[positionSelect].positionKey
+                            }
+                            return@BiFunction storeSelect > 0 && positionSelect > 0
                         }
                     )
-                    .subscribe({
-                        btNext.isEnabled = it
+                    .subscribe({ select ->
+                        btNext.isEnabled = select
                     }, { it.printStackTrace() })
             )
 
@@ -116,26 +135,30 @@ class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragme
                 .textChanges()
                 .subscribe({
                     if (it.isNotEmpty()) {
-                        if (Constants.validateKo(it.toString()) || Constants.validateEn(it.toString())) {
+                        if (Constants.validateKo(it.toString()) || Constants.validateEn(it.toString())
+                        ) {
                             viewModel.searchEnterprise(it)
                         }
                     } else {
-                        autoSearchView.text.clear()
-                        etEnterpriseCodeInput.text.clear()
-                        searchAdapter.setClear()
-                        rvEnterprise.visibility = View.VISIBLE
-                        llContainerCode.visibility = View.GONE
-                        llContainerMore.visibility = View.GONE
+                        setClear()
                     }
                 }, { it.printStackTrace() })
             etEnterpriseCodeInput
                 .textChanges()
                 .subscribe({
-                    if (it.isNotEmpty()) {
-                        llContainerMore.visibility = View.VISIBLE
-                        hideKeyboard()
-                    } else {
-                        llContainerMore.visibility = View.GONE
+                    when {
+                        it.isNullOrBlank() -> {
+                            tvCodeError.visibility = View.GONE
+                        }
+                        it.toString() == mCode -> {
+                            etEnterpriseCodeInput.isEnabled = false
+                            tvCodeError.visibility = View.GONE
+                            llContainerMore.visibility = View.VISIBLE
+                            hideKeyboard()
+                        }
+                        else -> {
+                            tvCodeError.visibility = View.VISIBLE
+                        }
                     }
                 }, { it.printStackTrace() })
 
@@ -162,8 +185,31 @@ class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragme
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    findNavController().navigate(R.id.action_joinFirstFragment_to_joinSecondFragment)
+                    val action =
+                        JoinFirstFragmentDirections.actionJoinFirstFragmentToJoinSecondFragment(
+                            mEnterpriseKey,
+                            mStoreKey,
+                            mPositionKey
+                        )
+                    findNavController().navigate(action)
                 }, { it.printStackTrace() })
+        }
+    }
+
+    private fun setClear() {
+        binding.apply {
+            autoSearchView.text.clear()
+            etEnterpriseCodeInput.text.clear()
+            searchAdapter.setClear()
+            storeList.clear()
+            positionList.clear()
+            rvEnterprise.visibility = View.VISIBLE
+            llContainerCode.visibility = View.GONE
+            llContainerMore.visibility = View.GONE
+            mCode = ""
+            autoSearchView.isEnabled = true
+            etEnterpriseCodeInput.isEnabled = true
+            btNext.isEnabled = false
         }
     }
 

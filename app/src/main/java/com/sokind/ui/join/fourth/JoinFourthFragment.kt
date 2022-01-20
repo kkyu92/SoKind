@@ -5,19 +5,31 @@ import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxbinding4.widget.checkedChanges
 import com.sokind.R
+import com.sokind.data.remote.member.join.JoinInfo
 import com.sokind.databinding.FragmentJoinFourthBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.util.Constants
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.functions.Function6
-import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
+@AndroidEntryPoint
 class JoinFourthFragment : BaseFragment<FragmentJoinFourthBinding>(R.layout.fragment_join_fourth) {
     private val viewModel by viewModels<JoinFourthViewModel>()
 
     override fun init() {
+        arguments?.apply {
+            mEnterpriseKey = getInt("enterprise_key")
+            mStoreKey = getInt("store_key")
+            mPositionKey = getInt("position_key")
+            mName = getString("member_name", null)
+            mEmail = getString("member_email", null)
+            mId = getString("member_id", null)
+            mPw = getString("member_pw", null)
+        }
         setBinding()
+        setViewModel()
     }
 
     private fun setBinding() {
@@ -68,13 +80,39 @@ class JoinFourthFragment : BaseFragment<FragmentJoinFourthBinding>(R.layout.frag
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
+                    viewModel.signUp(
+                        JoinInfo(
+                        mName, mEmail, mId, mPw,
+                        if (cbMale.isChecked) 1 else 0,
+                        mEnterpriseKey, mStoreKey, mPositionKey,
+                        if (cbTerms4.isChecked) 1 else 0
+                    )
+                    )
+                }, { it.printStackTrace() })
+        }
+    }
+
+    private fun setViewModel() {
+        viewModel.apply {
+            signFinish.observe(viewLifecycleOwner, { isSign ->
+                if (isSign) {
                     findNavController().navigate(R.id.action_joinFourthFragment_to_loginFragment)
                     showToast("회원가입을 완료했습니다.")
-                }, { it.printStackTrace() })
+                } else {
+                    showToast("회원가입을 실패.")
+               }
+            })
         }
     }
 
     companion object {
         fun newInstance() = JoinFourthFragment()
+        private var mEnterpriseKey: Int = 0
+        private var mStoreKey: Int = 0
+        private var mPositionKey: Int = 0
+        private lateinit var mName: String
+        private lateinit var mEmail: String
+        private lateinit var mId: String
+        private lateinit var mPw: String
     }
 }

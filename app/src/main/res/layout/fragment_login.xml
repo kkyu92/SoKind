@@ -133,5 +133,8 @@
                 android:text="@string/join" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <include
+            android:id="@+id/pb_loading"
+            layout="@layout/layout_loading" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

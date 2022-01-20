@@ -32,7 +32,6 @@ class UserDataSourceImpl @Inject constructor(
             .subscribeOn(Schedulers.io())
 //            .doOnSuccess { throw Exception() }
 //            .onErrorResumeNext {  }
-            .onErrorReturn { "error" }
     }
 
     override fun updateAccessToken(access: String): Completable {

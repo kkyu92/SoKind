@@ -1,13 +1,12 @@
 package com.sokind.data.di
 
 import com.sokind.BuildConfig
-import com.sokind.data.remote.test.TestApi
+import com.sokind.data.remote.member.MemberApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Call
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -74,11 +73,12 @@ object NetworkModule {
             .build()
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideLoginApi(@Named("base_retrofit") retrofit: Retrofit): LoginApi {
-//        return retrofit.create(LoginApi::class.java)
-//    }
+    @Singleton
+    @Provides
+    fun provideLoginApi(@Named("base_retrofit") retrofit: Retrofit): MemberApi {
+        return retrofit.create(MemberApi::class.java)
+    }
+
 //
 //    @Singleton
 //    @Provides
@@ -87,71 +87,71 @@ object NetworkModule {
 //    }
 
     ///////////////////////////////--Test
-    @Singleton
-    @Provides
-    @Named("test_url")
-    fun provideTestUrl(): String {
-        return BuildConfig.TEST_URL
-    }
+//    @Singleton
+//    @Provides
+//    @Named("test_url")
+//    fun provideTestUrl(): String {
+//        return BuildConfig.TEST_URL
+//    }
+//
+//    @Singleton
+//    @Provides
+//    @Named("test_api_key")
+//    fun provideTestApiKey(): String {
+//        return BuildConfig.TEST_API_KEY
+//    }
 
-    @Singleton
-    @Provides
-    @Named("test_api_key")
-    fun provideTestApiKey(): String {
-        return BuildConfig.TEST_API_KEY
-    }
-
-    @Singleton
-    @Provides
-    fun provideTestApiKeyInterceptor(@Named("test_api_key") apiKey: String): Interceptor {
-        return Interceptor.invoke { chain ->
-            val originalRequest = chain.request()
-            val originalUrl = originalRequest.url
-
-            val newUrl = originalUrl.newBuilder()
-                .addQueryParameter("api_key", apiKey)
-                .build()
-            val newRequest = originalRequest.newBuilder()
-                .url(newUrl)
-                .build()
-
-            chain.proceed(newRequest)
-        }
-    }
-
-    @Singleton
-    @Provides
-    @Named("test_factory")
-    fun provideCallTestFactory(
-        httpLoggingInterceptor: HttpLoggingInterceptor,
-        testApiKeyInterceptor: Interceptor
-    ): Call.Factory {
-        return OkHttpClient.Builder()
-            .addInterceptor(httpLoggingInterceptor)
-            .addInterceptor(testApiKeyInterceptor)
-            .build()
-    }
-
-    @Singleton
-    @Provides
-    @Named("test_retrofit")
-    fun provideTestRetrofit(
-        @Named("test_factory") httpLoggingInterceptor: Call.Factory,
-        gsonConverterFactory: GsonConverterFactory,
-        rxJava3CallAdapterFactory: RxJava3CallAdapterFactory,
-        @Named("test_url") baseUrl: String
-    ): Retrofit {
-        return Retrofit.Builder()
-            .callFactory(httpLoggingInterceptor)
-            .addConverterFactory(gsonConverterFactory)
-            .addCallAdapterFactory(rxJava3CallAdapterFactory)
-            .baseUrl(baseUrl)
-            .build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideTestApi(@Named("test_retrofit") retrofit: Retrofit): TestApi {
-        return retrofit.create(TestApi::class.java)
-    }
+//    @Singleton
+//    @Provides
+//    fun provideTestApiKeyInterceptor(@Named("test_api_key") apiKey: String): Interceptor {
+//        return Interceptor.invoke { chain ->
+//            val originalRequest = chain.request()
+//            val originalUrl = originalRequest.url
+//
+//            val newUrl = originalUrl.newBuilder()
+//                .addQueryParameter("api_key", apiKey)
+//                .build()
+//            val newRequest = originalRequest.newBuilder()
+//                .url(newUrl)
+//                .build()
+//
+//            chain.proceed(newRequest)
+//        }
+//    }
+//
+//    @Singleton
+//    @Provides
+//    @Named("test_factory")
+//    fun provideCallTestFactory(
+//        httpLoggingInterceptor: HttpLoggingInterceptor,
+//        testApiKeyInterceptor: Interceptor
+//    ): Call.Factory {
+//        return OkHttpClient.Builder()
+//            .addInterceptor(httpLoggingInterceptor)
+//            .addInterceptor(testApiKeyInterceptor)
+//            .build()
+//    }
+//
+//    @Singleton
+//    @Provides
+//    @Named("test_retrofit")
+//    fun provideTestRetrofit(
+//        @Named("test_factory") httpLoggingInterceptor: Call.Factory,
+//        gsonConverterFactory: GsonConverterFactory,
+//        rxJava3CallAdapterFactory: RxJava3CallAdapterFactory,
+//        @Named("test_url") baseUrl: String
+//    ): Retrofit {
+//        return Retrofit.Builder()
+//            .callFactory(httpLoggingInterceptor)
+//            .addConverterFactory(gsonConverterFactory)
+//            .addCallAdapterFactory(rxJava3CallAdapterFactory)
+//            .baseUrl(baseUrl)
+//            .build()
+//    }
+//
+//    @Singleton
+//    @Provides
+//    fun provideTestApi(@Named("test_retrofit") retrofit: Retrofit): TestApi {
+//        return retrofit.create(TestApi::class.java)
+//    }
 }

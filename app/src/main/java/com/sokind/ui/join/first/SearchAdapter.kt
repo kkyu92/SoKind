@@ -14,10 +14,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.RecyclerView
+import com.sokind.data.remote.member.join.Enterprise
 import com.sokind.databinding.ItemSearchEnterpriseBinding
 
 class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
-    private var enterpriseList: MutableList<String> = mutableListOf()
+    private var enterpriseList: MutableList<Enterprise> = mutableListOf()
     private lateinit var searchWord: String
     private lateinit var listener: OnItemClickListener
 
@@ -34,7 +35,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 
     override fun getItemCount(): Int = enterpriseList.size
 
-    fun setData(changedList: List<String>, word: String) {
+    fun setData(changedList: List<Enterprise>, word: String) {
         searchWord = word
         enterpriseList.clear()
         enterpriseList.addAll(changedList)
@@ -52,7 +53,8 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
     ) : RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("ClickableViewAccessibility")
-        fun bind(enterprise: String) {
+        fun bind(enterprise: Enterprise) {
+            val name = enterprise.enterpriseName
             itemView.setOnClickListener {
                 listener.onItemClick(it, enterprise, adapterPosition)
             }
@@ -69,13 +71,13 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 //            Timber.e("itemWord: $enterprise") // 기업명
 //            Timber.e("indexOf: ${enterprise.indexOf(searchWord)}")
             if (searchWord.isNotEmpty()) {
-                if (enterprise.indexOf(searchWord) == -1) {
-                    binding.tvSearchEnterprise.text = enterprise
+                if (name.indexOf(searchWord) == -1) {
+                    binding.tvSearchEnterprise.text = name
                 } else {
-                    val start: Int = enterprise.indexOf(searchWord[0])
+                    val start: Int = name.indexOf(searchWord[0])
 //                    val end: Int = enterprise.indexOf(searchWord[searchWord.length - 1]) + 1
                     var end: Int = start
-                    val spannableString = SpannableString(enterprise)
+                    val spannableString = SpannableString(name)
 //
 //                    for (i in 1 until searchWord.length) {
 //                        if (enterprise.indexOf(searchWord[i]) == enterprise.indexOf(searchWord[i-1]) + 1) {
@@ -88,7 +90,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
 //                        }
 //                    }
                     for (i in searchWord.indices) {
-                        if (enterprise[i] == searchWord[i]) {
+                        if (name[i] == searchWord[i]) {
                             end++
                         } else {
                             break
@@ -116,7 +118,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
     }
 
     interface OnItemClickListener {
-        fun onItemClick(v: View, enterprise: String, pos: Int)
+        fun onItemClick(v: View, enterprise: Enterprise, pos: Int)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
