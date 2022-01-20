@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sokind.R
-import com.sokind.data.remote.home.CsBase
+import com.sokind.data.remote.edu.CsBase
 import com.sokind.databinding.ItemBaseCsBinding
 
 class BaseCsAdapter(

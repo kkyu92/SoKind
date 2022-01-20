@@ -3,7 +3,7 @@ package com.sokind.util.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.sokind.data.remote.home.CsDeep
+import com.sokind.data.remote.edu.CsDeep
 import com.sokind.databinding.ItemDeepCsBinding
 
 class DeepCsAdapter(
@@ -23,12 +23,16 @@ class DeepCsAdapter(
     }
 
     override fun getItemCount(): Int {
-        val count = if (csDeepList.size > 5) {
-            5
+        return if (tabName == "Home") {
+            val count = if (csDeepList.size > 5) {
+                5
+            } else {
+                csDeepList.size
+            }
+            count
         } else {
             csDeepList.size
         }
-        return count
     }
 
     inner class HomeCsViewHolder(

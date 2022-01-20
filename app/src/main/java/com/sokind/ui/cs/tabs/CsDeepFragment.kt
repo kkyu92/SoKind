@@ -1,8 +1,8 @@
-package com.sokind.ui.home.tabs
+package com.sokind.ui.cs.tabs
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sokind.R
-import com.sokind.data.remote.home.CsDeep
+import com.sokind.data.remote.edu.CsDeep
 import com.sokind.databinding.FragmentCsDeepBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.util.adapter.DeepCsAdapter

@@ -1,15 +1,15 @@
-package com.sokind.ui.home.tabs
+package com.sokind.ui.cs.tabs
 
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
-import com.sokind.data.remote.home.CsBase
+import com.sokind.data.remote.edu.CsBase
 import com.sokind.databinding.FragmentCsBaseBinding
 import com.sokind.ui.base.BaseFragment
-import com.sokind.util.adapter.BaseCsAdapter
 import com.sokind.util.Constants
 import com.sokind.util.ShowCsFragmentListener
+import com.sokind.util.adapter.BaseCsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 
@@ -65,10 +65,6 @@ class CsBaseFragment(
                 tvBaseMore.visibility = View.GONE
             }
         }
-    }
-
-    fun setShowCsFragmentListener(listenerCs: ShowCsFragmentListener) {
-        this.showCsListener = listenerCs
     }
 
     companion object {
