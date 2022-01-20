@@ -4,196 +4,201 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.report.detail.tabs.total.TotalFragment">
 
-    <LinearLayout
-        android:id="@+id/ll_container"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background"
-        android:descendantFocusability="blocksDescendants"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.card.MaterialCardView
-            style="@style/CardView.Default"
+        <LinearLayout
+            android:id="@+id/ll_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            app:cardBackgroundColor="@color/white">
+            android:background="@color/background"
+            android:descendantFocusability="blocksDescendants"
+            android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.card.MaterialCardView
+                style="@style/CardView.Default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp">
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="@color/white">
 
-                <TextView
-                    android:id="@+id/tv_total_title"
-                    style="@style/black_16_500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/report_total_point"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <include
-                    android:id="@+id/chart_progress"
-                    layout="@layout/chart_progress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="160dp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_total_title" />
-
-                <TextView
-                    android:id="@+id/tv_total_comment"
-                    style="@style/black_14_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/chart_progress"
-                    tools:text="해당 교육 CS교육 점수 산정 결과 90점으로\n평균보다 10점 높은 점수입니다.\n상위 10%에 해당합니다" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/CardView.Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            app:cardBackgroundColor="@color/white">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp">
-
-                <TextView
-                    android:id="@+id/textView4"
-                    style="@style/black_16_500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/report_quality"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/speech"
-                    style="@style/gray_14_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="@string/speech"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-                <TextView
-                    android:id="@+id/expression"
-                    style="@style/gray_14_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="270dp"
-                    android:text="@string/expression"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/posture"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/chart" />
-
-                <TextView
-                    android:id="@+id/posture"
-                    style="@style/gray_14_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/posture"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/expression"
-                    app:layout_constraintTop_toBottomOf="@+id/chart" />
-
-                <com.sokind.util.ChartTriangle
-                    android:id="@+id/chart"
-                    android:layout_width="0dp"
-                    android:layout_height="234dp"
-                    android:layout_marginTop="10dp"
-                    android:adjustViewBounds="true"
-                    app:chart_full_image="@drawable/chart_triangle_bg"
-                    app:chart_line_width="0.3dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/speech" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:adjustViewBounds="true"
-                    android:src="@drawable/chart_triangle"
-                    app:layout_constraintBottom_toBottomOf="@id/chart"
-                    app:layout_constraintEnd_toEndOf="@id/chart"
-                    app:layout_constraintStart_toStartOf="@id/chart"
-                    app:layout_constraintTop_toTopOf="@id/chart" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/CardView.Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="10dp"
-            app:cardBackgroundColor="@color/white">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp">
-
-                <TextView
-                    android:id="@+id/textView5"
-                    style="@style/black_16_500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/report_video"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <FrameLayout
-                    android:id="@+id/frame_layout"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView5">
+                    android:padding="20dp">
 
-                    <com.sokind.util.CustomVideoView
-                        android:id="@+id/video_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/tv_total_title"
+                        style="@style/black_16_500"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/report_total_point"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <LinearLayout
-                        android:id="@+id/iv_shadow"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/shadow"
+                    <include
+                        android:id="@+id/chart_progress"
+                        layout="@layout/chart_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="160dp"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_total_title" />
+
+                    <TextView
+                        android:id="@+id/tv_total_comment"
+                        style="@style/black_14_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/chart_progress"
+                        tools:text="해당 교육 CS교육 점수 산정 결과 90점으로\n평균보다 10점 높은 점수입니다.\n상위 10%에 해당합니다" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/video_play_bt" />
-                    </LinearLayout>
-                </FrameLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
+            <com.google.android.material.card.MaterialCardView
+                style="@style/CardView.Default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="@color/white">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        style="@style/black_16_500"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/report_quality"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/speech"
+                        style="@style/gray_14_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="@string/speech"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+                    <TextView
+                        android:id="@+id/expression"
+                        style="@style/gray_14_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="270dp"
+                        android:text="@string/expression"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/posture"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+                    <TextView
+                        android:id="@+id/posture"
+                        style="@style/gray_14_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/posture"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/expression"
+                        app:layout_constraintTop_toBottomOf="@+id/chart" />
+
+                    <com.sokind.util.ChartTriangle
+                        android:id="@+id/chart"
+                        android:layout_width="0dp"
+                        android:layout_height="234dp"
+                        android:layout_marginTop="10dp"
+                        android:adjustViewBounds="true"
+                        app:chart_full_image="@drawable/chart_triangle_bg"
+                        app:chart_line_width="0.3dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/speech" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/chart_triangle"
+                        app:layout_constraintBottom_toBottomOf="@id/chart"
+                        app:layout_constraintEnd_toEndOf="@id/chart"
+                        app:layout_constraintStart_toStartOf="@id/chart"
+                        app:layout_constraintTop_toTopOf="@id/chart" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/CardView.Default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="10dp"
+                app:cardBackgroundColor="@color/white">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        style="@style/black_16_500"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/report_video"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <FrameLayout
+                        android:id="@+id/frame_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+                        <com.sokind.util.CustomVideoView
+                            android:id="@+id/video_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="180dp"
+                            android:layout_gravity="center" />
+
+                        <LinearLayout
+                            android:id="@+id/iv_shadow"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/shadow"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/video_play_bt" />
+                        </LinearLayout>
+                    </FrameLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </ScrollView>
 </layout>

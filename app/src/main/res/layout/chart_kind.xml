@@ -17,7 +17,7 @@
             app:layout_constraintTop_toBottomOf="@+id/lv_pin" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tv_icon_name"
             style="@style/black_13_400"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             app:layout_constraintHorizontal_bias="0.3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_icon_name" />
 
         <ImageView
             android:layout_width="1dp"
@@ -60,26 +60,29 @@
             app:layout_constraintTop_toBottomOf="@+id/lv_line">
 
             <TextView
+                android:id="@+id/tv_min"
                 style="@style/lightGray_12_400"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="불친절" />
+                android:text="@string/no_kind" />
 
             <TextView
+                android:id="@+id/tv_mid"
                 style="@style/lightGray_12_400"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="친절" />
+                android:text="@string/kind" />
 
             <TextView
+                android:id="@+id/tv_max"
                 style="@style/lightGray_12_400"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="왕친절"
+                android:text="@string/so_kind"
                 android:textAlignment="textEnd" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

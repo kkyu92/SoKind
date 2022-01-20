@@ -4,177 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.report.detail.tabs.speech.SpeechFragment">
 
-    <LinearLayout
-        android:id="@+id/ll_container"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background"
-        android:descendantFocusability="blocksDescendants"
-        android:orientation="vertical">
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/CardView.Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            app:cardBackgroundColor="@color/white">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    style="@style/black_16_500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ment" />
-
-                <TextView
-                    android:id="@+id/tv_ment"
-                    style="@style/black_16_500"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    tools:text='"반갑습니다. 올리브영입니다~!\"' />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/CardView.Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            app:cardBackgroundColor="@color/white">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    style="@style/black_16_500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/accent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_match_rate"
-                    style="@style/main_18_700"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="22sp"
-                    app:layout_constraintEnd_toStartOf="@+id/textView6"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="70%" />
-
-                <TextView
-                    android:id="@+id/textView6"
-                    style="@style/black_14_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" 일치"
-                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_match_rate"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/line_chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_match_rate" />
-
-                <View
-                    android:id="@+id/line"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/light_gray2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/line_chart" />
-
-                <ImageView
-                    android:id="@+id/iv_play"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:src="@drawable/icon_play_btn_enable"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/line" />
-
-                <TextView
-                    android:id="@+id/tv_repeat"
-                    style="@style/black_13_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:text="@string/repeat_txt"
-                    app:layout_constraintBottom_toBottomOf="@+id/iv_play"
-                    app:layout_constraintStart_toEndOf="@+id/iv_play"
-                    app:layout_constraintTop_toTopOf="@+id/iv_play" />
-
-                <TextView
-                    android:id="@+id/tv_voice_time"
-                    style="@style/lightGray_12_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@+id/seek_bar"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/seek_bar"
-                    tools:text="0:00" />
-
-                <TextView
-                    android:id="@+id/tv_voice_time_max"
-                    style="@style/lightGray_12_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@+id/seek_bar"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/seek_bar"
-                    tools:text="0:04" />
-
-                <SeekBar
-                    android:id="@+id/seek_bar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:progress="0"
-                    android:progressDrawable="@drawable/seekbar"
-                    android:thumb="@drawable/seekbar_tumb"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_voice_time_max"
-                    app:layout_constraintStart_toEndOf="@+id/tv_voice_time"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_play" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/ll_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:background="@color/background"
+            android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/CardView.Default"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
-                android:layout_weight="1"
                 app:cardBackgroundColor="@color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -182,84 +33,226 @@
                         style="@style/black_16_500"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tone" />
+                        android:text="@string/ment" />
 
                     <TextView
-                        style="@style/main_18_700"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_ment"
+                        style="@style/black_16_500"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginVertical="10dp"
-                        android:textSize="22sp"
-                        tools:text="솔" />
-
-                    <TextView
-                        android:id="@+id/tv_tone_content"
-                        style="@style/black_14_400"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="이 교육에서 김친절님\n목소리는 ‘솔’\n톤(Tone)에 가까워요!" />
+                        android:gravity="center"
+                        tools:text='"반갑습니다. 올리브영입니다~!\"' />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/CardView.Default"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
-                android:layout_weight="1"
                 app:cardBackgroundColor="@color/white">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:padding="20dp">
 
                     <TextView
-                        android:id="@+id/tv_speed_title"
                         style="@style/black_16_500"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawablePadding="5dp"
-                        android:text="@string/speed"
-                        app:drawableEndCompat="@drawable/icon_alert"
+                        android:text="@string/accent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_speed_sps"
+                        android:id="@+id/tv_match_rate"
                         style="@style/main_18_700"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginVertical="10dp"
                         android:textSize="22sp"
-                        app:layout_constraintBottom_toTopOf="@+id/textView"
-                        app:layout_constraintStart_toStartOf="@+id/tv_speed_title"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_speed_title"
-                        tools:text="90" />
+                        app:layout_constraintEnd_toStartOf="@+id/textView6"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="70%" />
 
                     <TextView
-                        style="@style/lightGray_14_400"
+                        android:id="@+id/textView6"
+                        style="@style/black_14_400"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="sps"
-                        app:layout_constraintBaseline_toBaselineOf="@+id/tv_speed_sps"
-                        app:layout_constraintStart_toEndOf="@+id/tv_speed_sps" />
+                        android:text=" 일치"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/tv_match_rate"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
-                    <TextView
-                        android:id="@+id/textView"
-                        style="@style/lightGray_12_400"
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/line_chart"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/speed_sps"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_height="250dp"
+                        android:layout_marginTop="20dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_speed_sps" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_match_rate" />
+
+                    <View
+                        android:id="@+id/line"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/light_gray2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/line_chart" />
+
+                    <ImageView
+                        android:id="@+id/iv_play"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/icon_play_btn_enable"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/line" />
+
+                    <TextView
+                        android:id="@+id/tv_repeat"
+                        style="@style/black_13_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:text="@string/repeat_txt"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_play"
+                        app:layout_constraintStart_toEndOf="@+id/iv_play"
+                        app:layout_constraintTop_toTopOf="@+id/iv_play" />
+
+                    <TextView
+                        android:id="@+id/tv_voice_time"
+                        style="@style/lightGray_12_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/seek_bar"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/seek_bar"
+                        tools:text="0:00" />
+
+                    <TextView
+                        android:id="@+id/tv_voice_time_max"
+                        style="@style/lightGray_12_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/seek_bar"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/seek_bar"
+                        tools:text="0:04" />
+
+                    <SeekBar
+                        android:id="@+id/seek_bar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/seekbar"
+                        android:thumb="@drawable/seekbar_tumb"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_voice_time_max"
+                        app:layout_constraintStart_toEndOf="@+id/tv_voice_time"
+                        app:layout_constraintTop_toBottomOf="@+id/iv_play" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/CardView.Default"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="20dp">
+
+                        <TextView
+                            style="@style/black_16_500"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tone" />
+
+                        <TextView
+                            style="@style/main_18_700"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="10dp"
+                            android:textSize="22sp"
+                            tools:text="솔" />
+
+                        <TextView
+                            android:id="@+id/tv_tone_content"
+                            style="@style/black_14_400"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="이 교육에서 김친절님\n목소리는 ‘솔’\n톤(Tone)에 가까워요!" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/CardView.Default"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/white">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:id="@+id/tv_speed_title"
+                            style="@style/black_16_500"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="5dp"
+                            android:text="@string/speed"
+                            app:drawableEndCompat="@drawable/icon_alert"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_speed_sps"
+                            style="@style/main_18_700"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="22sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/tv_speed_title"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_speed_title"
+                            tools:text="90" />
+
+                        <TextView
+                            style="@style/lightGray_14_400"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:text="sps"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/tv_speed_sps"
+                            app:layout_constraintStart_toEndOf="@+id/tv_speed_sps" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 </layout>

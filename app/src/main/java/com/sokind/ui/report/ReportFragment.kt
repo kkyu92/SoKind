@@ -2,20 +2,16 @@ package com.sokind.ui.report
 
 import android.app.Activity
 import android.content.Intent
-import android.text.Html
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.data.remote.report.ReportItem
 import com.sokind.databinding.FragmentReportBinding
-import com.sokind.ui.EduNavActivity
 import com.sokind.ui.base.BaseFragment
 import com.sokind.ui.report.detail.DetailReportActivity
-import com.sokind.util.BottomSheetDialog
 import com.sokind.util.BottomSheetExplainDialog
 import com.sokind.util.Constants
 import com.sokind.util.adapter.ReportAdapter
@@ -67,8 +63,8 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
         binding.rvReportBase.adapter = reportBaseAdapter
         reportBaseAdapter.setOnItemClickListener(object : ReportAdapter.OnItemClickListener {
             override fun onItemClick(v: View, data: ReportItem, pos: Int) {
-                showToast("position : $pos")
-                startDetail()
+                showToast("base : $pos")
+                startDetailBase()
             }
         })
 
@@ -77,8 +73,8 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
         binding.rvReportDeep.adapter = reportDeepAdapter
         reportDeepAdapter.setOnItemClickListener(object : ReportAdapter.OnItemClickListener {
             override fun onItemClick(v: View, data: ReportItem, pos: Int) {
-                showToast("position : $pos")
-                startDetail()
+                showToast("deep : $pos")
+                startDetailDeep()
             }
         })
     }
@@ -116,8 +112,14 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
         }
     }
 
-    private fun startDetail() {
+    private fun startDetailBase() {
         val intent = Intent(requireContext(), DetailReportActivity::class.java)
+        intent.putExtra("report", "base")
+        startForResult.launch(intent)
+    }
+    private fun startDetailDeep() {
+        val intent = Intent(requireContext(), DetailReportActivity::class.java)
+        intent.putExtra("report", "deep")
         startForResult.launch(intent)
     }
 }

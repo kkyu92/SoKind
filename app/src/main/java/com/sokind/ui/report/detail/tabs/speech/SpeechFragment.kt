@@ -1,33 +1,16 @@
 package com.sokind.ui.report.detail.tabs.speech
 
-import android.graphics.Paint
-import android.os.Handler
 import androidx.fragment.app.viewModels
-import com.sokind.R
-import com.sokind.databinding.FragmentSpeechBinding
-import com.sokind.ui.base.BaseFragment
-import dagger.hilt.android.AndroidEntryPoint
-import com.broooapps.graphview.CurveGraphConfig
-import com.broooapps.graphview.models.PointMap
-import com.broooapps.graphview.models.GraphData
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.highlight.Highlight
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import org.json.JSONObject
-
-import org.json.JSONArray
-import org.json.JSONException
-
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import timber.log.Timber
-import java.util.*
-import java.util.Map
-import kotlin.collections.ArrayList
-
+import com.sokind.R
+import com.sokind.databinding.FragmentSpeechBinding
+import com.sokind.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SpeechFragment : BaseFragment<FragmentSpeechBinding>(R.layout.fragment_speech) {

@@ -16,6 +16,7 @@ import com.sokind.ui.base.BaseActivity
 import com.sokind.ui.report.detail.tabs.expression.ExpressionFragment
 import com.sokind.ui.report.detail.tabs.posture.PostureFragment
 import com.sokind.ui.report.detail.tabs.speech.SpeechFragment
+import com.sokind.ui.report.detail.tabs.speech2.Speech2Fragment
 import com.sokind.ui.report.detail.tabs.total.TotalFragment
 import com.sokind.util.Constants
 import com.sokind.util.adapter.TabAdapter
@@ -32,11 +33,18 @@ class DetailReportActivity :
 
     private val totalFragment = TotalFragment()
     private val speechFragment = SpeechFragment()
+    private val speech2Fragment = Speech2Fragment()
     private val expressionFragment = ExpressionFragment()
     private val postureFragment = PostureFragment()
-    private val fragmentList = arrayListOf<Fragment>(
+    private val baseList = arrayListOf<Fragment>(
         totalFragment,
         speechFragment,
+        expressionFragment,
+        postureFragment
+    )
+    private val deepList = arrayListOf<Fragment>(
+        totalFragment,
+        speech2Fragment,
         expressionFragment,
         postureFragment
     )
@@ -47,10 +55,16 @@ class DetailReportActivity :
     }
 
     private fun setTabLayout() {
+        val report = intent.getStringExtra("report")
+        Timber.e("report : $report")
         binding.apply {
             vpReportDetail.apply {
                 offscreenPageLimit = 4
-                adapter = TabAdapter(fragmentList, supportFragmentManager, lifecycle)
+                adapter = if (report == "base") {
+                    TabAdapter(baseList, supportFragmentManager, lifecycle)
+                } else {
+                    TabAdapter(deepList, supportFragmentManager, lifecycle)
+                }
                 isSaveEnabled = false
             }
 
