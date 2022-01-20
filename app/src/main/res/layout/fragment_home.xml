@@ -139,7 +139,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
-                android:id="@+id/ll_proceed_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -157,7 +156,7 @@
                         style="@style/black_16_500"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/proceed_cs" />
+                        android:text="@string/basic_cs" />
 
                     <View
                         android:layout_width="0dp"
@@ -165,7 +164,7 @@
                         android:layout_weight="1" />
 
                     <TextView
-                        android:id="@+id/tv_home_more"
+                        android:id="@+id/tv_base_more"
                         style="@style/lightGray_12_400"
                         android:layout_width="wrap_content"
                         android:layout_height="23dp"
@@ -173,7 +172,7 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_home"
+                    android:id="@+id/rv_base"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clipToPadding="false"
@@ -186,7 +185,7 @@
             </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/ll_proceed_container_no"
+                android:id="@+id/ll_base_no"
                 style="@style/CardView.Default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -224,24 +223,91 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tl_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                app:tabIndicator="@drawable/custom_tab_indicator"
-                app:tabIndicatorAnimationMode="elastic"
-                app:tabMode="auto"
-                app:tabPaddingEnd="20dp"
-                app:tabPaddingStart="20dp"
-                app:tabSelectedTextColor="@color/main_color"
-                app:tabTextAppearance="@style/lightGray_16_500"
-                app:tabTextColor="@color/font_light_gray" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vp_home"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/iv_logo"
+                app:layout_constraintTop_toBottomOf="@+id/cv_user_info">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:gravity="center">
+
+                    <TextView
+                        style="@style/black_16_500"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/deep_cs" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/tv_deep_more"
+                        style="@style/lightGray_12_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="23dp"
+                        android:text="@string/more" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_deep"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:overScrollMode="never"
+                    android:paddingBottom="20dp"
+                    android:paddingStart="20dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="5"
+                    tools:listitem="@layout/item_deep_cs" />
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/ll_deep_no"
+                style="@style/CardView.Default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/background"
+                app:layout_constraintEnd_toEndOf="@+id/imageView3"
+                app:layout_constraintStart_toStartOf="@+id/iv_logo"
+                app:layout_constraintTop_toBottomOf="@+id/cv_user_info"
+                app:strokeColor="@color/light_gray2"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="46dp">
+
+                    <TextView
+                        style="@style/black_16_500"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/no_cs_1" />
+
+                    <TextView
+                        style="@style/black_14_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="@string/no_cs_2" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

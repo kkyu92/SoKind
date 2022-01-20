@@ -1,25 +1,20 @@
 package com.sokind.ui.home
 
-import android.view.View.MeasureSpec
-import androidx.core.view.get
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayoutMediator
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
-import com.sokind.data.remote.home.CsBase
+import com.sokind.data.remote.edu.CsBase
+import com.sokind.data.remote.edu.CsDeep
+import com.sokind.data.remote.member.MemberInfo
 import com.sokind.databinding.FragmentHomeBinding
 import com.sokind.ui.base.BaseFragment
-import com.sokind.ui.home.tabs.CsBaseFragment
-import com.sokind.ui.home.tabs.CsDeepFragment
-import com.sokind.util.adapter.BaseCsAdapter
 import com.sokind.util.Constants
 import com.sokind.util.ShowCsFragmentListener
-import com.sokind.util.adapter.TabAdapter
+import com.sokind.util.adapter.BaseCsAdapter
+import com.sokind.util.adapter.DeepCsAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
@@ -28,35 +23,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private lateinit var showCsListener: ShowCsFragmentListener
     private lateinit var baseCsAdapter: BaseCsAdapter
-    private lateinit var tabLayoutMediator: TabLayoutMediator
-    val dummyData = mutableListOf<CsBase>()
+    private lateinit var deepCsAdapter: DeepCsAdapter
+    val dummyBase = mutableListOf<CsBase>()
+    val dummyDeep = mutableListOf<CsDeep>()
 
-    private val csBaseFragment = CsBaseFragment("Home")
-    private val csDeepFragment = CsDeepFragment("Home")
-    private val fragmentList = arrayListOf<Fragment>(
-        csBaseFragment,
-        csDeepFragment
-    )
+    private lateinit var memberInfo: MemberInfo
 
     override fun init() {
+        Timber.e("init!!")
         initializeList()
         setRecyclerView()
-        setTabLayout()
+        setViewModel()
         setBinding()
 
         // refresh
-
-
-        // 기본응대 cs 교육 > 더보기
-        csBaseFragment.setShowCsFragmentListener(object : ShowCsFragmentListener {
-            override fun showCsFragment() {
-                showCsListener.showCsFragment()
-            }
-        })
     }
 
     fun initializeList() { //임의로 데이터 넣어서 만들어봄
-        with(dummyData) {
+        with(dummyBase) {
             add(CsBase("기본응대 - 1", "긍정 에너지를 전파하는 입점인사", true))
             add(CsBase("상황응대 - 1", "제품에 불만이 있는 고객을 대할 때", true))
             add(CsBase("기본응대 - 2", "긍정 에너지를 전파하는 입점인사", true))
@@ -70,56 +54,39 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             add(CsBase("기본응대 - 2", "긍정 에너지를 전파하는 입점인사", false))
             add(CsBase("상황응대 - 2", "제품에 불만이 있는 고객을 대할 때", false))
         }
+        with(dummyDeep) {
+            add(CsDeep("환불 고객이 나타났다!", "환불을 원하는 고객이 불만이 뒤에 뭐라는거냐", R.drawable.img_sample, getColor(R.color.sub_color2)))
+            add(CsDeep("직원 서비스에 불만인 손님 응대", "직원의 태도에 불만족한 고객이 뒤에 뭐라는거냐", null, null))
+            add(CsDeep("제품 불만 손님 응대", "제품이 마음에 들지 않아요! 이사람은 뒤에 뭐라는거냐", R.drawable.img_sample, getColor(R.color.sub_color2)))
+            add(CsDeep("환불 고객이 나타났다!", "환불을 원하는 고객이 불만이 뒤에 뭐라는거냐", R.drawable.img_sample, getColor(R.color.sub_color2)))
+            add(CsDeep("직원 서비스에 불만인 손님 응대", "직원의 태도에 불만족한 고객이 뒤에 뭐라는거냐", null, null))
+            add(CsDeep("제품 불만 손님 응대", "제품이 마음에 들지 않아요! 이사람은 뒤에 뭐라는거냐", R.drawable.img_sample, getColor(R.color.sub_color2)))
+            add(CsDeep("환불 고객이 나타났다!", "환불을 원하는 고객이 불만이 뒤에 뭐라는거냐", R.drawable.img_sample, getColor(R.color.sub_color2)))
+            add(CsDeep("직원 서비스에 불만인 손님 응대", "직원의 태도에 불만족한 고객이 뒤에 뭐라는거냐", null, null))
+            add(CsDeep("제품 불만 손님 응대", "제품이 마음에 들지 않아요! 이사람은 뒤에 뭐라는거냐", R.drawable.img_sample, getColor(R.color.sub_color2)))
+        }
     }
 
     private fun setRecyclerView() {
         baseCsAdapter = BaseCsAdapter("Home")
-        baseCsAdapter.csBaseList = dummyData
-        binding.rvHome.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvHome.adapter = baseCsAdapter
-    }
-
-    private fun setTabLayout() {
-        binding.apply {
-            vpHome.apply {
-                offscreenPageLimit = 2
-                adapter = TabAdapter(fragmentList, childFragmentManager, lifecycle)
-                isSaveEnabled = false
-            }
-
-            tabLayoutMediator = TabLayoutMediator(tlHome, vpHome) { tab, position ->
-                if (position == 0) {
-                    tab.text = getString(R.string.basic_cs)
-                } else {
-                    tab.text = getString(R.string.deep_cs)
-                }
-            }
-            tabLayoutMediator.attach()
-
-            // viewpager different height
-            vpHome.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    val view =
-                        (vpHome[0] as RecyclerView).layoutManager?.findViewByPosition(position)
-                    view?.post {
-                        val wMeasureSpec =
-                            MeasureSpec.makeMeasureSpec(view.width, MeasureSpec.EXACTLY)
-                        val hMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
-                        view.measure(wMeasureSpec, hMeasureSpec)
-                        if (vpHome.layoutParams.height != view.measuredHeight) {
-                            vpHome.layoutParams =
-                                (vpHome.layoutParams).also { lp -> lp.height = view.measuredHeight }
-                        }
-                    }
-                }
-            })
-        }
+        baseCsAdapter.csBaseList = dummyBase
+        binding.rvBase.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvBase.adapter = baseCsAdapter
+        deepCsAdapter = DeepCsAdapter("Home")
+        deepCsAdapter.csDeepList = dummyDeep
+        binding.rvDeep.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvDeep.adapter = deepCsAdapter
     }
 
     private fun setBinding() {
         binding.apply {
-            tvHomeMore
+            tvBaseMore
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    showCsListener.showCsFragment()
+                }, { it.printStackTrace() })
+            tvDeepMore
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
@@ -128,13 +95,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
     }
 
-    fun setShowCsFragmentListener(listenerCs: ShowCsFragmentListener) {
-        this.showCsListener = listenerCs
+    private fun setViewModel() {
+        viewModel.apply {
+            getMe.observe(viewLifecycleOwner, {
+                memberInfo = it
+                setData(it)
+            })
+        }
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        tabLayoutMediator.detach()
+    private fun setData(memberInfo: MemberInfo) {
+        binding.apply {
+            tvUserName.text = memberInfo.memberName + " " + memberInfo.positionName + "님!"
+            tvHomeUserName.text = memberInfo.memberName + " " + memberInfo.positionName
+            tvHomeUserEnterprise.text = memberInfo.enterpriseName + " / " + memberInfo.storeName
+        }
+    }
+
+    fun setShowCsFragmentListener(listenerCs: ShowCsFragmentListener) {
+        this.showCsListener = listenerCs
     }
 
     companion object {
