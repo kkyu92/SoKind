@@ -1,9 +1,10 @@
-package com.sokind.ui
+package com.sokind.ui.splash
 
 import android.content.Context
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
@@ -18,9 +19,20 @@ import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_splash) {
+    private val viewModel by viewModels<SplashViewModel>()
+    private var autoLogin = false
+
     override fun init() {
         val logoAnim = AnimationUtils.loadAnimation(context, R.anim.splash_logo)
         val textAnim = AnimationUtils.loadAnimation(context, R.anim.splash_textview)
+
+        viewModel.apply {
+            isLogin.observe(viewLifecycleOwner, {
+                if (!it.isNullOrBlank()) {
+                    autoLogin = true
+                }
+            })
+        }
 
         binding.apply {
             ivLogo.startAnimation(logoAnim)
@@ -58,7 +70,11 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(R.layout.fragment_spl
                         .timer(Constants.MILLISECONDS, TimeUnit.MILLISECONDS)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({
-                            findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+                            if (autoLogin) {
+                                findNavController().navigate(R.id.action_splashFragment_to_bottomNavActivity)
+                            } else {
+                                findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+                            }
                         }, {
                             it.printStackTrace()
                         })

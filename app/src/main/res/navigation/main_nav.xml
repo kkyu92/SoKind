@@ -6,7 +6,7 @@
     app:startDestination="@id/splashFragment">
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.sokind.ui.SplashFragment"
+        android:name="com.sokind.ui.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash">
         <action
@@ -121,6 +121,15 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out" />
+        <argument
+            android:name="enterprise_key"
+            app:argType="integer" />
+        <argument
+            android:name="store_key"
+            app:argType="integer" />
+        <argument
+            android:name="position_key"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/joinThirdFragment"
@@ -134,6 +143,24 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out" />
+        <argument
+            android:name="enterprise_key"
+            app:argType="integer" />
+        <argument
+            android:name="store_key"
+            app:argType="integer" />
+        <argument
+            android:name="position_key"
+            app:argType="integer" />
+        <argument
+            android:name="member_name"
+            app:argType="string" />
+        <argument
+            android:name="member_email"
+            app:argType="string" />
+        <argument
+            android:name="member_id"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/joinFourthFragment"
@@ -147,6 +174,27 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out" />
+        <argument
+            android:name="enterprise_key"
+            app:argType="integer" />
+        <argument
+            android:name="store_key"
+            app:argType="integer" />
+        <argument
+            android:name="position_key"
+            app:argType="integer" />
+        <argument
+            android:name="member_name"
+            app:argType="string" />
+        <argument
+            android:name="member_email"
+            app:argType="string" />
+        <argument
+            android:name="member_id"
+            app:argType="string" />
+        <argument
+            android:name="member_pw"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/boardingFragment"
