@@ -138,7 +138,7 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
             SimpleDateFormat(
                 Constants.FILE_NAME_FORMAT,
                 Locale.getDefault()
-            ).format(System.currentTimeMillis()) + ".mp4"
+            ).format(System.currentTimeMillis()) + ".webm"
         )
         val outputOptions = VideoCapture.OutputFileOptions.Builder(videoFile).build()
 
