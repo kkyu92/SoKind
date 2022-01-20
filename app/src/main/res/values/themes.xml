@@ -144,10 +144,10 @@
 
     <style name="EditText.Input" parent="android:Widget.EditText">
         <item name="android:paddingVertical">15dp</item>
-        <item name="android:paddingHorizontal">20dp</item>
+        <item name="android:paddingHorizontal">16dp</item>
         <item name="android:textColor">@color/font_black</item>
         <item name="android:textColorHint">@color/font_light_gray</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:imeOptions">actionDone</item>
         <item name="android:inputType">text</item>
         <item name="android:singleLine">true</item>

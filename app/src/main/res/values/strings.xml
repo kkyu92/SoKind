@@ -69,6 +69,7 @@
     <string name="hint_email">이메일 주소 전체를 입력해주세요.</string>
     <string name="hint_code">6자리 인증번호를 입력해주세요.</string>
     <string name="hint_enterprise_code">기업 코드를 입력해주세요.</string>
+    <string name="hint_enterprise_code_error">기업코드가 일치하지 않습니다. 다시 확인해주세요.</string>
     <string name="hint_join_enterprise">기업명을 검색해주세요.</string>
     <string name="hint_join_id_short">아이디 6~12자 영문,숫자,기호(-_)</string>
     <string name="hint_join_id">아이디 6~12자 영문,숫자,기호(-_)만 사용 가능합니다.</string>
@@ -91,11 +92,10 @@
     <string name="home_hello">안녕하세요,</string>
     <string name="home_name">%s!</string>
     <string name="continue_cs">CS교육 이어하기</string>
-    <string name="proceed_cs">참여중인 CS교육</string>
     <string name="basic_cs">기본응대 CS교육</string>
     <string name="deep_cs">상황응대 CS교육</string>
-    <string name="no_cs_1">최근 학습한 CS교육이 없어요!</string>
-    <string name="no_cs_2">원하는 CS교육을 선택하고\n학습을 시작해보세요.</string>
+    <string name="no_cs_1">등록되어있는 CS교육이 없어요!</string>
+    <string name="no_cs_2">CS교육을 등록 후\n학습을 시작해보세요.</string>
     <string name="more">더보기</string>
 
     // guide
@@ -173,6 +173,44 @@
     <string name="speed">말 빠르기</string>
     <string name="repeat_txt">다시 들어보기</string>
     <string name="speed_sps">syllable per second\n초당 음절 수</string>
+    <string name="deep_cs_report">상황응대 CS분석</string>
+    <string name="deep_cs_report_sample">손님이 “제품이 어딨는지 여쭤봐도 제대로 안내도 안해주시고 직원들끼리 떠들고만 있네요.” 라고 불만을 표하는 상황에서 김친절님은 손님에게 ‘상황 살피기’, ‘상황에 대한 인정’, ‘공감하기’, ‘개선의 표현’ 을 사용하여 고객이 만족할 수 있는 올바른 응답을 하였습니다.</string>
+    <string name="complain">컴플레인\n대처능력</string>
+    <string name="speech_kind">언어성향</string>
+    <string name="speech_kind_comment">언어 성향 그래프는 인공지능이 교육생의 어휘를 분석하여 긍정, 부정, 중립의 정도를 나타냅니다.</string>
+
+    // expression
+    <string name="surprise">놀람</string>
+    <string name="glum">딱딱함</string>
+    <string name="excitement">흥분</string>
+    <string name="sympathy">공감</string>
+    <string name="bright">밝음</string>
+    <string name="fear">두려움</string>
+    <string name="expression_txt_1">%s님은 해당 교육에서</string>
+    <string name="expression_txt_2">표정이 많이 드러났어요!</string>
+    <string name="expression_txt_3">교육영상에서 놀람, 두려움, 짜증, 밝음, 공감, 흥분, 딱딱함 7가지 감정의 정도입니다.\n표정, 안면분석을 통해 친절도와 감정상태를 보여줍니다.</string>
+    <string name="expression_txt_4">*두려움, 짜증, 흥분의 표정은 친절도 평가에 점수\n 감점 요인으로 적용합니다.</string>
+    <string name="view_point">시선분포</string>
+    <string name="view_point_txt_1">이 교육에서 %s님 시선처리는</string>
+    <string name="view_point_txt_2">이에요!</string>
+    <string name="view_point_txt_3">*영역색이 진할 수록 시선이 오래 머무른 곳이며, 영역이 널리 흩어져 있다면 시선변화가 많음을 의미합니다. 실제 응대 상황에서도 지금처럼 고객과 눈을 마주치며 말하는 것이 좋습니다.</string>
+
+    // posture
+    <string name="pose_1">갸웃둥 횟수</string>
+    <string name="pose_2">끄덕임 횟수</string>
+    <string name="pose_3">두리번 횟수</string>
+    <string name="pose_4">들썩임 횟수</string>
+    <string name="pose_5">좌우흔들림 횟수</string>
+    <string name="posture_comment">교육영상에서 얼굴과 어깨의 각도를 체크하여 교육생의 평균 자세를 보여줍니다. 기울기가  높을 수록 자세의 변화가 큼을 의미합니다.</string>
+    <string name="shoulder">어깨움직임</string>
+    <string name="shoulder_comment">어깨의 움직임을 상하좌우 좌표를 체크하여 상체 움직임 정도를 보여줍니다. 상하좌우의 좌표점 길이가 길수록 교육 중 상체가 많이 흔들렸음을 의미합니다.</string>
+    <string name="so_kind">왕친절</string>
+    <string name="no_kind">불친절</string>
+    <string name="kind">친절</string>
+    <string name="positive">긍정</string>
+    <string name="negative">부정 </string>
+    <string name="neutrality">중립</string>
+    <string name="candidate">응시자</string>
 
     // explain
     <string name="kind_title">종합친절도란?</string>

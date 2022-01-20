@@ -19,9 +19,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "BASE_API_KEY", "\"" + getBaseApiKey() + "\"")
-        buildConfigField("String", "BASE_URL", "\"https://address/\"")
-        buildConfigField("String", "TEST_API_KEY", "\"" + getTestApiKey() + "\"")
-        buildConfigField("String", "TEST_URL", "\"https://run.mocky.io/v3/\"")
+        buildConfigField("String", "BASE_URL", "\"https://marazoa.com/sokind/\"")
     }
 
     buildTypes {
@@ -106,12 +104,10 @@ dependencies {
 
     // chart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    // heat map
+    implementation 'ca.heartlandsoftware:androidheatmap:1.2.0'
 }
 
 def getBaseApiKey() {
     return project.findProperty("base_api_key")
-}
-
-def getTestApiKey() {
-    return project.findProperty("test_api_key")
 }

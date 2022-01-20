@@ -22,4 +22,8 @@
         <attr name="shoulder_stroke_image" format="integer" />
         <attr name="shoulder_line_width" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="RatioImageView">
+        <attr name="ratio" format="float"/>
+    </declare-styleable>
 </resources>

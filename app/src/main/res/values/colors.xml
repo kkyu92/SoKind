@@ -28,4 +28,10 @@
 
     <color name="white_blur">#80FFFFFF</color>
     <color name="seekbar_bg">#F2EEFC</color>
+
+    <color name="heat_map_1">#ffFF0300</color>
+    <color name="heat_map_2">#ffFFC34D</color>
+    <color name="heat_map_3">#ff80EE64</color>
+    <color name="heat_map_4">#ff66FFFF</color>
+    <color name="heat_map_5">#ff7B7EFF</color>
 </resources>
