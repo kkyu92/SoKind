@@ -1,4 +1,4 @@
-package com.sokind.data.remote.home
+package com.sokind.data.remote.edu
 
 data class CsDeep(
     val title: String,
