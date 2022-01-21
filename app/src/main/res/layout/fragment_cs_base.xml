@@ -9,17 +9,6 @@
         android:layout_height="wrap_content"
         android:background="@color/white">
 
-        <TextView
-            android:id="@+id/tv_base_more"
-            style="@style/lightGray_12_400"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@string/more"/>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_home_base_cs"
             android:layout_width="match_parent"
@@ -32,7 +21,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="5"
             tools:listitem="@layout/item_base_cs"
-            app:layout_constraintTop_toBottomOf="@id/tv_base_more"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,12 +6,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class TabAdapter(
-    list: ArrayList<Fragment>,
+    list: List<Fragment>,
     fm: FragmentManager,
     lifecycle: Lifecycle
 ) : FragmentStateAdapter(fm, lifecycle) {
 
-    private val fragmentList: ArrayList<Fragment> = list
+    private val fragmentList: List<Fragment> = list
 
     override fun getItemCount(): Int {
         return fragmentList.size

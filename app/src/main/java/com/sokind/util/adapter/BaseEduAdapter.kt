@@ -5,13 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sokind.R
-import com.sokind.data.remote.edu.CsBase
+import com.sokind.data.remote.edu.Edu
 import com.sokind.databinding.ItemBaseCsBinding
 
-class BaseCsAdapter(
+class BaseEduAdapter(
     private val tabName: String
-) : RecyclerView.Adapter<BaseCsAdapter.HomeCsViewHolder>() {
-    var csBaseList: List<CsBase> = listOf()
+) : RecyclerView.Adapter<BaseEduAdapter.HomeCsViewHolder>() {
+    var baseList: List<Edu> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeCsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -20,20 +20,20 @@ class BaseCsAdapter(
     }
 
     override fun onBindViewHolder(holder: HomeCsViewHolder, position: Int) {
-        val csBase = csBaseList[position]
+        val csBase = baseList[position]
         holder.bind(csBase)
     }
 
     override fun getItemCount(): Int {
         return if (tabName == "Home") {
-            val count = if (csBaseList.size > 5) {
+            val count = if (baseList.size > 5) {
                 5
             } else {
-                csBaseList.size
+                baseList.size
             }
             count
         } else {
-            csBaseList.size
+            baseList.size
         }
     }
 
@@ -41,21 +41,25 @@ class BaseCsAdapter(
         private val binding: ItemBaseCsBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(baseCs: CsBase) {
+        fun bind(baseEdu: Edu) {
             binding.apply {
-                tvCsBaseTitle.text = baseCs.title
-                tvCsBaseSubTitle.text = baseCs.subTitle
-                if (baseCs.isFinish) {
-                    ivCsBaseBt.setImageResource(R.drawable.icon_play_btn_disable)
-                    tvCsBaseState.text = "학습완료"
-                    tvCsBaseState.setTextColor(binding.root.context.getColor(R.color.font_light_gray))
-                    ivCsBaseDot.visibility = View.GONE
-                } else {
-                    ivCsBaseBt.setImageResource(R.drawable.icon_play_btn_enable)
-                    tvCsBaseState.text = "학습하기"
-                    tvCsBaseState.setTextColor(binding.root.context.getColor(R.color.main_color))
-                    if (adapterPosition != 0 && !csBaseList[adapterPosition - 1].isFinish) {
+                tvBaseTitle.text = baseEdu.title
+                tvBaseContents.text = baseEdu.contents
+
+                when(baseEdu.status) {
+                    1 -> {
+                        ivBaseBt.setImageResource(R.drawable.icon_play_btn_disable)
+                        tvBaseState.text = root.context.getString(R.string.edu_fin)
+                        tvBaseState.setTextColor(root.context.getColor(R.color.font_light_gray))
                         ivCsBaseDot.visibility = View.GONE
+                    }
+                    2 -> {
+                        ivBaseBt.setImageResource(R.drawable.icon_play_btn_enable)
+                        tvBaseState.text = root.context.getString(R.string.edu_do)
+                        tvBaseState.setTextColor(root.context.getColor(R.color.main_color))
+                        if (adapterPosition != 0 && baseList[adapterPosition - 1].status != 1) {
+                            ivCsBaseDot.visibility = View.GONE
+                        }
                     }
                 }
             }

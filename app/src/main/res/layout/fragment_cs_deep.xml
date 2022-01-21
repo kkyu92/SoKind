@@ -17,8 +17,8 @@
             android:clipToPadding="false"
             android:orientation="horizontal"
             android:overScrollMode="never"
-            android:paddingStart="20dp"
             android:paddingBottom="20dp"
+            android:paddingEnd="20dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_deep_cs" />
 

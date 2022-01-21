@@ -194,6 +194,10 @@
                     android:id="@+id/vp_cs"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
+
+                <include
+                    android:id="@+id/pb_loading"
+                    layout="@layout/layout_loading" />
             </LinearLayout>
         </com.sokind.util.StickyScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

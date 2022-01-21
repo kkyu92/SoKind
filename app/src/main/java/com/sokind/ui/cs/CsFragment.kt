@@ -31,14 +31,6 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
 
     private lateinit var showReportFragmentListener: ShowReportFragmentListener
     private lateinit var tabLayoutMediator: TabLayoutMediator
-    val dummyData = mutableListOf<CsBase>()
-
-    private val csBaseFragment = CsBaseFragment("Cs")
-    private val csDeepFragment = CsDeepFragment("Cs")
-    private val fragmentList = arrayListOf<Fragment>(
-        csBaseFragment,
-        csDeepFragment
-    )
 
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == RESULT_OK) {
@@ -53,33 +45,34 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
     }
 
     override fun init() {
-        Timber.e("size: ${dummyData.size}")
-        initializeList()
-        setTabLayout()
         setBinding()
-
+        setViewModel()
         // refresh
 
     }
 
-    fun initializeList() { //임의로 데이터 넣어서 만들어봄
-        with(dummyData) {
-            add(CsBase("기본응대 - 1", "긍정 에너지를 전파하는 입점인사", true))
-            add(CsBase("상황응대 - 1", "제품에 불만이 있는 고객을 대할 때", true))
-            add(CsBase("기본응대 - 2", "긍정 에너지를 전파하는 입점인사", true))
-            add(CsBase("상황응대 - 2", "제품에 불만이 있는 고객을 대할 때", false))
-            add(CsBase("기본응대 - 1", "긍정 에너지를 전파하는 입점인사", false))
-            add(CsBase("상황응대 - 1", "제품에 불만이 있는 고객을 대할 때", false))
-            add(CsBase("기본응대 - 2", "긍정 에너지를 전파하는 입점인사", false))
-            add(CsBase("상황응대 - 2", "제품에 불만이 있는 고객을 대할 때", false))
-            add(CsBase("기본응대 - 1", "긍정 에너지를 전파하는 입점인사", false))
-            add(CsBase("상황응대 - 1", "제품에 불만이 있는 고객을 대할 때", false))
-            add(CsBase("기본응대 - 2", "긍정 에너지를 전파하는 입점인사", false))
-            add(CsBase("상황응대 - 2", "제품에 불만이 있는 고객을 대할 때", false))
+    private fun setViewModel() {
+        viewModel.apply {
+            eduList.observe(viewLifecycleOwner, {
+                val csBaseFragment = CsBaseFragment(it.baseCs)
+                val csDeepFragment = CsDeepFragment(it.deepCs)
+                val fragmentList = arrayListOf<Fragment>(
+                    csBaseFragment,
+                    csDeepFragment
+                )
+                setTabLayout(fragmentList)
+            })
+            isLoading.observe(viewLifecycleOwner, { isLoading ->
+                if (isLoading) {
+                    showLoading(true, binding.pbLoading)
+                } else {
+                    showLoading(false, binding.pbLoading)
+                }
+            })
         }
     }
 
-    private fun setTabLayout() {
+    private fun setTabLayout(fragmentList: List<Fragment>) {
         binding.apply {
             vpCs.apply {
                 offscreenPageLimit = 2

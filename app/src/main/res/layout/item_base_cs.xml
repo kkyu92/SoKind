@@ -17,7 +17,7 @@
             android:padding="20dp">
 
             <TextView
-                android:id="@+id/tv_cs_base_title"
+                android:id="@+id/tv_base_title"
                 style="@style/orange_12_400"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
                 tool:text="기본응대 - 1" />
 
             <TextView
-                android:id="@+id/tv_cs_base_sub_title"
+                android:id="@+id/tv_base_contents"
                 style="@style/black_14_400"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/ll_bt_container"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_cs_base_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_base_title"
                 tool:text="긍정 에너지를 전파하는 입점인사" />
 
             <ImageView
@@ -48,8 +48,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:src="@drawable/ic_red_dot"
-                app:layout_constraintStart_toEndOf="@+id/tv_cs_base_title"
-                app:layout_constraintTop_toTopOf="@+id/tv_cs_base_title" />
+                app:layout_constraintStart_toEndOf="@+id/tv_base_title"
+                app:layout_constraintTop_toTopOf="@+id/tv_base_title" />
 
             <LinearLayout
                 android:id="@+id/ll_bt_container"
@@ -62,13 +62,13 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/iv_cs_base_bt"
+                    android:id="@+id/iv_base_bt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/icon_play_btn_enable" />
 
                 <TextView
-                    android:id="@+id/tv_cs_base_state"
+                    android:id="@+id/tv_base_state"
                     style="@style/lightGray_12_400"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
