@@ -1,6 +1,8 @@
 package com.sokind.data.di
 
+import com.sokind.data.repository.edu.EduRepository
 import com.sokind.data.repository.member.MemberRepository
+import com.sokind.ui.home.HomeViewModel
 import com.sokind.ui.join.first.JoinFirstViewModel
 import com.sokind.ui.login.LoginViewModel
 import dagger.Module
@@ -19,6 +21,14 @@ object ViewModelModule {
     @Provides
     fun provideJoinViewModel(repository: MemberRepository): JoinFirstViewModel {
         return JoinFirstViewModel(repository)
+    }
+
+    @Provides
+    fun provideHomeModel(
+        memberRepository: MemberRepository,
+        eduRepository: EduRepository
+    ): HomeViewModel {
+        return HomeViewModel(memberRepository, eduRepository)
     }
 //    @Provides
 //    fun provideMyPageViewModel(repository: MyPageRepository): MyPageViewModel {

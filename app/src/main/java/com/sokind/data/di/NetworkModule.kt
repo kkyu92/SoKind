@@ -1,6 +1,7 @@
 package com.sokind.data.di
 
 import com.sokind.BuildConfig
+import com.sokind.data.remote.edu.EduApi
 import com.sokind.data.remote.member.MemberApi
 import dagger.Module
 import dagger.Provides
@@ -77,6 +78,12 @@ object NetworkModule {
     @Provides
     fun provideLoginApi(@Named("base_retrofit") retrofit: Retrofit): MemberApi {
         return retrofit.create(MemberApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideEduApi(@Named("base_retrofit") retrofit: Retrofit): EduApi {
+        return retrofit.create(EduApi::class.java)
     }
 
 //

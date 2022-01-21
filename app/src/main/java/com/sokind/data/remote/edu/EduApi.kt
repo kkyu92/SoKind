@@ -4,6 +4,7 @@ import com.sokind.data.remote.member.join.EnterpriseInfo
 import com.sokind.data.remote.member.join.EnterpriseList
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Query
 
 interface EduApi {
@@ -22,4 +23,11 @@ interface EduApi {
     fun getDeepEdu(
         @Query("enterprise_key") key: String
     ): Single<EnterpriseInfo>
+
+    // 회원의 교육진행상황
+    @GET("edu/eduProgress/")
+    fun getEdu(
+        @Header("accessToken") access: String,
+        @Query("member_id") id: String
+    ): Single<EduList>
 }
