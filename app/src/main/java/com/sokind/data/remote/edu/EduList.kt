@@ -1,6 +1,7 @@
 package com.sokind.data.remote.edu
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class EduList(
     @SerializedName("basicCS")
@@ -24,4 +25,4 @@ data class Edu(
     @SerializedName("eduProceedType")
     val status: Int,
     val runningTime: Int,
-)
+) : Serializable

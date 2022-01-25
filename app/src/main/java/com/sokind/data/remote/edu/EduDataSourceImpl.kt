@@ -2,6 +2,7 @@ package com.sokind.data.remote.edu
 
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class EduDataSourceImpl @Inject constructor(
@@ -10,6 +11,18 @@ class EduDataSourceImpl @Inject constructor(
     override fun getEdu(access: String, id: String): Single<EduList> {
         return eduApi
             .getEdu(access, id)
+            .subscribeOn(Schedulers.io())
+    }
+
+    override fun putEdu(
+        file: MultipartBody.Part,
+        eduKey: Int,
+        eduType: Int,
+        id: Int,
+        key: Int
+    ): Single<String> {
+        return eduApi
+            .putEdu(file, eduKey, eduType, id, key)
             .subscribeOn(Schedulers.io())
     }
 }

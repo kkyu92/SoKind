@@ -1,14 +1,11 @@
 package com.sokind.data.repository.edu
 
 import com.sokind.data.local.user.UserDataSource
-import com.sokind.data.local.user.UserMapper
 import com.sokind.data.remote.edu.EduDataSource
 import com.sokind.data.remote.edu.EduList
-import com.sokind.data.remote.member.MemberDataSource
-import com.sokind.data.remote.member.login.RefreshRequest
 import com.sokind.data.repository.member.MemberRepository
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class EduRepositoryImpl @Inject constructor(
@@ -31,5 +28,16 @@ class EduRepositoryImpl @Inject constructor(
                             .andThen(Single.just(Unit))
                     }
             }
+    }
+
+    override fun putEdu(
+        file: MultipartBody.Part,
+        eduKey: Int,
+        eduType: Int,
+        id: Int,
+        key: Int
+    ): Single<String> {
+        return eduDataSource
+            .putEdu(file, eduKey, eduType, id, key)
     }
 }
