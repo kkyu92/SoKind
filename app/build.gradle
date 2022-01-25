@@ -106,6 +106,8 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     // heat map
     implementation 'ca.heartlandsoftware:androidheatmap:1.2.0'
+    // circular progressbar
+    implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
 }
 
 def getBaseApiKey() {
