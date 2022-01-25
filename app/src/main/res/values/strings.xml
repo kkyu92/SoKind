@@ -31,6 +31,7 @@
     <string name="next">다음</string>
     <string name="continue_text">계속하기</string>
     <string name="check">확인</string>
+    <string name="cancel">취소</string>
     <string name="enterprise_title">기업명</string>
     <string name="enterprise_code">기업코드</string>
     <string name="enterprise_department">소속(부서 또는 점포)</string>
@@ -130,7 +131,7 @@
     <string name="deep_cs_no_title">수강할 수 있는 상황응대 CS교육이 없어요!</string>
     <string name="deep_cs_no_content">기본응대 CS교육을 전부 이수한 후\n학습을 시작해보세요.</string>
 
-    // edu유
+    // edu
     <string name="edu_ready_text">
         조용하고, 밝은 장소에서 카메라를
         \n눈높이에 맞춰 고정시킨 후, 화면에 비치는
@@ -146,6 +147,7 @@
     <string name="edu_finish_retry">처음부터 다시하기</string>
     <string name="edu_finish_list">CS교육 목록으로</string>
     <string name="edu_finish_next">다음 교육을 이어서 진행할까요?</string>
+    <string name="edu_count">00:0%s</string>
 
     // report
     <string name="report">리포트</string>
@@ -228,6 +230,15 @@
     <string name="my_version">버전정보</string>
     <string name="latest_version">최신버전입니다.</string>
     <string name="update"><u>업데이트</u></string>
+
+    // dialog
+    <string name="alert">알림</string>
+    <string name="alert_edu_fin">
+        ‘%s’는\n
+        이미 학습 완료한 교육입니다.\n
+        재교육 하시겠습니까?\n\n
+        재교육시 이전 교육 데이터는 사라지며\n
+        새로운 교육 결과로 저장됩니다.</string>
 
 
     // %s

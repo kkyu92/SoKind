@@ -1,34 +1,58 @@
 package com.sokind.ui.my
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
+import com.sokind.databinding.FragmentMyBinding
+import com.sokind.ui.base.BaseFragment
+import com.sokind.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
-class MyFragment : Fragment() {
+class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
+    private val viewModel by viewModels<MyViewModel>()
 
-    companion object {
-        fun newInstance() = MyFragment()
+    override fun init() {
+        setBinding()
     }
 
-    private lateinit var viewModel: MyViewModel
+    private fun setBinding() {
+        binding.apply {
+            llMyInfo
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_my, container, false)
+                },{ it.printStackTrace() })
+
+            llMyCertification
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+
+                },{ it.printStackTrace() })
+
+            llMyNotice
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+
+                },{ it.printStackTrace() })
+
+            llMyQuestion
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+
+                },{ it.printStackTrace() })
+
+            clMyUpdate
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+
+                },{ it.printStackTrace() })
+        }
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MyViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
 }
