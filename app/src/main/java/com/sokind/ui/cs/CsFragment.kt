@@ -12,7 +12,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
-import com.sokind.data.remote.edu.CsBase
 import com.sokind.databinding.FragmentCsBinding
 import com.sokind.ui.EduNavActivity
 import com.sokind.ui.base.BaseFragment

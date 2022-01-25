@@ -2,21 +2,21 @@ package com.sokind.util.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
+import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.data.di.GlideApp
-import com.sokind.data.remote.edu.CsDeep
 import com.sokind.data.remote.edu.Edu
 import com.sokind.databinding.ItemDeepCsBinding
-import android.util.DisplayMetrics
-
-
+import com.sokind.util.Constants
+import com.sokind.util.OnEduItemClickListener
+import java.util.concurrent.TimeUnit
 
 
 class DeepEduAdapter(
     private val tabName: String
 ) : RecyclerView.Adapter<DeepEduAdapter.HomeCsViewHolder>() {
+    private lateinit var listener: OnEduItemClickListener
     var deepList: List<Edu> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeCsViewHolder {
@@ -48,6 +48,13 @@ class DeepEduAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(deepEdu: Edu) {
+             itemView
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    listener.onEduItemClick(deepEdu, adapterPosition)
+                }, { it.printStackTrace() })
+
             binding.apply {
                 tvDeepTitle.text = deepEdu.title
                 tvDeepContent.text = deepEdu.contents
@@ -74,5 +81,9 @@ class DeepEduAdapter(
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
+    }
+
+    fun setOnItemClickListener(listener: OnEduItemClickListener) {
+        this.listener = listener
     }
 }

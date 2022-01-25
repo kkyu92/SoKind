@@ -7,15 +7,23 @@ import android.view.View
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.common.util.concurrent.ListenableFuture
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.data.di.GlideApp
+import com.sokind.data.remote.edu.Edu
 import com.sokind.databinding.FragmentEduBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import timber.log.Timber
 import java.io.File
 import java.text.SimpleDateFormat
@@ -26,6 +34,8 @@ import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
+    private val viewModel by viewModels<EduViewModel>()
+    private lateinit var edu: Edu
     private var camera: Camera? = null
     private var videoCapture: VideoCapture? = null
     private var lensFacing: Int = CameraSelector.LENS_FACING_FRONT
@@ -35,11 +45,24 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
 
     override fun init() {
+        edu = arguments?.getSerializable("edu") as Edu
+        setEduData(edu)
         outputDirectory = getOutputDirectory()
         cameraExecutor = Executors.newSingleThreadExecutor()
         setBinding()
         setContainerView(INIT)
         checkPermission()
+    }
+
+    private fun setEduData(edu: Edu) {
+        binding.apply {
+            tvQuestion.text = edu.title
+            tvAnswer.text = edu.contents
+            pbCount.progressMax = (edu.runningTime + 2).toFloat()
+            pbCount.progress = 0f
+            tvCount.text = String.format(getString(R.string.edu_count, (edu.runningTime + 2).toString()))
+            Timber.e("max: ${edu.runningTime + 2f}")
+        }
     }
 
     private fun setBinding() {
@@ -79,6 +102,7 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
                     llContainerStart.visibility = View.VISIBLE
                     llContainerQuestion.visibility = View.GONE
                     llContainerCount.visibility = View.GONE
+                    ivFrame.visibility = View.VISIBLE
                     GlideApp.with(requireContext()).load(R.drawable.loading_stop).into(ivLoading)
                     GlideApp.with(requireContext()).clear(pbLoading.loadingGif)
                     showLoading(false, pbLoading.loadingContainer)
@@ -87,6 +111,7 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
                     llContainerStart.visibility = View.GONE
                     llContainerQuestion.visibility = View.VISIBLE
                     llContainerCount.visibility = View.GONE
+                    ivFrame.visibility = View.GONE
                 }
                 START_RECORDING -> {
                     shadow.visibility = View.GONE
@@ -133,6 +158,25 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
 
     @SuppressLint("RestrictedApi")
     private fun startRecording() {
+        // countDown
+        val countDown = edu.runningTime + 2
+        binding.pbCount.setProgressWithAnimation(countDown.toFloat(), (countDown * 1000).toLong())
+        compositeDisposable.add(
+            Observable
+                .interval(1, TimeUnit.SECONDS)
+                .take(countDown.toLong())
+                .map { count -> count + 1 }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    binding.tvCount.text = String.format(getString(
+                            R.string.edu_count,
+                            (countDown- it.toInt()).toString()
+                        ))
+                }, { it.printStackTrace() }, {
+                    setContainerView(STOP_RECORDING)
+                })
+        )
+        // videoFile
         val videoFile = File(
             outputDirectory,
             SimpleDateFormat(
@@ -150,6 +194,10 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
                     val savedUri = Uri.fromFile(videoFile)
                     val msg = "Video Saved"
                     showToast("$msg $savedUri")
+                    // TODO file upload
+//                    val requestBody = videoFile.asRequestBody()
+//                    val putFile = MultipartBody.Part.createFormData("videoFile", videoFile.name, requestBody)
+//                    viewModel.updateEdu(putFile, )
                 }
 
                 override fun onError(videoCaptureError: Int, message: String, cause: Throwable?) {

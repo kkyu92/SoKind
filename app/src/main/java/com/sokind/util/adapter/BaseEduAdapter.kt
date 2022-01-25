@@ -4,13 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.data.remote.edu.Edu
 import com.sokind.databinding.ItemBaseCsBinding
+import com.sokind.util.Constants
+import com.sokind.util.OnEduItemClickListener
+import java.util.concurrent.TimeUnit
 
 class BaseEduAdapter(
     private val tabName: String
 ) : RecyclerView.Adapter<BaseEduAdapter.HomeCsViewHolder>() {
+    private lateinit var listener: OnEduItemClickListener
     var baseList: List<Edu> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeCsViewHolder {
@@ -42,11 +47,18 @@ class BaseEduAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(baseEdu: Edu) {
+            itemView
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    listener.onEduItemClick(baseEdu, adapterPosition)
+                }, { it.printStackTrace() })
+
             binding.apply {
                 tvBaseTitle.text = baseEdu.title
                 tvBaseContents.text = baseEdu.contents
 
-                when(baseEdu.status) {
+                when (baseEdu.status) {
                     1 -> {
                         ivBaseBt.setImageResource(R.drawable.icon_play_btn_disable)
                         tvBaseState.text = root.context.getString(R.string.edu_fin)
@@ -72,5 +84,9 @@ class BaseEduAdapter(
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
+    }
+
+    fun setOnItemClickListener(listener: OnEduItemClickListener) {
+        this.listener = listener
     }
 }
