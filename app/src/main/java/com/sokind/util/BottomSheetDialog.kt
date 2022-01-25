@@ -12,7 +12,8 @@ import com.sokind.databinding.DialogBottomSheetBinding
 import java.util.concurrent.TimeUnit
 
 class BottomSheetDialog(
-    private val question: String,
+    private val title: String,
+    private val contents: String?,
     val itemClick: (Boolean) -> Unit
 ) : BottomSheetDialogFragment() {
     private lateinit var binding: DialogBottomSheetBinding
@@ -30,8 +31,8 @@ class BottomSheetDialog(
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            tvDialogQuestion.text = getString(R.string.dialog_logout)
-
+            tvDialogTitle.text = title
+            tvDialogContents.text = contents
             btNo
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
@@ -53,10 +54,11 @@ class BottomSheetDialog(
 
     companion object {
         fun newInstance(
-            question: String,
+            title: String,
+            contents: String,
             itemClick: (Boolean) -> Unit
         ): BottomSheetDialogFragment {
-            return BottomSheetDialog(question, itemClick)
+            return BottomSheetDialog(title, contents, itemClick)
         }
     }
 }
