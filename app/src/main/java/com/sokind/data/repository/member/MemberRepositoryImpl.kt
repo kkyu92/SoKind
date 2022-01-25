@@ -53,7 +53,7 @@ class MemberRepositoryImpl @Inject constructor(
                         userDataSource.saveUser(
                             UserEntity(
                                 null,
-                                null,
+                                loginRequest.memberId,
                                 null,
                                 null,
                                 null,
