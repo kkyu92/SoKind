@@ -1,4 +1,4 @@
-package com.sokind.data.repository.base
+package com.sokind.data.repository.token
 
 import com.sokind.data.local.user.UserDataSource
 import com.sokind.data.remote.member.MemberDataSource
@@ -7,10 +7,10 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
-class BaseRepositoryImpl @Inject constructor (
+class TokenRepositoryImpl @Inject constructor (
     private val userDataSource: UserDataSource,
     private val memberDataSource: MemberDataSource
-) : BaseRepository {
+) : TokenRepository {
     override fun checkToken(): Completable {
         return userDataSource
             .getUser()

@@ -10,13 +10,15 @@ import com.sokind.data.remote.member.join.EnterpriseList
 import com.sokind.data.remote.member.join.JoinInfo
 import com.sokind.data.remote.member.login.LoginRequest
 import com.sokind.data.remote.member.login.RefreshRequest
+import com.sokind.data.repository.token.TokenRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class MemberRepositoryImpl @Inject constructor(
     private val userDataSource: UserDataSource,
-    private val memberDataSource: MemberDataSource
+    private val memberDataSource: MemberDataSource,
+    private val tokenRepository: TokenRepository
 ): MemberRepository{
     override fun searchEnterpriseList(keyword: String): Single<EnterpriseList> {
         return memberDataSource
@@ -76,30 +78,6 @@ class MemberRepositoryImpl @Inject constructor(
             }
     }
 
-    override fun checkToken(): Completable {
-        return userDataSource
-            .getUser()
-            .flatMapCompletable { user ->
-                memberDataSource
-                    .checkToken(user.access, user.memberId!!)
-            }
-            .retryWhen { error ->
-                return@retryWhen error
-                    .flatMapSingle {
-                        return@flatMapSingle userDataSource
-                            .getUser()
-                            .flatMap { user ->
-                                memberDataSource
-                                    .refreshToken(user.access, RefreshRequest(user.memberId!!))
-                            }
-                            .flatMap { response ->
-                                userDataSource.updateAccessToken(response.accessToken)
-                                    .andThen(Single.just(Unit))
-                            }
-                    }
-            }
-    }
-
     override fun getMe(): Single<MemberInfo> {
         return userDataSource
             .getUser()
@@ -110,7 +88,8 @@ class MemberRepositoryImpl @Inject constructor(
             .retryWhen { error ->
                 return@retryWhen error
                     .flatMapSingle {
-                        return@flatMapSingle checkToken()
+                        return@flatMapSingle tokenRepository
+                            .checkToken()
                             .andThen(Single.just(Unit))
                     }
             }

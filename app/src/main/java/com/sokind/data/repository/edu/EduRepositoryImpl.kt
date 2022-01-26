@@ -4,14 +4,15 @@ import com.sokind.data.local.user.UserDataSource
 import com.sokind.data.remote.edu.EduDataSource
 import com.sokind.data.remote.edu.EduList
 import com.sokind.data.repository.member.MemberRepository
+import com.sokind.data.repository.token.TokenRepository
 import io.reactivex.rxjava3.core.Single
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class EduRepositoryImpl @Inject constructor(
     private val userDataSource: UserDataSource,
-    private val memberRepository: MemberRepository,
-    private val eduDataSource: EduDataSource
+    private val eduDataSource: EduDataSource,
+    private val tokenRepository: TokenRepository
 ) : EduRepository {
     override fun getEdu(): Single<EduList> {
         return userDataSource
@@ -23,7 +24,7 @@ class EduRepositoryImpl @Inject constructor(
             .retryWhen { error ->
                 return@retryWhen error
                     .flatMapSingle {
-                        return@flatMapSingle memberRepository
+                        return@flatMapSingle tokenRepository
                             .checkToken()
                             .andThen(Single.just(Unit))
                     }
