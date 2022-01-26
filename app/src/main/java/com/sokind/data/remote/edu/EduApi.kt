@@ -34,10 +34,10 @@ interface EduApi {
     @Multipart
     @PUT("edu/eduResult")
     fun putEdu(
-        @Part("eduFile") file: MultipartBody.Part,
+        @Part eduFile: MultipartBody.Part,
         @Query("eduKey") eduKey: Int,
         @Query("eduType") eduType: Int,
-        @Query("memberId") id: Int,
+        @Query("memberId") id: String,
         @Query("memberKey") key: Int,
-    ): Single<String>
+    ): Single<EduUpdateResponse>
 }

@@ -15,14 +15,14 @@ class EduDataSourceImpl @Inject constructor(
     }
 
     override fun putEdu(
-        file: MultipartBody.Part,
+        eduFile: MultipartBody.Part,
         eduKey: Int,
         eduType: Int,
-        id: Int,
+        id: String,
         key: Int
-    ): Single<String> {
+    ): Single<EduUpdateResponse> {
         return eduApi
-            .putEdu(file, eduKey, eduType, id, key)
+            .putEdu(eduFile, eduKey, eduType, id, key)
             .subscribeOn(Schedulers.io())
     }
 }
