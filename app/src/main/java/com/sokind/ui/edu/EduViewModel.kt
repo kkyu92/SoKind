@@ -2,6 +2,7 @@ package com.sokind.ui.edu
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.sokind.data.remote.edu.EduUpdateResponse
 import com.sokind.data.repository.edu.EduRepository
 import com.sokind.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,17 +15,17 @@ import javax.inject.Inject
 class EduViewModel @Inject constructor(
     private val repository: EduRepository
 ) : BaseViewModel() {
-    private val _updateEdu: MutableLiveData<String> = MutableLiveData()
-    val updateEdu: LiveData<String> = _updateEdu
+    private val _updateEdu: MutableLiveData<EduUpdateResponse> = MutableLiveData()
+    val updateEdu: LiveData<EduUpdateResponse> = _updateEdu
 
     init {
 
     }
 
-    fun updateEdu(file: MultipartBody.Part, eduKey: Int, eduType: Int, id: Int, key: Int) {
+    fun updateEdu(file: MultipartBody.Part, eduKey: Int, eduType: Int) {
         compositeDisposable.add(
             repository
-                .putEdu(file, eduKey, eduType, id, key)
+                .putEdu(file, eduKey, eduType)
                 .doOnSubscribe { showProgress() }
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnTerminate { hideProgress() }

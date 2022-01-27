@@ -20,9 +20,8 @@ import com.sokind.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import timber.log.Timber
 import java.io.File
@@ -52,6 +51,13 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
         setBinding()
         setContainerView(INIT)
         checkPermission()
+
+        viewModel.updateEdu.observe(viewLifecycleOwner, {
+            Timber.e("$it")
+            showLoading(false, binding.pbLoading.loadingContainer)
+            val action = EduFragmentDirections.actionEduFragmentToEduFinishFragment(edu)
+            findNavController().navigate(action)
+        })
     }
 
     private fun setEduData(edu: Edu) {
@@ -125,9 +131,8 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
                     GlideApp.with(requireContext()).load(R.drawable.loading_stop).into(ivLoading)
                     GlideApp.with(requireContext()).load(R.raw.loading_wh)
                         .into(pbLoading.loadingGif)
-                    stopRecording()
                     showLoading(true, pbLoading.loadingContainer)
-                    findNavController().navigate(R.id.action_eduFragment_to_eduFinishFragment)
+                    stopRecording()
                 }
             }
         }
@@ -193,11 +198,11 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
                 override fun onVideoSaved(outputFileResults: VideoCapture.OutputFileResults) {
                     val savedUri = Uri.fromFile(videoFile)
                     val msg = "Video Saved"
-                    showToast("$msg $savedUri")
-                    // TODO file upload
-//                    val requestBody = videoFile.asRequestBody()
-//                    val putFile = MultipartBody.Part.createFormData("videoFile", videoFile.name, requestBody)
-//                    viewModel.updateEdu(putFile, )
+                    Timber.e("$msg $savedUri")
+
+                    val requestBody = videoFile.asRequestBody("video/webm".toMediaTypeOrNull())
+                    val putFile = MultipartBody.Part.createFormData("eduFile", videoFile.name, requestBody)
+                    viewModel.updateEdu(putFile, edu.key, edu.type)
                 }
 
                 override fun onError(videoCaptureError: Int, message: String, cause: Throwable?) {
