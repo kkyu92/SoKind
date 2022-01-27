@@ -12,11 +12,13 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
+import com.sokind.data.remote.edu.EduList
 import com.sokind.databinding.FragmentCsBinding
 import com.sokind.ui.EduNavActivity
 import com.sokind.ui.base.BaseFragment
 import com.sokind.ui.cs.tabs.CsBaseFragment
 import com.sokind.ui.cs.tabs.CsDeepFragment
+import com.sokind.util.ChartLv
 import com.sokind.util.Constants
 import com.sokind.util.ShowReportFragmentListener
 import com.sokind.util.adapter.TabAdapter
@@ -31,17 +33,18 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
     private lateinit var showReportFragmentListener: ShowReportFragmentListener
     private lateinit var tabLayoutMediator: TabLayoutMediator
 
-    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode == RESULT_OK) {
-            val go = it.data?.getStringExtra(Constants.MOVE_TO)
-            Timber.e("data: ${ it.data}")
-            Timber.e("go to : $go")
-            when(go) {
-                "cs" -> showToast("reload")
-                "report" -> showReportFragmentListener.showReportFragment()
+    private val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == RESULT_OK) {
+                val go = it.data?.getStringExtra(Constants.MOVE_TO)
+                Timber.e("data: ${it.data}")
+                Timber.e("go to : $go")
+                when (go) {
+                    "cs" -> showToast("reload")
+                    "report" -> showReportFragmentListener.showReportFragment()
+                }
             }
         }
-    }
 
     override fun init() {
         setBinding()
@@ -52,6 +55,8 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
 
     private fun setViewModel() {
         viewModel.apply {
+            getMe()
+
             eduList.observe(viewLifecycleOwner, {
                 val csBaseFragment = CsBaseFragment(it.baseCs)
                 val csDeepFragment = CsDeepFragment(it.deepCs)
@@ -60,6 +65,14 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
                     csDeepFragment
                 )
                 setTabLayout(fragmentList)
+                ChartLv(binding.lvChart, it)
+                setPercent(it)
+            })
+            getMe.observe(viewLifecycleOwner, {
+                binding.apply {
+                    tvCsUserName.text = it.memberName
+                    tvCsUserEnterprise.text = it.enterpriseName + " / " + it.storeName
+                }
             })
             isLoading.observe(viewLifecycleOwner, { isLoading ->
                 if (isLoading) {
@@ -69,6 +82,43 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
                 }
             })
         }
+    }
+
+    private fun setPercent(eduAll: EduList) {
+        val baseList = eduAll.baseCs
+        val deepList = eduAll.deepCs
+        val total = (baseList.size + deepList.size).toFloat()
+        var fin = 0f
+        for (base in baseList) {
+            if (base.status == 1) {
+                fin++
+            }
+        }
+        for (deep in deepList) {
+            if (deep.status == 1) {
+                fin++
+            }
+        }
+
+        when {
+            fin / total < 0.2f -> {
+                binding.tvCsLv.text = "Lv.0"
+            }
+            0.2f <= fin / total && fin / total < 0.4f -> {
+                binding.tvCsLv.text = "Lv.1"
+            }
+            0.4f <= fin / total && fin / total < 0.6f -> {
+                binding.tvCsLv.text = "Lv.2"
+            }
+            0.6f <= fin / total && fin / total < 0.8f -> {
+                binding.tvCsLv.text = "Lv.3"
+            }
+            0.8f <= fin / total && fin / total < 1f -> {
+                binding.tvCsLv.text = "Lv.4"
+            }
+            else -> binding.tvCsLv.text = "Lv.5"
+        }
+        binding.pbCsLv.progress = fin / total * 100
     }
 
     private fun setTabLayout(fragmentList: List<Fragment>) {
