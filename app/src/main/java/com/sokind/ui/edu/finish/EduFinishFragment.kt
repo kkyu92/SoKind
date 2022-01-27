@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
+import com.sokind.data.remote.edu.Edu
 import com.sokind.databinding.FragmentEduFinishBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.util.Constants
@@ -16,13 +17,22 @@ import java.util.concurrent.TimeUnit
 @AndroidEntryPoint
 class EduFinishFragment : BaseFragment<FragmentEduFinishBinding>(R.layout.fragment_edu_finish) {
     private val viewModel by viewModels<EduFinishViewModel>()
+    private lateinit var edu: Edu
 
     override fun init() {
+        edu = arguments?.getSerializable("edu") as Edu
         setBinding()
     }
 
     private fun setBinding() {
         binding.apply {
+            if (edu.type == 1) {
+                tvBasePosition.text = "기본응대 - ${edu.key}"
+            } else {
+
+            }
+            tvEduTitle.text = edu.title
+
             btBack
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)

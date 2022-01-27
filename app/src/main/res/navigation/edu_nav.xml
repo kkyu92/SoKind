@@ -30,5 +30,8 @@
             app:destination="@id/eduFragment"
             app:popUpTo="@id/edu_nav"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="edu"
+            app:argType="com.sokind.data.remote.edu.Edu" />
     </fragment>
 </navigation>
