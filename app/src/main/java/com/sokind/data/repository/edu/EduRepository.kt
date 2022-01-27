@@ -1,5 +1,6 @@
 package com.sokind.data.repository.edu
 
+import com.sokind.data.local.user.UserEntity
 import com.sokind.data.remote.edu.EduList
 import com.sokind.data.remote.edu.EduUpdateResponse
 import io.reactivex.rxjava3.core.Single
@@ -12,4 +13,5 @@ interface EduRepository {
         eduKey: Int,
         eduType: Int
     ): Single<EduUpdateResponse>
+    fun getMe(): Single<UserEntity>
 }
