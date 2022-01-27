@@ -202,19 +202,6 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"/>
 
-<!--                    <com.google.android.material.progressindicator.CircularProgressIndicator-->
-<!--                        android:id="@+id/pb_count"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-<!--                        android:indeterminateOnly="false"-->
-<!--                        android:max="30"-->
-<!--                        android:progress="20"-->
-<!--                        app:indicatorColor="@color/pb_bar"-->
-<!--                        app:indicatorSize="70dp"-->
-<!--                        app:trackColor="@color/pb_background"-->
-<!--                        app:trackCornerRadius="20dp"-->
-<!--                        app:trackThickness="5dp" />-->
-
                     <ImageView
                         android:id="@+id/iv_loading"
                         android:layout_width="70dp"
