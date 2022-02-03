@@ -1,233 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_lv_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <View
-            android:id="@+id/lv_line"
+        <TextView
+            android:id="@+id/tv_lv_comment"
+            style="@style/black_13_400"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="거의 다 왔어요! 조금만 힘내세요!"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_lv_percent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_lv_percent" />
+
+        <TextView
+            android:id="@+id/tv_lv_percent"
+            style="@style/main_18_700"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="80%" />
+
+        <ProgressBar
+            android:id="@+id/pb_lv"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginHorizontal="15dp"
-            android:background="@drawable/ic_lv_line"
+            android:layout_height="8dp"
+            android:layout_marginTop="5dp"
+            android:progressDrawable="@drawable/custom_progress_bg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lv_pin" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_lv_percent" />
 
-        <ImageView
-            android:id="@+id/lv_pin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="10dp"
-            android:src="@drawable/icon_lv_pin"
-            app:layout_constraintEnd_toEndOf="@+id/lv_selected"
-            app:layout_constraintStart_toStartOf="@+id/lv_selected"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/lv_0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_lv_dot"
-            app:layout_constraintBottom_toBottomOf="@+id/lv_line"
-            app:layout_constraintEnd_toEndOf="@+id/lv_line"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/lv_line"
-            app:layout_constraintTop_toTopOf="@+id/lv_line" />
-
-        <ImageView
+        <TextView
             android:id="@+id/lv_1"
+            style="@style/black_13_400"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_lv_dot"
-            app:layout_constraintBottom_toBottomOf="@+id/lv_line"
-            app:layout_constraintEnd_toEndOf="@+id/lv_line"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toStartOf="@+id/lv_line"
-            app:layout_constraintTop_toTopOf="@+id/lv_line" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:text="Lv.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pb_lv" />
 
-        <ImageView
+        <TextView
             android:id="@+id/lv_2"
+            style="@style/black_13_400"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_lv_dot"
-            app:layout_constraintBottom_toBottomOf="@+id/lv_line"
-            app:layout_constraintEnd_toEndOf="@+id/lv_line"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintStart_toStartOf="@+id/lv_line"
-            app:layout_constraintTop_toTopOf="@+id/lv_line" />
+            android:layout_height="match_parent"
+            android:text="Lv.2"
+            app:layout_constraintEnd_toStartOf="@+id/lv_3"
+            app:layout_constraintStart_toEndOf="@+id/lv_1"
+            app:layout_constraintTop_toTopOf="@+id/lv_1" />
 
-        <ImageView
+        <TextView
             android:id="@+id/lv_3"
+            style="@style/black_13_400"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_lv_dot"
-            app:layout_constraintBottom_toBottomOf="@+id/lv_line"
-            app:layout_constraintEnd_toEndOf="@+id/lv_line"
-            app:layout_constraintHorizontal_bias="0.6"
-            app:layout_constraintStart_toStartOf="@+id/lv_line"
-            app:layout_constraintTop_toTopOf="@+id/lv_line" />
+            android:layout_height="match_parent"
+            android:text="Lv.3"
+            app:layout_constraintEnd_toStartOf="@+id/lv_4"
+            app:layout_constraintStart_toEndOf="@+id/lv_2"
+            app:layout_constraintTop_toTopOf="@+id/lv_1" />
 
-        <ImageView
+        <TextView
             android:id="@+id/lv_4"
+            style="@style/black_13_400"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_lv_dot"
-            app:layout_constraintBottom_toBottomOf="@+id/lv_line"
-            app:layout_constraintEnd_toEndOf="@+id/lv_line"
-            app:layout_constraintHorizontal_bias="0.8"
-            app:layout_constraintStart_toStartOf="@+id/lv_line"
-            app:layout_constraintTop_toTopOf="@+id/lv_line" />
+            android:layout_height="match_parent"
+            android:text="Lv.4"
+            app:layout_constraintEnd_toStartOf="@+id/lv_5"
+            app:layout_constraintStart_toEndOf="@+id/lv_3"
+            app:layout_constraintTop_toTopOf="@+id/lv_1" />
 
-        <ImageView
+        <TextView
             android:id="@+id/lv_5"
+            style="@style/black_13_400"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_lv_dot"
-            app:layout_constraintBottom_toBottomOf="@+id/lv_line"
-            app:layout_constraintEnd_toEndOf="@+id/lv_line"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toStartOf="@+id/lv_line"
-            app:layout_constraintTop_toTopOf="@+id/lv_line" />
-
-        <View
-            android:id="@+id/lv_line_selected"
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:background="@drawable/ic_lv_line_selected"
-            app:layout_constraintEnd_toEndOf="@+id/lv_selected"
-            app:layout_constraintStart_toStartOf="@+id/lv_line"
-            app:layout_constraintTop_toBottomOf="@+id/lv_pin" />
-
-        <ImageView
-            android:id="@+id/lv_selected"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_lv_dot_selected"
-            app:layout_constraintBottom_toBottomOf="@+id/lv_line"
-            app:layout_constraintEnd_toEndOf="@+id/lv_line"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/lv_line"
-            app:layout_constraintTop_toTopOf="@+id/lv_line" />
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
-            android:orientation="horizontal"
-            android:weightSum="5"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/lv_line"
-            app:layout_constraintStart_toStartOf="@+id/lv_line"
-            app:layout_constraintTop_toBottomOf="@+id/lv_line">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/black_14_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lv.1" />
-
-                <TextView
-                    style="@style/lightGray_12_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="기본응대\n(1/5)"
-                    android:textAlignment="textEnd" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/black_14_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lv.2" />
-
-                <TextView
-                    style="@style/lightGray_12_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="기본응대\n(2/5)"
-                    android:textAlignment="textEnd" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/black_14_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lv.3" />
-
-                <TextView
-                    style="@style/lightGray_12_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="상황응대\n(3/5)"
-                    android:textAlignment="textEnd" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/black_14_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lv.4" />
-
-                <TextView
-                    style="@style/lightGray_12_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="상황응대\n(4/5)"
-                    android:textAlignment="textEnd" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/black_14_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lv.5" />
-
-                <TextView
-                    style="@style/lightGray_12_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="상황응대\n(5/5)"
-                    android:textAlignment="textEnd" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            android:layout_height="match_parent"
+            android:text="Lv.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/lv_1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

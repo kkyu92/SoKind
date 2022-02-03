@@ -46,7 +46,7 @@
 
                     <TextView
                         android:id="@+id/tv_cs_user_name"
-                        style="@style/black_18_700"
+                        style="@style/black_16_500"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
@@ -60,56 +60,38 @@
                         style="@style/gray_14_400"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@+id/iv_cs_profile"
                         app:layout_constraintStart_toStartOf="@+id/tv_cs_user_name"
                         app:layout_constraintTop_toBottomOf="@+id/tv_cs_user_name"
                         tools:text="CJ올리브영 / 공덕점" />
 
-                    <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                        android:id="@+id/pb_cs_lv"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        app:cpb_background_progressbar_color="@color/pb_background"
-                        app:cpb_background_progressbar_width="5dp"
-                        app:cpb_progress_max="100"
-                        app:cpb_progressbar_color="@color/pb_bar"
-                        app:cpb_progressbar_width="5dp"
-                        app:cpb_round_border="true"
-                        app:layout_constraintBottom_toTopOf="@+id/tv_cs_day"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
                     <TextView
                         android:id="@+id/tv_cs_day"
-                        style="@style/black_13_400"
+                        style="@style/lightGray_12_400"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/pb_cs_lv"
-                        app:layout_constraintStart_toStartOf="@+id/pb_cs_lv"
-                        app:layout_constraintTop_toBottomOf="@+id/pb_cs_lv"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_cs_profile"
+                        app:layout_constraintStart_toStartOf="@+id/tv_cs_user_name"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_cs_user_enterprise"
+                        tools:ignore="SmallSp"
                         tools:text="교육 1일차" />
-
-                    <TextView
-                        android:id="@+id/tv_cs_lv"
-                        style="@style/black_14_400"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@+id/pb_cs_lv"
-                        app:layout_constraintEnd_toEndOf="@+id/pb_cs_lv"
-                        app:layout_constraintStart_toStartOf="@+id/pb_cs_lv"
-                        app:layout_constraintTop_toTopOf="@+id/pb_cs_lv"
-                        tools:text="Lv.1" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/iv_lv_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="15dp"
+                    android:padding="5dp"
+                    android:src="@drawable/icon_info" />
 
                 <include
                     android:id="@+id/lv_chart"
                     layout="@layout/chart_lv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="20dp" />
+                    android:layout_marginHorizontal="20dp" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cv_cs_continue"
