@@ -1,8 +1,5 @@
 package com.sokind.util
 
-import android.view.animation.Animation
-import android.view.animation.Transformation
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.sokind.data.remote.edu.EduList
 import com.sokind.databinding.ChartLvBinding
 
@@ -26,14 +23,33 @@ class ChartLv(
                 fin++
             }
         }
-
-        val ani: Animation = object : Animation() {
-            override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
-                val lv = binding.lvSelected.layoutParams as ConstraintLayout.LayoutParams
-                lv.horizontalBias = fin / total
-                binding.lvSelected.layoutParams = lv
+        val progress = fin / total * 100
+        val comment: String
+        when(progress) {
+            in 0f..20f -> {
+                comment = "0~20"
+            }
+            in 21f..40f -> {
+                comment = "21~40"
+            }
+            in 41f..60f -> {
+                comment = "41~60"
+            }
+            in 61f..80f -> {
+                comment = "61~80"
+            }
+            in 81f..100f -> {
+                comment = "거의 다 왔어요! 조금만 힘내세요!"
+            }
+            else -> {
+                comment = "else"
             }
         }
-        binding.lvSelected.startAnimation(ani)
+
+        binding.apply {
+            tvLvComment.text = comment
+            tvLvPercent.text = progress.toInt().toString() + "%"
+            pbLv.progress = progress.toInt()
+        }
     }
 }
