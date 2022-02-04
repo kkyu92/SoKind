@@ -79,13 +79,13 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
             })
             getMe.observe(viewLifecycleOwner, {
                 binding.apply {
-                    tvCsUserName.text = it.memberName
+                    tvCsUserName.text = it.memberName + it.positionName
                     tvCsUserEnterprise.text = it.enterpriseName + " / " + it.storeName
                 }
             })
             nextEdu.observe(viewLifecycleOwner, {
                 nextEduData = it
-                val type = if (it.type == 1) "기본응대 - ${it.position}" else "상황응대 - ${it.position}"
+                val type = if (it.type == 1) "기본응대 - ${it.position}" else "상황응대 - "
                 binding.tvCsNext.text = "$type `${it.title}`"
             })
             isLoading.observe(viewLifecycleOwner, { isLoading ->

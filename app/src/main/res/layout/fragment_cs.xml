@@ -40,9 +40,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/img_profile"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_cs_day"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@+id/tv_cs_user_name" />
 
                     <TextView
                         android:id="@+id/tv_cs_user_name"
@@ -52,7 +52,7 @@
                         android:layout_marginStart="12dp"
                         app:layout_constraintBottom_toTopOf="@+id/tv_cs_user_enterprise"
                         app:layout_constraintStart_toEndOf="@+id/iv_cs_profile"
-                        app:layout_constraintTop_toTopOf="@+id/iv_cs_profile"
+                        app:layout_constraintTop_toTopOf="parent"
                         tools:text="김진철 사원" />
 
                     <TextView
@@ -60,6 +60,7 @@
                         style="@style/gray_14_400"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_cs_day"
                         app:layout_constraintStart_toStartOf="@+id/tv_cs_user_name"
                         app:layout_constraintTop_toBottomOf="@+id/tv_cs_user_name"
                         tools:text="CJ올리브영 / 공덕점" />
@@ -70,7 +71,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="10sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/iv_cs_profile"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/tv_cs_user_name"
                         app:layout_constraintTop_toBottomOf="@+id/tv_cs_user_enterprise"
                         tools:ignore="SmallSp"
