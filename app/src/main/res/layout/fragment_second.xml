@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/noto_sans_regular"
             android:gravity="center"
-            android:text="2"/>
+            android:text="@string/boarding_2"/>
 
         <View
             android:layout_width="0dp"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:text="@string/boarding_content" />
+            android:text="@string/boarding_content2" />
 
         <View
             android:layout_width="0dp"

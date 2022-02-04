@@ -85,7 +85,24 @@
     <string name="join_finish">가입하기</string>
 
     // boarding
-    <string name="boarding_content">우리 기업의 CS교육 매뉴얼에 맞게\n고객 만족 교육을 단계별로 학습할 수 있어요.</string>
+    <string name="boarding_1"><![CDATA[환영합니다, <font><b>%s님!</b></font>]]></string>
+    <string name="boarding_content1">
+        인공지능 CS교육 솔루션 쏘카인드는 우리 기업의\n
+        CS교육 매뉴얼에 맞게 고객 만족 교육을\n
+        단계별로 학습할 수 있어요.
+    </string>
+    <string name="boarding_2"><b>경험 중심</b>의 상황응대</string>
+    <string name="boarding_content2">
+        CS 전문가의 ‘컴플레인 응대법’ 커리큘럼\n
+        기반 교육 컨텐츠로, 고객 불만 상황에 대응하는 법을\n
+        훈련할 수 있어요.
+    </string>
+    <string name="boarding_3">나의 <b>서비스는 몇 점?</b></string>
+    <string name="boarding_content3">
+        교육생들은 교육을 마친 후\n
+        AI 기반의 학습레포트를 통해 점수를\n
+        확인할 수 있습니다.
+    </string>
 
     // dialog
     <string name="dialog_logout">정말 로그아웃을 하시겠어요?</string>
@@ -97,9 +114,9 @@
     <string name="continue_cs">CS교육 이어하기</string>
     <string name="basic_cs">기본응대 CS교육</string>
     <string name="deep_cs">상황응대 CS교육</string>
-    <string name="no_cs_1">등록되어있는 CS교육이 없어요!</string>
-    <string name="no_cs_2">CS교육을 등록 후\n학습을 시작해보세요.</string>
     <string name="more">더보기</string>
+    <string name="no_base_edu">등록된 기본응대 CS교육 컨텐츠가 없습니다.</string>
+    <string name="no_deep_edu">기본응대 CS교육을 전부 이수한 후\n학습을 시작해보세요.</string>
 
     // guide
     <string name="guide">가이드</string>
@@ -126,6 +143,7 @@
 
     // cs edu
     <string name="cs">CS교육</string>
+    <string name="cs_day">교육 %s일차</string>
     <string name="cs_continue">다음교육 바로 이어하기</string>
     <string name="cs_tab_title">우리회사 CS교육 과정</string>
     <string name="deep_cs_no_title">수강할 수 있는 상황응대 CS교육이 없어요!</string>
@@ -217,9 +235,23 @@
     <string name="candidate">응시자</string>
 
     // explain
+    <string name="lv_title">나의 레벨이 왜 떨어졌나요?</string>
+    <string name="lv_content">
+        종합친절도는 현재까지 이수한 CS교육의 개발 종합점수를 평균값으로 계산한 것입니다.\n
+        종합친절도 100점에 가까울수록 친절도가 우수함을 나타냅니다.
+    </string>
     <string name="kind_title">종합친절도란?</string>
-    <string name="kind_content">종합친절도는 현재까지 이수한 CS교육의 개발 종합점수를 평균값으로 계산한 것입니다. 종합친절도 100점에 가까울수록 친절도가 우수함을 나타냅니다.</string>
+    <string name="kind_content">
+        종합친절도는 현재까지 이수한 CS교육의 개발 종합점수를 평균값으로 계산한 것입니다.\n
+        종합친절도 100점에 가까울수록 친절도가 우수함을 나타냅니다.
+    </string>
     <string name="kind_content2">* 개별 종합점수 평가 기준 - 행동, 감정, 자세, 언어, 소리 데이터 분석 값</string>
+    <string name="analysis_title">분석중이란?</string>
+    <string name="analysis_content">
+        이수한 강의의 각 평가 요소를 분석을 하는데\n
+        시간이 최대 30초 까지 소요될 수 있습니다.\n
+        현재 2개의 강의를 분석하고 있습니다.
+    </string>
 
     // my
     <string name="my">MY</string>
@@ -247,7 +279,7 @@
     <string name="change_main_color"><![CDATA[<font color=\'#6967F9\'><b>%s</b></font>]]></string>
     <string name="no_enterprise_content_1"><![CDATA[<font color=\'#6967F9\'><b>%s</b></font>에 대한 검색 결과가 없습니다.]]></string>
     <string name="no_enterprise_content_2">입력하신 검색어를 확인해주세요.</string>
-    <string name="boarding_title"><![CDATA[환영합니다, <b>%s!</b><br>인공지능 CS교육 솔루션,<br><font color=\'#6967F9\'><b>쏘카인드</b></font>입니다.]]></string>
+<!--    <string name="boarding_title"><![CDATA[환영합니다, <b>%s!</b><br>인공지능 CS교육 솔루션,<br><font color=\'#6967F9\'><b>쏘카인드</b></font>입니다.]]></string>-->
 
     <string name="dummy">
         우리 올리브영에서는 선창, 후창으로 직원들이 입점인사를 합니다. 입점 손님을 먼저 발견한 직원은 선창으로 힘차게 아래와 같이 말합니다.\n\n

@@ -40,6 +40,24 @@ class BoardingFragment : BaseFragment<FragmentBoardingBinding>(R.layout.fragment
     }
 
     override fun init() {
+        viewModel.name.observe(viewLifecycleOwner, { userName ->
+            val fragmentList = arrayListOf<Fragment>(
+                FirstScreen(userName),
+                SecondScreen(),
+                ThirdScreen()
+            )
+            val adapter = TabAdapter(
+                fragmentList,
+                requireActivity().supportFragmentManager,
+                lifecycle
+            )
+
+            binding.apply {
+                vpBoarding.adapter = adapter
+                dotIndicator.setViewPager2(vpBoarding)
+            }
+        })
+
         compositeDisposable.add(
             backBtnSubject
                 .debounce(100, TimeUnit.MILLISECONDS)
@@ -58,22 +76,6 @@ class BoardingFragment : BaseFragment<FragmentBoardingBinding>(R.layout.fragment
                     requireActivity().finish()
                 }
         )
-
-        val fragmentList = arrayListOf<Fragment>(
-            FirstScreen(),
-            SecondScreen(),
-            ThirdScreen()
-        )
-        val adapter = TabAdapter(
-            fragmentList,
-            requireActivity().supportFragmentManager,
-            lifecycle
-        )
-
-        binding.apply {
-            vpBoarding.adapter = adapter
-            dotIndicator.setViewPager2(vpBoarding)
-        }
     }
 
     companion object {

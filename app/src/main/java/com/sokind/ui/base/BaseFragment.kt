@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.text.Html
+import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -217,8 +218,8 @@ abstract class BaseFragment<B : ViewDataBinding>(
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
-    protected fun fromHtml(htmlString: String): String {
-        return Html.fromHtml((htmlString), Html.FROM_HTML_MODE_LEGACY).toString()
+    protected fun fromHtml(format: String, htmlString: String): Spanned {
+        return Html.fromHtml(String.format(format, htmlString), Html.FROM_HTML_MODE_LEGACY)
     }
 
     protected fun getColor(color: Int): Int {

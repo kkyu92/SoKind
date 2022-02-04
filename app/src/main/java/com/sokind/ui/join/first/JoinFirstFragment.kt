@@ -48,7 +48,7 @@ class JoinFirstFragment : BaseFragment<FragmentJoinFirstBinding>(R.layout.fragme
             if (searchWord.isNotEmpty()) {
                 if (it.data.isEmpty()) {
                     binding.rvEnterprise.visibility = View.GONE
-                    binding.tvNoEnterprise.text = fromHtml(getString(R.string.no_enterprise_content_1, searchWord))
+                    binding.tvNoEnterprise.text = fromHtml(getString(R.string.no_enterprise_content_1), searchWord)
                     binding.llNoEnterpriseResult.visibility = View.VISIBLE
                 } else {
                     binding.rvEnterprise.visibility = View.VISIBLE

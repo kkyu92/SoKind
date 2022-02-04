@@ -6,10 +6,12 @@ import com.sokind.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FirstScreen : BaseFragment<FragmentFirstBinding>(R.layout.fragment_first) {
+class FirstScreen(
+    private val userName: String
+) : BaseFragment<FragmentFirstBinding>(R.layout.fragment_first) {
 
     override fun init() {
-        binding.tvBoardingTitle.text = fromHtml(getString(R.string.boarding_title, userName))
+        binding.tvBoardingTitle.text = fromHtml(getString(R.string.boarding_1), userName)
     }
 
     companion object {

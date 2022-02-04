@@ -2,6 +2,7 @@ package com.sokind.ui.cs
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.text.Html
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.get
@@ -67,7 +68,7 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
                 setTabLayout(fragmentList)
                 ChartLv(binding.lvChart, it)
                 setPercent(it)
-                binding.tvCsDay.text = fromHtml(getString(R.string.cs_day, it.eduDate.toString()))
+                binding.tvCsDay.text = fromHtml(getString(R.string.cs_day), it.eduDate.toString())
             })
             getMe.observe(viewLifecycleOwner, {
                 binding.apply {
