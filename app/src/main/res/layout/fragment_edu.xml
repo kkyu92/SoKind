@@ -190,8 +190,8 @@
 
                     <com.mikhaellopez.circularprogressbar.CircularProgressBar
                         android:id="@+id/pb_count"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
                         app:cpb_background_progressbar_color="@color/pb_background"
                         app:cpb_progressbar_color="@color/pb_bar"
                         app:cpb_background_progressbar_width="5dp"
@@ -204,8 +204,8 @@
 
                     <ImageView
                         android:id="@+id/iv_loading"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
                         app:layout_constraintBottom_toBottomOf="@+id/pb_count"
                         app:layout_constraintEnd_toEndOf="@+id/pb_count"
                         app:layout_constraintStart_toStartOf="@+id/pb_count"
