@@ -13,52 +13,55 @@
             android:id="@+id/rv_home_deep_cs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
             android:clipToPadding="false"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:overScrollMode="never"
-            android:paddingBottom="20dp"
-            android:paddingEnd="20dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_deep_cs" />
-
-        <com.sokind.util.CustomShapeBlurView
-            android:id="@+id/blur_view"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:clickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:realtimeBlurRadius="5dp"
-            app:realtimeOverlayColor="@color/white_blur" />
+            tools:listitem="@layout/item_deep_cs" />
 
-        <LinearLayout
-            android:id="@+id/blur_text_container"
-            android:layout_width="wrap_content"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/ll_deep_no"
+            style="@style/CardView.Default"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:strokeColor="@color/light_gray2"
+            app:strokeWidth="1dp">
 
-            <TextView
-                style="@style/black_16_500"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/deep_cs_no_title"/>
-
-            <TextView
-                style="@style/black_14_400"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="@string/deep_cs_no_content"/>
-        </LinearLayout>
+                android:orientation="vertical"
+                android:padding="30dp">
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_no_content2" />
+
+                <TextView
+                    style="@style/lightGray_14_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="@string/no_deep_edu" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

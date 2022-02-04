@@ -4,25 +4,24 @@
     xmlns:tool="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
         android:background="@color/white">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView"
             style="@style/CardView.Default"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/iv_deep_thumbnail"
-                android:layout_width="320dp"
-                android:layout_height="160dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:background="@color/sub_color2"
                 android:src="@drawable/img_sample" />
@@ -33,9 +32,10 @@
             android:id="@+id/ll_cs_depp_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_margin="10dp"
             android:background="@color/white"
             android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView">
@@ -43,10 +43,11 @@
             <TextView
                 android:id="@+id/tv_deep_title"
                 style="@style/black_14_400"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
+                app:layout_constraintEnd_toStartOf="@+id/tv_deep_status"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tool:text="환불 고객이 나타났다!" />
@@ -54,25 +55,27 @@
             <TextView
                 android:id="@+id/tv_deep_content"
                 style="@style/lightGray_12_400"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:ellipsize="end"
-                android:maxLines="1"
+                android:maxLines="2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_deep_title"
-                tool:text="환불을 원하는 고객이 불만이 aksg" />
+                tool:text="환불을 원하는 고객이 불만" />
 
             <TextView
                 android:id="@+id/tv_deep_status"
                 style="@style/black_12_400"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/edu_do"
                 android:textColor="@color/main_color"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_deep_title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_deep_title"
-                android:text="@string/edu_do" />
+                app:layout_constraintTop_toTopOf="@+id/tv_deep_title" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

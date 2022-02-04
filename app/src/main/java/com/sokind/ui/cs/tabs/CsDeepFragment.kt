@@ -2,6 +2,7 @@ package com.sokind.ui.cs.tabs
 
 import android.app.Activity
 import android.content.Intent
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sokind.R
@@ -19,7 +20,8 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class CsDeepFragment(
-    private val deepList: List<Edu>
+    private val deepList: List<Edu>,
+    private val deepVisible: Boolean
 ) : BaseFragment<FragmentCsDeepBinding>(R.layout.fragment_cs_deep) {
 
     private lateinit var showReportFragmentListener: ShowReportFragmentListener
@@ -38,14 +40,27 @@ class CsDeepFragment(
     }
 
     override fun init() {
+        setBinding()
         setRecyclerView()
+    }
+
+    private fun setBinding() {
+        binding.apply {
+            if (deepVisible) {
+                rvHomeDeepCs.visibility = View.VISIBLE
+                llDeepNo.visibility = View.GONE
+            } else {
+                rvHomeDeepCs.visibility = View.GONE
+                llDeepNo.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun setRecyclerView() {
         deepEduAdapter = DeepEduAdapter("CS")
         deepEduAdapter.deepList = deepList
         binding.rvHomeDeepCs.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(requireContext())
         binding.rvHomeDeepCs.adapter = deepEduAdapter
 
         deepEduAdapter.setOnItemClickListener(object : OnEduItemClickListener {

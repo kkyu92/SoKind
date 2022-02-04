@@ -2,6 +2,7 @@ package com.sokind.ui.cs.tabs
 
 import android.app.Activity
 import android.content.Intent
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sokind.R
@@ -42,8 +43,19 @@ class CsBaseFragment(
     private fun setRecyclerView() {
         baseEduAdapter = BaseEduAdapter("CS")
         baseEduAdapter.baseList = baseList
-        binding.rvHomeBaseCs.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvHomeBaseCs.adapter = baseEduAdapter
+
+        binding.apply {
+            rvHomeBaseCs.layoutManager = LinearLayoutManager(requireContext())
+            rvHomeBaseCs.adapter = baseEduAdapter
+
+            if (baseList.isEmpty()) {
+                llBaseNo.visibility = View.VISIBLE
+                rvHomeBaseCs.visibility = View.GONE
+            } else {
+                llBaseNo.visibility = View.GONE
+                rvHomeBaseCs.visibility = View.VISIBLE
+            }
+        }
 
         baseEduAdapter.setOnItemClickListener(object : OnEduItemClickListener {
             override fun onEduItemClick(edu: Edu, pos: Int) {
