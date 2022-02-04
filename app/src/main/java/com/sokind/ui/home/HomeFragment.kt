@@ -31,17 +31,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private lateinit var memberInfo: MemberInfo
 
-    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode == Activity.RESULT_OK) {
-            val go = it.data?.getStringExtra(Constants.MOVE_TO)
-            Timber.e("data: ${ it.data}")
-            Timber.e("go to : $go")
-            when(go) {
-                "cs" -> showToast("reload")
-                "report" -> showReportFragmentListener.showReportFragment()
+    private val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val go = it.data?.getStringExtra(Constants.MOVE_TO)
+                Timber.e("data: ${it.data}")
+                Timber.e("go to : $go")
+                when (go) {
+                    "cs" -> showToast("reload")
+                    "report" -> showReportFragmentListener.showReportFragment()
+                }
             }
         }
-    }
 
     override fun init() {
         if (this::showCsListener.isInitialized) {
@@ -60,18 +61,34 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         binding.apply {
             rvBase.layoutManager = LinearLayoutManager(requireContext())
             rvBase.adapter = baseEduAdapter
-            rvDeep.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            rvDeep.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             rvDeep.adapter = deepEduAdapter
 
-            if (baseList.size <= 5) {
-                tvBaseMore.visibility = View.GONE
+            if (baseList.isEmpty()) {
+                llBaseNo.visibility = View.VISIBLE
+                rvBase.visibility = View.GONE
             } else {
-                tvBaseMore.visibility = View.VISIBLE
+                llBaseNo.visibility = View.GONE
+                if (baseList.size <= 5) {
+                    tvBaseMore.visibility = View.GONE
+                } else {
+                    tvBaseMore.visibility = View.VISIBLE
+                }
             }
             if (deepList.size <= 5) {
                 tvDeepMore.visibility = View.GONE
             } else {
                 tvDeepMore.visibility = View.VISIBLE
+            }
+
+            for (base in baseList) {
+                if (base.status == 2) {
+                    llDeepNo.visibility = View.VISIBLE
+                    rvDeep.visibility = View.GONE
+                    tvDeepMore.visibility = View.GONE
+                    break
+                }
             }
         }
         baseEduAdapter.setOnItemClickListener(object : OnEduItemClickListener {
@@ -81,7 +98,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                         val dialog = BottomSheetDialog.newInstance(
                             getString(R.string.alert),
                             String.format(getString(R.string.alert_edu_fin, edu.title)),
-                            itemClick = { if (it) { startEdu(edu) } }
+                            itemClick = {
+                                if (it) {
+                                    startEdu(edu)
+                                }
+                            }
                         )
                         dialog.show(parentFragmentManager, dialog.tag)
                     }
@@ -98,7 +119,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                         val dialog = BottomSheetDialog.newInstance(
                             getString(R.string.alert),
                             String.format(getString(R.string.alert_edu_fin, edu.title)),
-                            itemClick = { if (it) { startEdu(edu) } }
+                            itemClick = {
+                                if (it) {
+                                    startEdu(edu)
+                                }
+                            }
                         )
                         dialog.show(parentFragmentManager, dialog.tag)
                     }
@@ -156,9 +181,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun setData(info: MemberInfo) {
         binding.apply {
-            tvUserName.text = info.memberName + " " + info.positionName + "님!"
-            tvHomeUserName.text = info.memberName + " " + info.positionName
-            tvHomeUserEnterprise.text = info.enterpriseName + " / " + info.storeName
+            val member = info.memberName + " " + info.positionName
+            val enterInfo = info.enterpriseName + " / " + info.storeName
+            tvUserName.text = member + "님!"
+            tvHomeUserName.text = member
+            tvHomeUserEnterprise.text = enterInfo
         }
     }
 

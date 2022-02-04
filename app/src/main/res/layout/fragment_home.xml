@@ -173,7 +173,8 @@
                             style="@style/lightGray_12_400"
                             android:layout_width="wrap_content"
                             android:layout_height="23dp"
-                            android:text="@string/more" />
+                            android:text="@string/more"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -196,6 +197,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
                     android:visibility="gone"
                     app:cardBackgroundColor="@color/background"
                     app:layout_constraintEnd_toEndOf="@+id/imageView3"
@@ -209,22 +211,19 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="46dp">
+                        android:padding="30dp">
 
-                        <TextView
-                            style="@style/black_16_500"
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/no_cs_1" />
+                            android:src="@drawable/img_no_content" />
 
                         <TextView
-                            style="@style/black_14_400"
+                            style="@style/lightGray_14_400"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:gravity="center"
-                            android:text="@string/no_cs_2" />
+                            android:text="@string/no_base_edu" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -258,7 +257,8 @@
                             style="@style/lightGray_12_400"
                             android:layout_width="wrap_content"
                             android:layout_height="23dp"
-                            android:text="@string/more" />
+                            android:text="@string/more"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -268,8 +268,8 @@
                         android:clipToPadding="false"
                         android:orientation="horizontal"
                         android:overScrollMode="never"
+                        android:paddingStart="20dp"
                         android:paddingEnd="20dp"
-                        android:paddingBottom="20dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:itemCount="5"
                         tools:listitem="@layout/item_deep_cs" />
@@ -282,6 +282,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
                     android:visibility="gone"
                     app:cardBackgroundColor="@color/background"
                     app:layout_constraintEnd_toEndOf="@+id/imageView3"
@@ -295,22 +296,20 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="46dp">
+                        android:padding="30dp">
 
-                        <TextView
-                            style="@style/black_16_500"
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/no_cs_1" />
+                            android:src="@drawable/img_no_content2" />
 
                         <TextView
-                            style="@style/black_14_400"
+                            style="@style/lightGray_14_400"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:gravity="center"
-                            android:text="@string/no_cs_2" />
+                            android:text="@string/no_deep_edu" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
