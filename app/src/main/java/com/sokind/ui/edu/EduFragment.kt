@@ -44,29 +44,43 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
 
     override fun init() {
+        viewModel.getUser()
+
         edu = arguments?.getSerializable("edu") as Edu
-        setEduData(edu)
+
         outputDirectory = getOutputDirectory()
         cameraExecutor = Executors.newSingleThreadExecutor()
         setBinding()
         setContainerView(INIT)
         checkPermission()
 
-        viewModel.updateEdu.observe(viewLifecycleOwner, {
-            Timber.e("$it")
-            showLoading(false, binding.pbLoading.loadingContainer)
-            val action = EduFragmentDirections.actionEduFragmentToEduFinishFragment(edu)
-            findNavController().navigate(action)
-        })
+        viewModel.apply {
+            user.observe(viewLifecycleOwner, {
+                setEduData(edu, it.memberName!!)
+            })
+
+            updateEdu.observe(viewLifecycleOwner, {
+                Timber.e("$it")
+                showLoading(false, binding.pbLoading.loadingContainer)
+                val action = EduFragmentDirections.actionEduFragmentToEduFinishFragment(edu)
+                findNavController().navigate(action)
+            })
+        }
     }
 
-    private fun setEduData(edu: Edu) {
+    private fun setEduData(edu: Edu, name: String) {
         binding.apply {
-            tvQuestion.text = edu.title
-            tvAnswer.text = edu.contents
-            pbCount.progressMax = (edu.runningTime + 2).toFloat()
+            if (edu.type == 1) {
+                tvQuestion.text = edu.contents
+                tvAnswer.text = edu.ment
+            } else {
+                tvQuestion.text = edu.subTitle
+                tvAnswer.text = "이때 ${name}님의 답변은?"
+            }
+            pbCount.progressMax = (edu.runningTime).toFloat()
             pbCount.progress = 0f
-            tvCount.text = String.format(getString(R.string.edu_count, (edu.runningTime + 2).toString()))
+            tvCount.text =
+                String.format(getString(R.string.edu_count, edu.runningTime.toString()))
             Timber.e("max: ${edu.runningTime + 2f}")
         }
     }
@@ -145,7 +159,7 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
         val cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
 
         val preview: Preview =
-            Preview.Builder().setTargetAspectRatio(AspectRatio.RATIO_16_9).build()
+            Preview.Builder().setTargetAspectRatio(AspectRatio.RATIO_4_3).build()
         preview.setSurfaceProvider(binding.cameraPreview.surfaceProvider)
 
         cameraProviderFuture.addListener({
@@ -164,7 +178,7 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
     @SuppressLint("RestrictedApi")
     private fun startRecording() {
         // countDown
-        val countDown = edu.runningTime + 2
+        val countDown = edu.runningTime
         binding.pbCount.setProgressWithAnimation(countDown.toFloat(), (countDown * 1000).toLong())
         compositeDisposable.add(
             Observable
@@ -173,10 +187,12 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
                 .map { count -> count + 1 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    binding.tvCount.text = String.format(getString(
+                    binding.tvCount.text = String.format(
+                        getString(
                             R.string.edu_count,
-                            (countDown- it.toInt()).toString()
-                        ))
+                            (countDown - it.toInt()).toString()
+                        )
+                    )
                 }, { it.printStackTrace() }, {
                     setContainerView(STOP_RECORDING)
                 })
@@ -201,7 +217,8 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
                     Timber.e("$msg $savedUri")
 
                     val requestBody = videoFile.asRequestBody("video/webm".toMediaTypeOrNull())
-                    val putFile = MultipartBody.Part.createFormData("eduFile", videoFile.name, requestBody)
+                    val putFile =
+                        MultipartBody.Part.createFormData("eduFile", videoFile.name, requestBody)
                     viewModel.updateEdu(putFile, edu.key, edu.type)
                 }
 

@@ -2,6 +2,7 @@ package com.sokind.ui.edu
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.sokind.data.local.user.UserEntity
 import com.sokind.data.remote.edu.EduUpdateResponse
 import com.sokind.data.repository.edu.EduRepository
 import com.sokind.ui.base.BaseViewModel
@@ -17,6 +18,8 @@ class EduViewModel @Inject constructor(
 ) : BaseViewModel() {
     private val _updateEdu: MutableLiveData<EduUpdateResponse> = MutableLiveData()
     val updateEdu: LiveData<EduUpdateResponse> = _updateEdu
+    private val _user: MutableLiveData<UserEntity> = MutableLiveData()
+    val user: LiveData<UserEntity> = _user
 
     init {
 
@@ -31,6 +34,19 @@ class EduViewModel @Inject constructor(
                 .doOnTerminate { hideProgress() }
                 .subscribe({
                     _updateEdu.postValue(it)
+                }, { it.printStackTrace() })
+        )
+    }
+
+    fun getUser() {
+        compositeDisposable.add(
+            repository
+                .getMe()
+                .doOnSubscribe { showProgress() }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate { hideProgress() }
+                .subscribe({
+                    _user.postValue(it)
                 }, { it.printStackTrace() })
         )
     }
