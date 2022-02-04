@@ -67,6 +67,7 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
                 setTabLayout(fragmentList)
                 ChartLv(binding.lvChart, it)
                 setPercent(it)
+                binding.tvCsDay.text = fromHtml(getString(R.string.cs_day, it.eduDate.toString()))
             })
             getMe.observe(viewLifecycleOwner, {
                 binding.apply {

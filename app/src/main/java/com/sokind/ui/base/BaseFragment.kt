@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -217,6 +218,9 @@ abstract class BaseFragment<B : ViewDataBinding>(
     }
 
     open fun getColor(color: Int): Int {
+    protected fun fromHtml(htmlString: String): String {
+        return Html.fromHtml((htmlString), Html.FROM_HTML_MODE_LEGACY).toString()
+    }
         return requireContext().getColor(color)
     }
 
