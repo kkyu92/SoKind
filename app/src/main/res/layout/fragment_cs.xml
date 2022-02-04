@@ -119,8 +119,8 @@
                             android:textColor="@color/white"
                             app:drawableEndCompat="@drawable/icon_arrow_forward" />
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tv_cs_continue"
+                        <TextView
+                            android:id="@+id/tv_cs_next"
                             style="@style/black_14_400"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

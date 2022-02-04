@@ -13,12 +13,13 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
-import com.sokind.data.remote.edu.EduList
+import com.sokind.data.remote.edu.Edu
 import com.sokind.databinding.FragmentCsBinding
 import com.sokind.ui.EduNavActivity
 import com.sokind.ui.base.BaseFragment
 import com.sokind.ui.cs.tabs.CsBaseFragment
 import com.sokind.ui.cs.tabs.CsDeepFragment
+import com.sokind.util.BottomSheetExplainDialog
 import com.sokind.util.ChartLv
 import com.sokind.util.Constants
 import com.sokind.util.ShowReportFragmentListener
@@ -33,9 +34,9 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
 
     private lateinit var showReportFragmentListener: ShowReportFragmentListener
     private lateinit var tabLayoutMediator: TabLayoutMediator
+    private lateinit var nextEduData: Edu
 
-    private val startForResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == RESULT_OK) {
                 val go = it.data?.getStringExtra(Constants.MOVE_TO)
                 Timber.e("data: ${it.data}")
@@ -59,15 +60,21 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
             getMe()
 
             eduList.observe(viewLifecycleOwner, {
+                var deepVisible = true
+                for (base in it.baseCs) {
+                    if (base.status == 2) {
+                        deepVisible = false
+                        break
+                    }
+                }
                 val csBaseFragment = CsBaseFragment(it.baseCs)
-                val csDeepFragment = CsDeepFragment(it.deepCs)
+                val csDeepFragment = CsDeepFragment(it.deepCs, deepVisible)
                 val fragmentList = arrayListOf<Fragment>(
                     csBaseFragment,
                     csDeepFragment
                 )
                 setTabLayout(fragmentList)
                 ChartLv(binding.lvChart, it)
-                setPercent(it)
                 binding.tvCsDay.text = fromHtml(getString(R.string.cs_day), it.eduDate.toString())
             })
             getMe.observe(viewLifecycleOwner, {
@@ -75,6 +82,11 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
                     tvCsUserName.text = it.memberName
                     tvCsUserEnterprise.text = it.enterpriseName + " / " + it.storeName
                 }
+            })
+            nextEdu.observe(viewLifecycleOwner, {
+                nextEduData = it
+                val type = if (it.type == 1) "기본응대 - ${it.position}" else "상황응대 - ${it.position}"
+                binding.tvCsNext.text = "$type `${it.title}`"
             })
             isLoading.observe(viewLifecycleOwner, { isLoading ->
                 if (isLoading) {
@@ -84,43 +96,6 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
                 }
             })
         }
-    }
-
-    private fun setPercent(eduAll: EduList) {
-        val baseList = eduAll.baseCs
-        val deepList = eduAll.deepCs
-        val total = (baseList.size + deepList.size).toFloat()
-        var fin = 0f
-        for (base in baseList) {
-            if (base.status == 1) {
-                fin++
-            }
-        }
-        for (deep in deepList) {
-            if (deep.status == 1) {
-                fin++
-            }
-        }
-
-        when {
-            fin / total < 0.2f -> {
-                binding.tvCsLv.text = "Lv.0"
-            }
-            0.2f <= fin / total && fin / total < 0.4f -> {
-                binding.tvCsLv.text = "Lv.1"
-            }
-            0.4f <= fin / total && fin / total < 0.6f -> {
-                binding.tvCsLv.text = "Lv.2"
-            }
-            0.6f <= fin / total && fin / total < 0.8f -> {
-                binding.tvCsLv.text = "Lv.3"
-            }
-            0.8f <= fin / total && fin / total < 1f -> {
-                binding.tvCsLv.text = "Lv.4"
-            }
-            else -> binding.tvCsLv.text = "Lv.5"
-        }
-        binding.pbCsLv.progress = fin / total * 100
     }
 
     private fun setTabLayout(fragmentList: List<Fragment>) {
@@ -169,6 +144,7 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
                     val intent = Intent(requireContext(), EduNavActivity::class.java)
+                    intent.putExtra("edu", nextEduData)
                     startForResult.launch(intent)
                 }, { it.printStackTrace() })
 
@@ -181,6 +157,18 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
                     Timber.e("freeListener")
                 }
             }
+
+            ivLvInfo
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    val dialog = BottomSheetExplainDialog.newInstance(
+                        getString(R.string.lv_title),
+                        getString(R.string.lv_content),
+                        null
+                    )
+                    dialog.show(parentFragmentManager, dialog.tag)
+                }, { it.printStackTrace() })
         }
     }
 

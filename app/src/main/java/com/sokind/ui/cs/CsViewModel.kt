@@ -3,8 +3,8 @@ package com.sokind.ui.cs
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sokind.data.local.user.UserEntity
+import com.sokind.data.remote.edu.Edu
 import com.sokind.data.remote.edu.EduList
-import com.sokind.data.remote.member.MemberInfo
 import com.sokind.data.repository.edu.EduRepository
 import com.sokind.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +19,8 @@ class CsViewModel @Inject constructor(
     val eduList: LiveData<EduList> = _eduList
     private val _getMe: MutableLiveData<UserEntity> = MutableLiveData()
     val getMe: LiveData<UserEntity> = _getMe
+    private val _nextEdu: MutableLiveData<Edu> = MutableLiveData()
+    var nextEdu: LiveData<Edu> = _nextEdu
 
     init {
         compositeDisposable.add(
@@ -29,6 +31,7 @@ class CsViewModel @Inject constructor(
                 .doOnTerminate { hideProgress() }
                 .subscribe({
                     _eduList.postValue(it)
+                    findNextEdu(it)
                 }, { it.printStackTrace() })
         )
     }
@@ -44,5 +47,23 @@ class CsViewModel @Inject constructor(
                     _getMe.postValue(it)
                 }, { it.printStackTrace() })
         )
+    }
+
+    private fun findNextEdu(eduList: EduList) {
+        val baseList = eduList.baseCs
+        val deepList = eduList.deepCs
+
+        for (deep in deepList) {
+            if (deep.status == 2) {
+                _nextEdu.postValue(deep)
+                break
+            }
+        }
+        for (base in baseList) {
+            if (base.status == 2) {
+                _nextEdu.postValue(base)
+                break
+            }
+        }
     }
 }
