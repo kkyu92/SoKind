@@ -75,7 +75,7 @@ class CsDeepFragment(
                         dialog.show(parentFragmentManager, dialog.tag)
                     }
                     2 -> { // 미교육
-
+                        startEdu(edu)
                     }
                     3 -> { // 진행중
 

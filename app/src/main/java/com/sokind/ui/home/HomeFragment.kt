@@ -107,7 +107,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                         dialog.show(parentFragmentManager, dialog.tag)
                     }
                     2 -> {
-
+                        startEdu(edu)
                     }
                 }
             }
@@ -128,7 +128,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                         dialog.show(parentFragmentManager, dialog.tag)
                     }
                     2 -> {
-
+                        startEdu(edu)
                     }
                 }
             }
