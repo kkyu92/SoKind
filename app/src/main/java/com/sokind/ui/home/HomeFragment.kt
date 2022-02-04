@@ -164,6 +164,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
             getMe.observe(viewLifecycleOwner, {
                 memberInfo = it
+                saveUser(it)
                 setData(it)
             })
             eduList.observe(viewLifecycleOwner, {

@@ -2,6 +2,7 @@ package com.sokind.data.repository.member
 
 import com.sokind.data.local.user.UserDataSource
 import com.sokind.data.local.user.UserEntity
+import com.sokind.data.local.user.UserMapper.mappingRemoteDataToLocal
 import com.sokind.data.remote.member.MemberDataSource
 import com.sokind.data.remote.member.MemberInfo
 import com.sokind.data.remote.member.join.EmailResponse
@@ -92,6 +93,15 @@ class MemberRepositoryImpl @Inject constructor(
                             .checkToken()
                             .andThen(Single.just(Unit))
                     }
+            }
+    }
+
+    override fun saveUser(memberInfo: MemberInfo): Completable {
+        return userDataSource
+            .getAccessToken()
+            .flatMapCompletable { access ->
+                userDataSource
+                    .saveUser(mappingRemoteDataToLocal(memberInfo, access))
             }
     }
 

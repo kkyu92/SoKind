@@ -19,5 +19,6 @@ interface MemberRepository {
 //    fun getPositionInfo(enterpriseKey: String): Single<PositionList>
     fun login(loginRequest: LoginRequest): Completable
     fun getMe(): Single<MemberInfo>
+    fun saveUser(memberInfo: MemberInfo): Completable
     fun isLogin(): Single<String>
 }

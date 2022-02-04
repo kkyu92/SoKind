@@ -11,11 +11,12 @@ import com.sokind.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    memberRepository: MemberRepository,
+    private val memberRepository: MemberRepository,
     private val eduRepository: EduRepository
 ) : BaseViewModel() {
     private val _getMe: MutableLiveData<MemberInfo> = MutableLiveData()
@@ -23,6 +24,8 @@ class HomeViewModel @Inject constructor(
 
     private val _eduList: MutableLiveData<EduList> = MutableLiveData()
     val eduList: LiveData<EduList> = _eduList
+
+    // subject 사용
 
     init {
         compositeDisposable.add(
@@ -33,6 +36,19 @@ class HomeViewModel @Inject constructor(
                 .doOnTerminate { hideProgress() }
                 .subscribe({
                     _getMe.postValue(it)
+                }, { it.printStackTrace() })
+        )
+    }
+
+    fun saveUser(memberInfo: MemberInfo) {
+        compositeDisposable.add(
+            memberRepository
+                .saveUser(memberInfo)
+                .doOnSubscribe { showProgress() }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate { hideProgress() }
+                .subscribe({
+                    Timber.e("save success!")
                 }, { it.printStackTrace() })
         )
     }
