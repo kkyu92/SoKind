@@ -210,26 +210,27 @@ abstract class BaseFragment<B : ViewDataBinding>(
         }
     }
 
-    open fun hideKeyboard() {
+    protected fun hideKeyboard() {
         binding.root.clearFocus()
         val imm =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
-    open fun getColor(color: Int): Int {
     protected fun fromHtml(htmlString: String): String {
         return Html.fromHtml((htmlString), Html.FROM_HTML_MODE_LEGACY).toString()
     }
+
+    protected fun getColor(color: Int): Int {
         return requireContext().getColor(color)
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    open fun getDrawable(drawable: Int): Drawable? {
+    protected fun getDrawable(drawable: Int): Drawable? {
         return requireContext().getDrawable(drawable)
     }
 
-    open fun titleFocus(textView: TextView, visible: Boolean) {
+    protected fun titleFocus(textView: TextView, visible: Boolean) {
         if (visible) {
             textView.setTextColor(getColor(R.color.main_color))
         } else {
@@ -237,7 +238,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
         }
     }
 
-    open fun errorVisible(textView: TextView, visible: Boolean) {
+    protected fun errorVisible(textView: TextView, visible: Boolean) {
         if (visible) {
             textView.visibility = View.VISIBLE
         } else {
