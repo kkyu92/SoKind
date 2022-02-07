@@ -9,49 +9,43 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-        <androidx.core.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:background="@color/white"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                style="@style/black_16_500"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="@string/guide" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tl_guide"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:background="@color/white"
-                android:orientation="vertical">
+                android:paddingBottom="10dp"
+                app:tabIndicator="@drawable/custom_tab_indicator"
+                app:tabIndicatorAnimationMode="elastic"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/main_color"
+                app:tabTextAppearance="@style/lightGray_14_400"
+                app:tabTextColor="@color/font_light_gray" />
 
-                <TextView
-                    style="@style/black_16_500"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="30dp"
-                    android:text="@string/guide" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/background" />
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tl_guide"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:background="@color/white"
-                    android:paddingBottom="10dp"
-                    app:tabIndicator="@drawable/custom_tab_indicator"
-                    app:tabIndicatorAnimationMode="elastic"
-                    app:tabMode="fixed"
-                    app:tabSelectedTextColor="@color/main_color"
-                    app:tabTextAppearance="@style/lightGray_14_400"
-                    app:tabTextColor="@color/font_light_gray" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="@color/background" />
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/vp_guide"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_guide"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

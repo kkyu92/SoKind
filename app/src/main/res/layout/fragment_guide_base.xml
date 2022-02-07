@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.guide.tabs.base.GuideBaseFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -20,42 +19,42 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
-                android:paddingHorizontal="30dp"
                 android:background="@drawable/custom_btn_enabled"
                 android:drawableStart="@drawable/icon_speech_enable"
+                android:paddingHorizontal="30dp"
                 android:text="@string/speech"
                 android:textColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/bt_expression"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/bt_expression"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bt_expression"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:paddingHorizontal="30dp"
                 android:layout_marginHorizontal="10dp"
                 android:background="@drawable/custom_tab_disabled"
                 android:drawableStart="@drawable/icon_emotion_disable"
+                android:paddingHorizontal="30dp"
                 android:text="@string/expression"
                 android:textColor="@color/font_light_gray"
-                app:layout_constraintStart_toEndOf="@+id/bt_speech"
                 app:layout_constraintEnd_toStartOf="@+id/bt_posture"
+                app:layout_constraintStart_toEndOf="@+id/bt_speech"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/bt_posture"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:paddingHorizontal="30dp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/custom_tab_disabled"
                 android:drawableStart="@drawable/icon_pose_disable"
+                android:paddingHorizontal="30dp"
                 android:text="@string/posture"
                 android:textColor="@color/font_light_gray"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/bt_expression"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_title"
@@ -64,6 +63,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="@string/guide_base_speech_title"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintBottom_toTopOf="@+id/tv_sub_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bt_speech" />
@@ -77,40 +78,43 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_title"
                 app:layout_constraintTop_toTopOf="@+id/tv_title"
                 app:layout_constraintVertical_bias="1" />
+
+            <TextView
+                android:id="@+id/tv_sub_title"
+                style="@style/black_14_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="@string/guide_base_speech_sub_title"
+                app:layout_constraintBottom_toTopOf="@+id/iv_img"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+            <ImageView
+                android:id="@+id/iv_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/img_speak"
+                app:layout_constraintBottom_toTopOf="@+id/tv_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_sub_title" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                style="@style/black_13_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/guide_base_speech_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_img" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/tv_sub_title"
-            style="@style/black_14_400"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:gravity="center"
-            android:text="@string/guide_base_speech_sub_title" />
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/CardView.Default"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="20dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white">
-
-                <TextView
-                    android:id="@+id/tv_content"
-                    style="@style/black_14_500"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:text="@string/guide_base_speech_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
+    </ScrollView>
 </layout>

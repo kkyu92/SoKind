@@ -67,24 +67,28 @@ class GuideBaseFragment : BaseFragment<FragmentGuideBaseBinding>(R.layout.fragme
                     binding.tvTitle.text = getString(R.string.guide_base_speech_title)
                     binding.tvSubTitle.text = getString(R.string.guide_base_speech_sub_title)
                     binding.tvContent.text = getString(R.string.guide_base_speech_content)
+                    binding.ivImg.setImageResource(R.drawable.img_speak)
                 }
                 2 -> {
                     button.setCompoundDrawablesWithIntrinsicBounds(emotionEnable, null,null,null)
                     binding.tvTitle.text = getString(R.string.guide_base_expression_title)
                     binding.tvSubTitle.text = getString(R.string.guide_base_expression_sub_title)
                     binding.tvContent.text = getString(R.string.guide_base_expression_content)
+                    binding.ivImg.setImageResource(R.drawable.img_emotion)
                 }
                 3 -> {
                     button.setCompoundDrawablesWithIntrinsicBounds(postureEnable, null,null,null)
                     binding.tvTitle.text = getString(R.string.guide_base_posture_title)
                     binding.tvSubTitle.text = getString(R.string.guide_base_posture_sub_title)
                     binding.tvContent.text = getString(R.string.guide_base_posture_content)
+                    binding.ivImg.setImageResource(R.drawable.img_posture)
                 }
                 else -> {
                     button.setCompoundDrawablesWithIntrinsicBounds(speechEnable, null,null,null)
                     binding.tvTitle.text = getString(R.string.guide_base_speech_title)
                     binding.tvSubTitle.text = getString(R.string.guide_base_speech_sub_title)
                     binding.tvContent.text = getString(R.string.guide_base_speech_content)
+                    binding.ivImg.setImageResource(R.drawable.img_speak)
                 }
             }
         } else {

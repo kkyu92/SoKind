@@ -129,17 +129,17 @@
     // guide_base
     <string name="guide_base_speech_title">손님들이 원하는 목소리!</string>
     <string name="guide_base_speech_sub_title">나의 목소리는 어떤지 쏘카인드를 통해\n억양, 톤, 빠르기를 확인해보세요!</string>
-    <string name="guide_base_speech_content">우리 직원님의 목소리 톤은 ‘솔’ 톤(Tone)에가까워요!🎼</string>
+    <string name="guide_base_speech_content">쏘카인드는 친절한 CS를 위해 태어난 서비스입니다.\n손님들은 밝고 신뢰도 있는 목소리를 선호합니당:)</string>
     <string name="guide_base_expression_title">서비스 직원의 생명은 표정!</string>
     <string name="guide_base_expression_sub_title">
         CS교육생이 쏘카인드에서 교육을 받는 동안\n
         놀람, 공포, 행복, 슬픔, 화남, 중립\n
         6가지 감정의 평균 비율을 안면분석을 통해 체크합니다.
     </string>
-    <string name="guide_base_expression_content">우리 직원님은 해당 교육에서 ‘놀람’ 표정이 많이드러났어요!️❗</string>
+    <string name="guide_base_expression_content">표정은 이런게 좋아요! :)</string>
     <string name="guide_base_posture_title">바른 자세로 이야기해요!</string>
     <string name="guide_base_posture_sub_title">허리를 펴고 손님의 눈을 바라보아요!\n쏘카인드는 잘못된 자세를 바로잡아드려요!</string>
-    <string name="guide_base_posture_content">우리 직원님은 어깨와 머리각도가 일정하며, 바른 자세로 손님을 응대하고 계십니다!👍🏻</string>
+    <string name="guide_base_posture_content">자세는 이런게 좋아요! :)</string>
 
     // cs edu
     <string name="cs">CS교육</string>
