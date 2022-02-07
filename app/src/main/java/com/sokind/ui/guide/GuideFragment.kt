@@ -1,11 +1,6 @@
 package com.sokind.ui.guide
 
-import android.view.View
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sokind.R
 import com.sokind.databinding.FragmentGuideBinding
@@ -18,8 +13,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class GuideFragment : BaseFragment<FragmentGuideBinding>(R.layout.fragment_guide) {
-    private val viewModel by viewModels<GuideViewModel>()
-
     private lateinit var tabLayoutMediator: TabLayoutMediator
 
     private val manualFragment = ManualFragment()
@@ -52,25 +45,6 @@ class GuideFragment : BaseFragment<FragmentGuideBinding>(R.layout.fragment_guide
                 }
             }
             tabLayoutMediator.attach()
-
-            // viewpager different height
-            vpGuide.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    val view =
-                        (vpGuide[0] as RecyclerView).layoutManager?.findViewByPosition(position)
-                    view?.post {
-                        val wMeasureSpec =
-                            View.MeasureSpec.makeMeasureSpec(view.width, View.MeasureSpec.EXACTLY)
-                        val hMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-                        view.measure(wMeasureSpec, hMeasureSpec)
-                        if (vpGuide.layoutParams.height != view.measuredHeight) {
-                            vpGuide.layoutParams =
-                                (vpGuide.layoutParams).also { lp -> lp.height = view.measuredHeight }
-                        }
-                    }
-                }
-            })
         }
     }
 
