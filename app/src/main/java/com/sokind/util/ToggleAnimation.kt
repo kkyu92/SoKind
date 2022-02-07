@@ -42,7 +42,7 @@ class ToggleAnimation {
             }
 
             animation.duration =
-                (actualHeight / view.context.resources.displayMetrics.density).toLong()
+                (actualHeight / view.context.resources.displayMetrics.density / 3).toLong()
 
             view.startAnimation(animation)
 
@@ -65,7 +65,7 @@ class ToggleAnimation {
             }
 
             animation.duration =
-                (actualHeight / view.context.resources.displayMetrics.density).toLong()
+                (actualHeight / view.context.resources.displayMetrics.density / 3).toLong()
             view.startAnimation(animation)
         }
     }

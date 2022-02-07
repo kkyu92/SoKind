@@ -4,16 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.data.remote.guide.Manual
 import com.sokind.databinding.ItemManualBinding
+import com.sokind.util.Constants
+import com.sokind.util.OnManualItemClickListener
 import com.sokind.util.ToggleAnimation
-import timber.log.Timber
+import java.util.concurrent.TimeUnit
+import android.util.SparseBooleanArray
 
 class ManualAdapter : RecyclerView.Adapter<ManualAdapter.ManualViewHolder>() {
+    private lateinit var listener: OnManualItemClickListener
     var manualList: List<Manual> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManualViewHolder {
@@ -36,25 +38,22 @@ class ManualAdapter : RecyclerView.Adapter<ManualAdapter.ManualViewHolder>() {
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(manual: Manual) {
-
             binding.apply {
+                tvManualPosition.text = "기본응대 - ${manual.position}"
                 tvManualTitle.text = manual.title
-                tvManualSubTitle.text = manual.subTitle
                 tvManualContent.text = manual.content
 
-//                llExpand.visibility = if (manual.isExpanded) View.VISIBLE else View.GONE
-//                Timber.e("${manual.isExpanded}")
                 ivExpand
                     .clicks()
                     .subscribe({
-                        val show = toggleLayout(!manual.isExpanded, ivExpand, llExpand)
-                        for (i in manualList.indices) {
-                            if (i != adapterPosition) {
-                                manualList[i].isExpanded = !show
-                            }
+                        if (manual.content == "등록된 가이드가 없습니다.") {
+                            val showNoManual = toggleLayout(!manual.isExpanded, ivExpand, llExpandNull)
+                            manual.isExpanded = showNoManual
+                        } else {
+                            val showManual = toggleLayout(!manual.isExpanded, ivExpand, llExpand)
+                            manual.isExpanded = showManual
                         }
-//                        notifyDataSetChanged()
-                        manual.isExpanded = show
+                        listener.onManualItemClick(adapterPosition)
                     }, { it.printStackTrace() })
             }
         }
@@ -81,5 +80,9 @@ class ManualAdapter : RecyclerView.Adapter<ManualAdapter.ManualViewHolder>() {
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
+    }
+
+    fun setOnItemClickListener(listener: OnManualItemClickListener) {
+        this.listener = listener
     }
 }

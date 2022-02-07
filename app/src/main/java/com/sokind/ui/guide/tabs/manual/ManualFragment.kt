@@ -6,43 +6,55 @@ import com.sokind.R
 import com.sokind.data.remote.guide.Manual
 import com.sokind.databinding.FragmentManualBinding
 import com.sokind.ui.base.BaseFragment
+import com.sokind.util.OnManualItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.core.Completable
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class ManualFragment : BaseFragment<FragmentManualBinding>(R.layout.fragment_manual) {
     private val viewModel by viewModels<ManualViewModel>()
 
-    private lateinit var manualList: List<Manual>
     private lateinit var manualAdapter: ManualAdapter
-    val dummyData = mutableListOf<Manual>()
 
     override fun init() {
-        initializeList()
         setBinding()
+        setViewModel()
     }
 
     private fun setBinding() {
         binding.apply {
-            manualAdapter = ManualAdapter()
-            manualAdapter.manualList = dummyData
-            rvManual.setHasFixedSize(true)
-            rvManual.layoutManager = LinearLayoutManager(requireContext())
-            rvManual.adapter = manualAdapter
+
         }
     }
 
-    fun initializeList() { //임의로 데이터 넣어서 만들어봄
-        with(dummyData) {
-            add(Manual("기본응대 - 1", "긍정 에너지를 전파하는 입점인사", getString(R.string.dummy), false))
-            add(Manual("상황응대 - 1", "제품에 불만이 있는 고객을 대할 때", getString(R.string.dummy), false))
-            add(Manual("기본응대 - 2", "긍정 에너지를 전파하는 입점인사", getString(R.string.dummy), false))
-            add(Manual("상황응대 - 2", "제품에 불만이 있는 고객을 대할 때", getString(R.string.dummy), false))
-            add(Manual("기본응대 - 3", "긍정 에너지를 전파하는 입점인사", getString(R.string.dummy), false))
-            add(Manual("상황응대 - 3", "제품에 불만이 있는 고객을 대할 때", getString(R.string.dummy), false))
-            add(Manual("기본응대 - 1", "긍정 에너지를 전파하는 입점인사", getString(R.string.dummy), false))
-            add(Manual("상황응대 - 1", "제품에 불만이 있는 고객을 대할 때", getString(R.string.dummy), false))
-            add(Manual("기본응대 - 2", "긍정 에너지를 전파하는 입점인사", getString(R.string.dummy), false))
-            add(Manual("상황응대 - 2", "제품에 불만이 있는 고객을 대할 때", getString(R.string.dummy), false))
+    private fun setViewModel() {
+        viewModel.apply {
+            manualList.observe(viewLifecycleOwner, {
+                setData(it.manualList)
+            })
+        }
+    }
+
+    private fun setData(manualList: List<Manual>) {
+        binding.apply {
+            manualAdapter = ManualAdapter()
+            manualAdapter.manualList = manualList
+            rvManual.setHasFixedSize(true)
+            rvManual.layoutManager = LinearLayoutManager(requireContext())
+            rvManual.adapter = manualAdapter
+
+            manualAdapter.setOnItemClickListener(object : OnManualItemClickListener {
+                override fun onManualItemClick(pos: Int) {
+                    compositeDisposable.add(
+                        Completable.complete()
+                            .delay(200, TimeUnit.MILLISECONDS)
+                            .subscribe({
+                                rvManual.smoothScrollToPosition(pos)
+                            }, { it.printStackTrace() })
+                    )
+                }
+            })
         }
     }
 
