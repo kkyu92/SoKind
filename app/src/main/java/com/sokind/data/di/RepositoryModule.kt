@@ -2,6 +2,8 @@ package com.sokind.data.di
 
 import com.sokind.data.repository.edu.EduRepository
 import com.sokind.data.repository.edu.EduRepositoryImpl
+import com.sokind.data.repository.guide.GuideRepository
+import com.sokind.data.repository.guide.GuideRepositoryImpl
 import com.sokind.data.repository.member.MemberRepository
 import com.sokind.data.repository.member.MemberRepositoryImpl
 import com.sokind.data.repository.token.TokenRepository
@@ -29,6 +31,11 @@ abstract class RepositoryModule {
     abstract fun bindsEduRepository(
         repositoryImpl: EduRepositoryImpl
     ): EduRepository
+
+    @Binds
+    abstract fun bindsGuideRepository(
+        repositoryImpl: GuideRepositoryImpl
+    ): GuideRepository
 
 //    @Binds
 //    abstract fun bindsMyPageRepository(

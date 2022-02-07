@@ -2,6 +2,8 @@ package com.sokind.data.di
 
 import com.sokind.data.remote.edu.EduDataSource
 import com.sokind.data.remote.edu.EduDataSourceImpl
+import com.sokind.data.remote.guide.GuideDataSource
+import com.sokind.data.remote.guide.GuideDataSourceImpl
 import com.sokind.data.remote.member.MemberDataSource
 import com.sokind.data.remote.member.MemberDataSourceImpl
 import dagger.Binds
@@ -17,6 +19,9 @@ abstract class RemoteDataModule {
 
     @Binds
     abstract fun bindEduDataSource(eduDataSourceImpl: EduDataSourceImpl): EduDataSource
+
+    @Binds
+    abstract fun bindGuideDataSource(guideDataSourceImpl: GuideDataSourceImpl): GuideDataSource
 //
 //    @Binds
 //    abstract fun bindSearchDataSource(searchDataSourceImpl: SearchDataSourceImpl) : SearchDataSource
