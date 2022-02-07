@@ -42,7 +42,7 @@ class EduRepositoryImpl @Inject constructor(
             .getUser()
             .flatMap { user ->
                 eduDataSource
-                    .putEdu(file, eduKey, eduType, user.memberId!!, user.memberKey!!)
+                    .putEdu(user.access, file, eduKey, eduType, user.memberId!!, user.memberKey!!)
             }
             .retryWhen { error ->
                 return@retryWhen error

@@ -34,6 +34,7 @@ interface EduApi {
     @Multipart
     @PUT("edu/eduResult")
     fun putEdu(
+        @Header("accessToken") access: String,
         @Part eduFile: MultipartBody.Part,
         @Query("eduKey") eduKey: Int,
         @Query("eduType") eduType: Int,

@@ -6,6 +6,7 @@ import okhttp3.MultipartBody
 interface EduDataSource {
     fun getEdu(access: String, id: String): Single<EduList>
     fun putEdu(
+        access: String,
         eduFile: MultipartBody.Part,
         eduKey: Int,
         eduType: Int,
