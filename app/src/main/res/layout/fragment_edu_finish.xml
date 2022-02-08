@@ -32,6 +32,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/bt_back" />
 
+        <ImageView
+            android:id="@+id/iv_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/ripple"
+            android:padding="10dp"
+            android:src="@drawable/icon_retry"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
+
         <LinearLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
@@ -43,194 +56,137 @@
             tools:layout_editor_absoluteX="10dp">
 
             <TextView
-                style="@style/black_14_400"
+                style="@style/black_16_500"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/edu_finish_text_1" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:id="@+id/tv_edu_title"
-                    style="@style/black_14_500"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/custom_btn_disabled"
-                    android:paddingHorizontal="40dp"
-                    android:paddingVertical="22dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:text="'긍정 에너지를 전파하는 입점인사'" />
-
-                <TextView
-                    android:id="@+id/tv_base_position"
-                    style="@style/white_12_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:background="@drawable/custom_radius_sub_color"
-                    android:paddingHorizontal="5dp"
-                    android:paddingVertical="2dp"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_edu_title"
-                    app:layout_constraintStart_toStartOf="@+id/tv_edu_title"
-                    app:layout_constraintTop_toTopOf="@+id/tv_edu_title"
-                    tools:text="기본응대 - 1" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_marginTop="15dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/img_finish_edu" />
 
             <TextView
-                style="@style/black_14_400"
+                android:id="@+id/tv_type"
+                style="@style/orange_12_400"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/edu_finish_text_2" />
+                android:layout_marginTop="15dp"
+                tools:text="기본응대 - 1" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/black_14_500"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="4dp"
+                tools:text="'긍정 에너지를 전파하는 입점인사'" />
 
-                <LinearLayout
-                    android:id="@+id/ll_go_report"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/ripple"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingVertical="10dp"
-                    app:layout_constraintEnd_toStartOf="@+id/ll_go_retry"
-                    app:layout_constraintStart_toStartOf="parent">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/icon_report_cs" />
-
-                    <TextView
-                        style="@style/black_12_400"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/edu_finish_report" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_go_retry"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/ripple"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingVertical="10dp"
-                    app:layout_constraintEnd_toStartOf="@+id/ll_go_list"
-                    app:layout_constraintStart_toEndOf="@+id/ll_go_report">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/icon_retry" />
-
-                    <TextView
-                        style="@style/black_12_400"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/edu_finish_retry" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_go_list"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/ripple"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingVertical="10dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/ll_go_retry">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/icon_list" />
-
-                    <TextView
-                        style="@style/black_12_400"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/edu_finish_list" />
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_sub_title"
+                style="@style/lightGray_13_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:visibility="gone"
+                tools:text="상황응대 교육부제목" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_next"
-            style="@style/black_16_500"
+            android:id="@+id/tv_end_comment"
+            style="@style/black_14_400"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="@string/edu_finish_next"
-            app:layout_constraintBottom_toTopOf="@+id/card_view"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/container"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_view"
-            style="@style/CardView.Default"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/edu_finish_text_2"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_next">
+            app:layout_constraintTop_toBottomOf="@+id/container" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_next_edu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_end_comment">
+
+            <LinearLayout
+                android:id="@+id/ll_report"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:padding="20dp">
-
-                <TextView
-                    android:id="@+id/tv_cs_base_title"
-                    style="@style/orange_12_400"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="기본응대 - 1" />
-
-                <TextView
-                    android:id="@+id/tv_cs_base_sub_title"
-                    style="@style/black_14_400"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginEnd="20dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_cs_base_title"
-                    tools:text="긍정 에너지를 전파하는 입점인사" />
+                android:background="@drawable/ripple"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="10dp"
+                app:layout_constraintEnd_toStartOf="@+id/view"
+                app:layout_constraintStart_toStartOf="parent">
 
                 <ImageView
-                    android:id="@+id/iv_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/icon_arrow_right"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    android:src="@drawable/icon_report_cs" />
+
+                <TextView
+                    style="@style/black_12_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/edu_finish_report" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="20dp"
+                android:background="@color/light_gray2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ll_list"
+                app:layout_constraintStart_toEndOf="@+id/ll_report"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/ll_list"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/ripple"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/view">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_list" />
+
+                <TextView
+                    style="@style/black_12_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/edu_finish_list" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_next_edu"
+            style="@style/black_14_500"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:drawablePadding="8dp"
+            android:padding="10dp"
+            android:text="@string/edu_finish_next"
+            app:drawableEndCompat="@drawable/icon_arrow_right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

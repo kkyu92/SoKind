@@ -14,8 +14,10 @@ import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.data.di.GlideApp
 import com.sokind.data.remote.edu.Edu
+import com.sokind.data.remote.edu.EduMapper.mappingRemoteDataToEdu
 import com.sokind.databinding.FragmentEduBinding
 import com.sokind.ui.base.BaseFragment
+import com.sokind.util.dialog.BottomSheetImgDialog
 import com.sokind.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -62,8 +64,27 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
             updateEdu.observe(viewLifecycleOwner, {
                 Timber.e("$it")
                 showLoading(false, binding.pbLoading.loadingContainer)
-                val action = EduFragmentDirections.actionEduFragmentToEduFinishFragment(edu)
-                findNavController().navigate(action)
+                when (it.analysisResult) {
+                    SUCCESS -> {
+                        val action = EduFragmentDirections.actionEduFragmentToEduFinishFragment(edu, it)
+                        findNavController().navigate(action)
+                    }
+                    FAIL -> {
+                        val dialog = BottomSheetImgDialog.newInstance(
+                            getString(R.string.alert),
+                            getDrawable(R.drawable.img_error)!!,
+                            getString(R.string.dialog_error),
+                            itemClick = { okClick ->
+                                if (okClick) {
+                                    setContainerView(INIT)
+                                } else {
+                                    findNavController().popBackStack()
+                                }
+                            }
+                        )
+                        dialog.show(parentFragmentManager, dialog.tag)
+                    }
+                }
             })
         }
     }
@@ -280,6 +301,8 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
         const val START = "start"
         const val START_RECORDING = "start_recording"
         const val STOP_RECORDING = "stop_recording"
+        const val SUCCESS = "SUCCESS"
+        const val FAIL = "FAIL"
     }
 //    private fun startCamera() {
 //        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)

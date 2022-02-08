@@ -107,6 +107,9 @@
     // dialog
     <string name="dialog_logout">정말 로그아웃을 하시겠어요?</string>
     <string name="dialog_secession">정말 탈퇴 신청을 하시겠어요?</string>
+    <string name="dialog_error">교육 분석이 원활하게 이루어지지 않았습니다.</string>
+    <string name="go_retry">교육 다시하기</string>
+    <string name="go_list"><u>교육리스트로 돌아가기</u></string>
 
     // home
     <string name="home_hello">안녕하세요,</string>
@@ -162,9 +165,9 @@
     <string name="edu_finish_text_1">수고하셨습니다.</string>
     <string name="edu_finish_text_2">교육이 종료되었습니다.</string>
     <string name="edu_finish_report">분석결과 보기</string>
-    <string name="edu_finish_retry">처음부터 다시하기</string>
     <string name="edu_finish_list">CS교육 목록으로</string>
     <string name="edu_finish_next">다음 교육을 이어서 진행할까요?</string>
+    <string name="edu_main">메인으로</string>
     <string name="edu_count">00:0%s</string>
 
     // report
@@ -279,7 +282,7 @@
     <string name="change_main_color"><![CDATA[<font color=\'#6967F9\'><b>%s</b></font>]]></string>
     <string name="no_enterprise_content_1"><![CDATA[<font color=\'#6967F9\'><b>%s</b></font>에 대한 검색 결과가 없습니다.]]></string>
     <string name="no_enterprise_content_2">입력하신 검색어를 확인해주세요.</string>
-<!--    <string name="boarding_title"><![CDATA[환영합니다, <b>%s!</b><br>인공지능 CS교육 솔루션,<br><font color=\'#6967F9\'><b>쏘카인드</b></font>입니다.]]></string>-->
+    <!--    <string name="boarding_title"><![CDATA[환영합니다, <b>%s!</b><br>인공지능 CS교육 솔루션,<br><font color=\'#6967F9\'><b>쏘카인드</b></font>입니다.]]></string>-->
 
     <string name="dummy">
         우리 올리브영에서는 선창, 후창으로 직원들이 입점인사를 합니다. 입점 손님을 먼저 발견한 직원은 선창으로 힘차게 아래와 같이 말합니다.\n\n
