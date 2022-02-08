@@ -10,7 +10,7 @@ import com.sokind.data.remote.edu.Edu
 import com.sokind.databinding.FragmentCsDeepBinding
 import com.sokind.ui.EduNavActivity
 import com.sokind.ui.base.BaseFragment
-import com.sokind.util.BottomSheetDialog
+import com.sokind.util.dialog.BottomSheetDialog
 import com.sokind.util.Constants
 import com.sokind.util.OnEduItemClickListener
 import com.sokind.util.ShowReportFragmentListener

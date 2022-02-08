@@ -12,7 +12,7 @@ import com.sokind.data.remote.report.ReportItem
 import com.sokind.databinding.FragmentReportBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.ui.report.detail.DetailReportActivity
-import com.sokind.util.BottomSheetExplainDialog
+import com.sokind.util.dialog.BottomSheetExplainDialog
 import com.sokind.util.Constants
 import com.sokind.util.adapter.ReportAdapter
 import dagger.hilt.android.AndroidEntryPoint

@@ -2,7 +2,6 @@ package com.sokind.ui.cs
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.text.Html
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.get
@@ -19,7 +18,7 @@ import com.sokind.ui.EduNavActivity
 import com.sokind.ui.base.BaseFragment
 import com.sokind.ui.cs.tabs.CsBaseFragment
 import com.sokind.ui.cs.tabs.CsDeepFragment
-import com.sokind.util.BottomSheetExplainDialog
+import com.sokind.util.dialog.BottomSheetExplainDialog
 import com.sokind.util.ChartLv
 import com.sokind.util.Constants
 import com.sokind.util.ShowReportFragmentListener

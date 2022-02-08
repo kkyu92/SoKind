@@ -16,6 +16,7 @@ import com.sokind.ui.base.BaseFragment
 import com.sokind.util.*
 import com.sokind.util.adapter.BaseEduAdapter
 import com.sokind.util.adapter.DeepEduAdapter
+import com.sokind.util.dialog.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.concurrent.TimeUnit

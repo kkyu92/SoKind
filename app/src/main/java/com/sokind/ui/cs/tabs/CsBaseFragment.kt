@@ -10,8 +10,11 @@ import com.sokind.data.remote.edu.Edu
 import com.sokind.databinding.FragmentCsBaseBinding
 import com.sokind.ui.EduNavActivity
 import com.sokind.ui.base.BaseFragment
-import com.sokind.util.*
+import com.sokind.util.Constants
+import com.sokind.util.OnEduItemClickListener
+import com.sokind.util.ShowReportFragmentListener
 import com.sokind.util.adapter.BaseEduAdapter
+import com.sokind.util.dialog.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
