@@ -1,4 +1,4 @@
-package com.sokind.util
+package com.sokind.util.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.databinding.DialogBottomSheetBinding
+import com.sokind.util.Constants
 import java.util.concurrent.TimeUnit
 
 class BottomSheetDialog(
