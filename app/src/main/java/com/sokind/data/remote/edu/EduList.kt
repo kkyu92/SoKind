@@ -11,24 +11,64 @@ data class EduList(
     val deepCs: List<Edu>
 )
 
+abstract class SuperEdu : Serializable {
+    abstract val type: Int
+    abstract val key: Int
+    abstract val enterpriseKey: Int
+    abstract val position: Int
+    abstract val title: String
+    abstract val subTitle: String
+    abstract val contents: String
+    abstract val ment: String
+    abstract val recordFile: String
+    abstract val thumbnail: String
+    abstract val runningTime: Int
+    abstract val status: Int
+}
+
 data class Edu(
     @SerializedName("eduType")
-    val type: Int,
+    override val type: Int,
     @SerializedName("eduKey")
-    val key: Int,
-    val enterpriseKey: Int,
-    val position: Int,
+    override val key: Int,
+    override val enterpriseKey: Int,
+    override val position: Int,
     @SerializedName("eduTitle")
-    val title: String,
-    val subTitle: String,
+    override val title: String,
+    override val subTitle: String,
     @SerializedName("eduContents")
-    val contents: String,
+    override val contents: String,
     @SerializedName("eduMent")
-    val ment: String,
-    val recordFile: String,
+    override val ment: String,
+    override val recordFile: String,
     @SerializedName("eduThumbnail")
-    val thumbnail: String,
-    val runningTime: Int,
+    override val thumbnail: String,
+    override val runningTime: Int,
     @SerializedName("eduProceedType")
-    val status: Int,
-) : Serializable
+    override val status: Int,
+) : SuperEdu()
+
+data class NextEdu(
+    @SerializedName("eduType")
+    override val type: Int,
+    @SerializedName("eduKey")
+    override val key: Int,
+    override val enterpriseKey: Int,
+    override val position: Int,
+    @SerializedName("eduTitle")
+    override val title: String,
+    override val subTitle: String,
+    @SerializedName("eduContents")
+    override val contents: String,
+    @SerializedName("eduMent")
+    override val ment: String,
+    override val recordFile: String,
+    @SerializedName("eduThumbnail")
+    override val thumbnail: String,
+    override val runningTime: Int,
+    @SerializedName("eduProceedType")
+    override val status: Int,
+    val analysisResult: String,
+    @SerializedName("nextcsResult")
+    val nextCsResult: String
+) : SuperEdu()
