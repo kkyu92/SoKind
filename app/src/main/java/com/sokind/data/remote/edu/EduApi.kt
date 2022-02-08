@@ -40,5 +40,5 @@ interface EduApi {
         @Query("eduType") eduType: Int,
         @Query("memberId") id: String,
         @Query("memberKey") key: Int,
-    ): Single<EduUpdateResponse>
+    ): Single<NextEdu>
 }

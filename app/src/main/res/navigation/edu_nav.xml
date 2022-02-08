@@ -19,6 +19,9 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out"/>
+        <argument
+            android:name="edu"
+            app:argType="com.sokind.data.remote.edu.Edu" />
     </fragment>
     <fragment
         android:id="@+id/eduFinishFragment"
@@ -33,5 +36,8 @@
         <argument
             android:name="edu"
             app:argType="com.sokind.data.remote.edu.Edu" />
+        <argument
+            android:name="nextEdu"
+            app:argType="com.sokind.data.remote.edu.NextEdu" />
     </fragment>
 </navigation>

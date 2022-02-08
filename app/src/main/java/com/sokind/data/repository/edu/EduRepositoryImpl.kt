@@ -5,6 +5,7 @@ import com.sokind.data.local.user.UserEntity
 import com.sokind.data.remote.edu.EduDataSource
 import com.sokind.data.remote.edu.EduList
 import com.sokind.data.remote.edu.EduUpdateResponse
+import com.sokind.data.remote.edu.NextEdu
 import com.sokind.data.remote.member.MemberInfo
 import com.sokind.data.repository.token.TokenRepository
 import io.reactivex.rxjava3.core.Single
@@ -37,7 +38,7 @@ class EduRepositoryImpl @Inject constructor(
         file: MultipartBody.Part,
         eduKey: Int,
         eduType: Int
-    ): Single<EduUpdateResponse> {
+    ): Single<NextEdu> {
         return userDataSource
             .getUser()
             .flatMap { user ->

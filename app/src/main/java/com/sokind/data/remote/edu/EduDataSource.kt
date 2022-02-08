@@ -12,5 +12,5 @@ interface EduDataSource {
         eduType: Int,
         id: String,
         key: Int
-    ): Single<EduUpdateResponse>
+    ): Single<NextEdu>
 }

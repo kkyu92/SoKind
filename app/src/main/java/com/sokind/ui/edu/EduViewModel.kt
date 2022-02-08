@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sokind.data.local.user.UserEntity
 import com.sokind.data.remote.edu.EduUpdateResponse
+import com.sokind.data.remote.edu.NextEdu
 import com.sokind.data.repository.edu.EduRepository
 import com.sokind.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,8 +17,8 @@ import javax.inject.Inject
 class EduViewModel @Inject constructor(
     private val repository: EduRepository
 ) : BaseViewModel() {
-    private val _updateEdu: MutableLiveData<EduUpdateResponse> = MutableLiveData()
-    val updateEdu: LiveData<EduUpdateResponse> = _updateEdu
+    private val _updateEdu: MutableLiveData<NextEdu> = MutableLiveData()
+    val updateEdu: LiveData<NextEdu> = _updateEdu
     private val _user: MutableLiveData<UserEntity> = MutableLiveData()
     val user: LiveData<UserEntity> = _user
 

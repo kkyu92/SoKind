@@ -21,7 +21,7 @@ class EduDataSourceImpl @Inject constructor(
         eduType: Int,
         id: String,
         key: Int
-    ): Single<EduUpdateResponse> {
+    ): Single<NextEdu> {
         return eduApi
             .putEdu(access, eduFile, eduKey, eduType, id, key)
             .subscribeOn(Schedulers.io())
