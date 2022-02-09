@@ -7,14 +7,31 @@
         android:layout_height="wrap_content">
 
         <View
-            android:id="@+id/lv_line"
+            android:id="@+id/kind_line_bg"
             android:layout_width="match_parent"
             android:layout_height="5dp"
             android:layout_marginHorizontal="17dp"
-            android:background="@drawable/kind_line"
+            android:background="@drawable/kind_line_bg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lv_pin" />
+            app:layout_constraintTop_toBottomOf="@+id/avg_kind" />
+
+        <View
+            android:id="@+id/my_kind"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            app:layout_constraintTop_toTopOf="@+id/kind_line_bg"
+            app:layout_constraintEnd_toEndOf="@+id/kind_line_bg"
+            app:layout_constraintHorizontal_bias="0.7"
+            app:layout_constraintStart_toStartOf="@+id/kind_line_bg" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:background="@drawable/kind_line"
+            app:layout_constraintEnd_toEndOf="@+id/my_kind"
+            app:layout_constraintStart_toStartOf="@+id/kind_line_bg"
+            app:layout_constraintTop_toBottomOf="@+id/avg_kind" />
 
         <TextView
             android:id="@+id/tv_icon_name"
@@ -23,30 +40,20 @@
             android:layout_height="wrap_content"
             android:text="평균"
             android:textColor="@color/main_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/avg_kind"
+            app:layout_constraintStart_toStartOf="@+id/avg_kind"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/lv_pin"
+            android:id="@+id/avg_kind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="10dp"
             android:src="@drawable/icon_kind"
-            android:layout_marginTop="5dp"
-            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintHorizontal_bias="0.7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_icon_name" />
-
-        <ImageView
-            android:layout_width="1dp"
-            android:layout_height="10dp"
-            android:src="@color/main_color"
-            app:layout_constraintBottom_toTopOf="@+id/lv_line"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -57,7 +64,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lv_line">
+            app:layout_constraintTop_toBottomOf="@+id/kind_line_bg">
 
             <TextView
                 android:id="@+id/tv_min"
