@@ -38,7 +38,7 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 app:layout_constraintBottom_toTopOf="@+id/tv_sub_title"
-                app:layout_constraintEnd_toStartOf="@+id/tv_point"
+                app:layout_constraintEnd_toStartOf="@+id/container"
                 app:layout_constraintStart_toEndOf="@+id/tv_num"
                 app:layout_constraintTop_toTopOf="parent"
                 tool:text="긍정 에너지를 전파하는 입점인사" />
@@ -50,34 +50,81 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tv_title"
                 app:layout_constraintStart_toStartOf="@+id/tv_title"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title"
                 tool:text="원 플러스 원 제품인데 재고가 없다?!" />
 
-            <TextView
-                android:id="@+id/tv_point"
-                style="@style/lightGray_14_400"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
-                app:layout_constraintStart_toEndOf="@+id/tv_title"
-                app:layout_constraintTop_toTopOf="parent"
-                tool:text="90점" />
-
-            <ImageView
-                android:id="@+id/iv_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_arrow_right"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_point"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/tv_title"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/data_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_point"
+                        style="@style/main_18_700"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tool:text="90" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        style="@style/lightGray_14_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="30dp"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/tv_point"
+                        app:layout_constraintStart_toEndOf="@+id/tv_point"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_arrow"
+                        tool:text="점" />
+
+                    <ImageView
+                        android:id="@+id/iv_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_arrow_right"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/no_data_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_analysis"
+                        android:adjustViewBounds="true"/>
+
+                    <TextView
+                        android:id="@+id/tv_analysis"
+                        style="@style/lightGray_12_400"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tool:text="분석중입니다." />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>
