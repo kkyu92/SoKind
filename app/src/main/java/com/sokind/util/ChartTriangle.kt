@@ -19,8 +19,8 @@ class ChartTriangle : AppCompatImageView {
     private var viewWidth = 0
     private var viewHeight = 0
 
-    private var paint: Paint? = null
-    private var path: Path? = null
+    private lateinit var paint: Paint
+    private lateinit var path: Path
 
     private var drawableImg: Drawable? = null
     private var lineWidth = 0f
@@ -63,7 +63,9 @@ class ChartTriangle : AppCompatImageView {
 
     private fun setup() {
         paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint!!.isAntiAlias = true
+        paint.color = resources.getColor(R.color.main_color)
+        paint.strokeWidth = 2f
+        paint.isAntiAlias = true
         path = Path()
     }
 
@@ -83,11 +85,11 @@ class ChartTriangle : AppCompatImageView {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         drawFilledPath(canvas, path, drawableImg)
-        paint!!.style = Paint.Style.STROKE
-        canvas.drawPath(path!!, paint!!)
+        paint.style = Paint.Style.STROKE
+        canvas.drawPath(path, paint)
     }
 
-    protected fun drawFilledPath(c: Canvas, filledPath: Path?, drawable: Drawable?) {
+    private fun drawFilledPath(c: Canvas, filledPath: Path?, drawable: Drawable?) {
         val save = c.save()
         c.clipPath(filledPath!!)
         drawable!!.setBounds(0, 0, width, height)
@@ -100,39 +102,38 @@ class ChartTriangle : AppCompatImageView {
         val centerY = viewHeight.toFloat() * 2 / 3
         val y = viewHeight.toFloat() / 3
         if (first != 0) {
-            path!!.moveTo(centerX, centerY - centerY / 100 * first - 14) // first
+            path.moveTo(centerX, centerY - centerY / 100 * first) // first
         } else {
-            path!!.moveTo(centerX, centerY) // first
+            path.moveTo(centerX, centerY) // first
         }
         if (second != 0) {
-            path!!.lineTo(
-                centerX + centerX / 100 * second - Constants.getAddLinearBack(
+            path.lineTo(
+                centerX + ((centerX / 100) * second) - Constants.getAddLinearBack(
                     context,
                     second,
                     lineWidth
-                ), centerY + y / 100 * second + 14
+                ), centerY + (y / 100 * second)
             ) // second
         } else {
-            path!!.lineTo(centerX, centerY) // first
+            path.lineTo(centerX, centerY) // first
         }
         if (third != 0) {
-            path!!.lineTo(
-                centerX - centerX / 100 * third + Constants.getAddLinearBack(
+            path.lineTo(
+                centerX - ((centerX / 100) * third) + Constants.getAddLinearBack(
                     context,
                     third,
                     lineWidth
-                ), centerY + y / 100 * third + 14
+                ), centerY + (y / 100 * third)
             ) // third
         } else {
-            path!!.lineTo(centerX, centerY) // first
+            path.lineTo(centerX, centerY) // first
         }
         if (first != 0) {
-            path!!.moveTo(centerX, centerY - centerY / 100 * first)
+            path.lineTo(centerX, centerY - (centerY / 100 * first))
         } else {
-            path!!.moveTo(centerX, centerY) // first
+            path.lineTo(centerX, centerY) // first
         }
-        path!!.close()
-        paint!!.alpha = 54
+        path.close()
         invalidate()
     }
 
