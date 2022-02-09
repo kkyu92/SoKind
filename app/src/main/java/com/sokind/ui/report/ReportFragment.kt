@@ -18,6 +18,7 @@ import com.sokind.util.adapter.ReportAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
+import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_report) {
@@ -40,14 +41,6 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
             add(ReportItem(2, "제품에 불만이 있는 고객을 대할 때", null, 90))
             add(ReportItem(3, "긍정 에너지를 전파하는 입점인사", null, 90))
             add(ReportItem(4, "제품에 불만이 있는 고객을 대할 때", null, 90))
-            add(ReportItem(5, "긍정 에너지를 전파하는 입점인사", null, 90))
-            add(ReportItem(6, "제품에 불만이 있는 고객을 대할 때", null, 90))
-            add(ReportItem(7, "긍정 에너지를 전파하는 입점인사", null, 90))
-            add(ReportItem(8, "제품에 불만이 있는 고객을 대할 때", null, 90))
-            add(ReportItem(9, "긍정 에너지를 전파하는 입점인사", null, 90))
-            add(ReportItem(10, "제품에 불만이 있는 고객을 대할 때", null, 90))
-            add(ReportItem(11, "긍정 에너지를 전파하는 입점인사", null, 90))
-            add(ReportItem(12, "제품에 불만이 있는 고객을 대할 때", null, 90))
         }
     }
 
@@ -81,11 +74,13 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
 
     private fun setBinding() {
         binding.apply {
+            chartTriangle.setData(40,40,40)
+
             tvKind1.text = getText(R.string.report_kind_point_1)
-            tvKindAvg.text = "15점"
-            tvKindPer.text = "10%"
+            kindGapPoint.text = "15점"
+            kindPer.text = "10%"
             chartProgress.tvKindPoint.text = "90"
-            tvQuality.text = getText(R.string.report_sample)
+            qualityComment.text = getText(R.string.report_sample)
 
             tvKindTitle
                 .clicks()
