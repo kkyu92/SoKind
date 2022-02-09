@@ -1,8 +1,10 @@
 package com.sokind.util.adapter
 
+import android.graphics.drawable.PictureDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.data.di.GlideApp
@@ -11,7 +13,6 @@ import com.sokind.databinding.ItemDeepCsBinding
 import com.sokind.util.Constants
 import com.sokind.util.OnEduItemClickListener
 import java.util.concurrent.TimeUnit
-
 
 class DeepEduAdapter(
     private val tabName: String
@@ -58,8 +59,13 @@ class DeepEduAdapter(
             binding.apply {
                 tvDeepTitle.text = deepEdu.title
                 tvDeepContent.text = deepEdu.contents
-                // deepEdu.thumbnail
-                GlideApp.with(ivDeepThumbnail).load("https://picsum.photos/320/160").into(ivDeepThumbnail)
+                GlideApp.with(ivDeepThumbnail)
+                    .`as`(PictureDrawable::class.java)
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.placeholder_error)
+                    .transition(withCrossFade())
+                    .load(deepEdu.thumbnail)
+                    .into(ivDeepThumbnail)
 
                 when (deepEdu.status) {
                     1 -> {
