@@ -41,7 +41,7 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
                 Timber.e("data: ${it.data}")
                 Timber.e("go to : $go")
                 when (go) {
-                    "cs" -> showToast("reload")
+                    "cs" -> viewModel.getEdu()
                     "report" -> showReportFragmentListener.showReportFragment()
                 }
             }
@@ -56,8 +56,6 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
 
     private fun setViewModel() {
         viewModel.apply {
-            getMe()
-
             eduList.observe(viewLifecycleOwner, {
                 var deepVisible = true
                 for (base in it.baseCs) {
@@ -66,8 +64,8 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
                         break
                     }
                 }
-                val csBaseFragment = CsBaseFragment(it.baseCs)
-                val csDeepFragment = CsDeepFragment(it.deepCs, deepVisible)
+                val csBaseFragment = CsBaseFragment(it.baseCs, startForResult)
+                val csDeepFragment = CsDeepFragment(it.deepCs, startForResult, deepVisible)
                 val fragmentList = arrayListOf<Fragment>(
                     csBaseFragment,
                     csDeepFragment

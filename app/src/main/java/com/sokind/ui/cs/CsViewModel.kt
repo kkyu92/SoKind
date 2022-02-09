@@ -23,6 +23,11 @@ class CsViewModel @Inject constructor(
     var nextEdu: LiveData<Edu> = _nextEdu
 
     init {
+        getEdu()
+        getMe()
+    }
+
+    fun getEdu() {
         compositeDisposable.add(
             eduRepository
                 .getEdu()

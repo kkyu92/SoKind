@@ -1,43 +1,26 @@
 package com.sokind.ui.cs.tabs
 
-import android.app.Activity
 import android.content.Intent
 import android.view.View
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sokind.R
 import com.sokind.data.remote.edu.Edu
 import com.sokind.databinding.FragmentCsDeepBinding
 import com.sokind.ui.EduNavActivity
 import com.sokind.ui.base.BaseFragment
-import com.sokind.util.dialog.BottomSheetDialog
-import com.sokind.util.Constants
 import com.sokind.util.OnEduItemClickListener
-import com.sokind.util.ShowReportFragmentListener
 import com.sokind.util.adapter.DeepEduAdapter
+import com.sokind.util.dialog.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class CsDeepFragment(
     private val deepList: List<Edu>,
+    private val startForResult: ActivityResultLauncher<Intent>,
     private val deepVisible: Boolean
 ) : BaseFragment<FragmentCsDeepBinding>(R.layout.fragment_cs_deep) {
-
-    private lateinit var showReportFragmentListener: ShowReportFragmentListener
     private lateinit var deepEduAdapter: DeepEduAdapter
-
-    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode == Activity.RESULT_OK) {
-            val go = it.data?.getStringExtra(Constants.MOVE_TO)
-            Timber.e("data: ${ it.data}")
-            Timber.e("go to : $go")
-            when(go) {
-                "cs" -> showToast("reload")
-                "report" -> showReportFragmentListener.showReportFragment()
-            }
-        }
-    }
 
     override fun init() {
         setBinding()
