@@ -1,7 +1,6 @@
 package com.sokind.util.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding4.view.clicks
@@ -68,6 +67,17 @@ class BaseEduAdapter(
                         ivBaseBt.setImageResource(R.drawable.icon_play_btn_enable)
                         tvBaseState.text = root.context.getString(R.string.edu_do)
                         tvBaseState.setTextColor(root.context.getColor(R.color.main_color))
+                    }
+                    3 -> { // 진행중
+
+                    }
+                    4 -> { // 분석중
+
+                    }
+                    5 -> { // 분석오류
+                        ivBaseBt.setImageResource(R.drawable.icon_play_btn_disable)
+                        tvBaseState.text = root.context.getString(R.string.edu_fin)
+                        tvBaseState.setTextColor(root.context.getColor(R.color.font_light_gray))
                     }
                 }
             }
