@@ -50,8 +50,6 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
     override fun init() {
         setBinding()
         setViewModel()
-        // refresh
-
     }
 
     private fun setViewModel() {
@@ -136,6 +134,13 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
 
     private fun setBinding() {
         binding.apply {
+            refreshLayout.setOnRefreshListener {
+                viewModel.getEdu()
+                tlCs.getTabAt(1)!!.select()
+                tlCs.getTabAt(0)!!.select()
+                refreshLayout.isRefreshing = false
+            }
+
             cvCsContinue
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)

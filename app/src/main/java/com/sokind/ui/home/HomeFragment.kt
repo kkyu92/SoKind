@@ -106,6 +106,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun setBinding() {
         binding.apply {
+            refreshLayout.setOnRefreshListener {
+                viewModel.getEdu()
+                refreshLayout.isRefreshing = false
+            }
             tvBaseMore
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
