@@ -54,7 +54,7 @@ class BaseEduAdapter(
                 }, { it.printStackTrace() })
 
             binding.apply {
-                tvBaseTitle.text = "기본응대 - ${adapterPosition + 1}"
+                tvBaseTitle.text = "기본응대 - ${baseEdu.position}"
                 tvBaseContents.text = baseEdu.title
 
                 when (baseEdu.status) {
@@ -72,11 +72,13 @@ class BaseEduAdapter(
 
                     }
                     4 -> { // 분석중
-
+                        ivBaseBt.setImageResource(R.drawable.icon_analysis)
+                        tvBaseState.text = root.context.getString(R.string.edu_analysis)
+                        tvBaseState.setTextColor(root.context.getColor(R.color.font_light_gray))
                     }
                     5 -> { // 분석오류
-                        ivBaseBt.setImageResource(R.drawable.icon_play_btn_disable)
-                        tvBaseState.text = root.context.getString(R.string.edu_fin)
+                        ivBaseBt.setImageResource(R.drawable.icon_analysis)
+                        tvBaseState.text = root.context.getString(R.string.edu_analysis_fail)
                         tvBaseState.setTextColor(root.context.getColor(R.color.font_light_gray))
                     }
                 }

@@ -76,6 +76,17 @@ class DeepEduAdapter(
                         tvDeepStatus.text = root.context.getString(R.string.edu_do)
                         tvDeepStatus.setTextColor(root.context.getColor(R.color.main_color))
                     }
+                    3 -> {
+
+                    }
+                    4 -> {
+                        tvDeepStatus.text = root.context.getString(R.string.edu_analysis)
+                        tvDeepStatus.setTextColor(root.context.getColor(R.color.font_light_gray))
+                    }
+                    5 -> {
+                        tvDeepStatus.text = root.context.getString(R.string.edu_analysis_fail)
+                        tvDeepStatus.setTextColor(root.context.getColor(R.color.font_light_gray))
+                    }
                 }
             }
         }

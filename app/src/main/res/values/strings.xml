@@ -43,6 +43,8 @@
     <string name="no">아니요</string>
     <string name="edu_do">학습하기</string>
     <string name="edu_fin">학습완료</string>
+    <string name="edu_analysis">분석중</string>
+    <string name="edu_analysis_fail">분석불가</string>
 
     <string name="login_pw_error">8자~20자 영문 대 소문자, 숫자 특수문자를 사용해주세요.</string>
     <string name="join_pw_error">특수문자는 ‘! @ # $ % ^ &amp; *’만 사용 가능합니다.</string>
