@@ -18,6 +18,7 @@ import android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.LayoutRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
@@ -28,8 +29,11 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.sokind.R
 import com.sokind.data.di.GlideApp
+import com.sokind.data.remote.edu.Edu
 import com.sokind.databinding.LayoutLoadingBinding
+import com.sokind.ui.EduNavActivity
 import com.sokind.util.Constants
+import com.sokind.util.dialog.BottomSheetDialog
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import timber.log.Timber
 
@@ -245,6 +249,50 @@ abstract class BaseFragment<B : ViewDataBinding>(
         } else {
             textView.visibility = View.GONE
         }
+    }
+
+    protected fun startEdu(edu: Edu, startForResult: ActivityResultLauncher<Intent>) {
+        when (edu.status) {
+            1 -> { // 교육완료
+                val dialog = BottomSheetDialog.newInstance(
+                    getString(R.string.alert),
+                    String.format(getString(R.string.alert_edu_fin, edu.title)),
+                    itemClick = {
+                        if (it) {
+                            startEduActivity(edu, startForResult)
+                        }
+                    }
+                )
+                dialog.show(parentFragmentManager, dialog.tag)
+            }
+            2 -> { // 미교육
+                startEduActivity(edu, startForResult)
+            }
+            3 -> { // 진행중
+
+            }
+            4 -> { // 분석중
+                showToast("분석중입니다.")
+            }
+            5 -> { // 분석오류
+                val dialog = BottomSheetDialog.newInstance(
+                    getString(R.string.alert),
+                    String.format(getString(R.string.alert_edu_error, edu.title)),
+                    itemClick = {
+                        if (it) {
+                            startEduActivity(edu, startForResult)
+                        }
+                    }
+                )
+                dialog.show(parentFragmentManager, dialog.tag)
+            }
+        }
+    }
+
+    private fun startEduActivity(edu: Edu, startForResult: ActivityResultLauncher<Intent>) {
+        val intent = Intent(requireContext(), EduNavActivity::class.java)
+        intent.putExtra("edu", edu)
+        startForResult.launch(intent)
     }
 
     protected interface PermissionListener {
