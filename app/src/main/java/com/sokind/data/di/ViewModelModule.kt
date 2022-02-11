@@ -3,10 +3,13 @@ package com.sokind.data.di
 import com.sokind.data.repository.edu.EduRepository
 import com.sokind.data.repository.guide.GuideRepository
 import com.sokind.data.repository.member.MemberRepository
+import com.sokind.data.repository.report.ReportRepository
+import com.sokind.data.repository.report.ReportRepositoryImpl
 import com.sokind.ui.guide.tabs.manual.ManualViewModel
 import com.sokind.ui.home.HomeViewModel
 import com.sokind.ui.join.first.JoinFirstViewModel
 import com.sokind.ui.login.LoginViewModel
+import com.sokind.ui.report.ReportViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,6 +39,11 @@ object ViewModelModule {
     @Provides
     fun provideManualViewModel(repository: GuideRepository): ManualViewModel {
         return ManualViewModel(repository)
+    }
+
+    @Provides
+    fun provideReportViewModel(repository: ReportRepository): ReportViewModel {
+        return ReportViewModel(repository)
     }
 //    @Provides
 //    fun provideMyPageViewModel(repository: MyPageRepository): MyPageViewModel {

@@ -6,6 +6,8 @@ import com.sokind.data.remote.guide.GuideDataSource
 import com.sokind.data.remote.guide.GuideDataSourceImpl
 import com.sokind.data.remote.member.MemberDataSource
 import com.sokind.data.remote.member.MemberDataSourceImpl
+import com.sokind.data.remote.report.ReportDataSource
+import com.sokind.data.remote.report.ReportDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -22,6 +24,9 @@ abstract class RemoteDataModule {
 
     @Binds
     abstract fun bindGuideDataSource(guideDataSourceImpl: GuideDataSourceImpl): GuideDataSource
+
+    @Binds
+    abstract fun bindReportDataSource(reportDataSourceImpl: ReportDataSourceImpl): ReportDataSource
 //
 //    @Binds
 //    abstract fun bindSearchDataSource(searchDataSourceImpl: SearchDataSourceImpl) : SearchDataSource

@@ -4,6 +4,7 @@ import com.sokind.BuildConfig
 import com.sokind.data.remote.edu.EduApi
 import com.sokind.data.remote.guide.GuideApi
 import com.sokind.data.remote.member.MemberApi
+import com.sokind.data.remote.report.ReportApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -91,6 +92,12 @@ object NetworkModule {
     @Provides
     fun provideGuideApi(@Named("base_retrofit") retrofit: Retrofit): GuideApi {
         return retrofit.create(GuideApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideReportApi(@Named("base_retrofit") retrofit: Retrofit): ReportApi {
+        return retrofit.create(ReportApi::class.java)
     }
 //
 //    @Singleton
