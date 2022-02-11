@@ -174,11 +174,14 @@
 
     // report
     <string name="report">리포트</string>
-    <string name="no_report_title">s%님 CS교육을 시작해보세요!</string>
+    <string name="lv">Lv. %s</string>
+    <string name="point">%s점</string>
+    <string name="per">%s%%</string>
+    <string name="no_report_title">%s님 CS교육을 시작해보세요!</string>
     <string name="no_report_content">현재 우리 기업의 CS교육을 듣기 전이므로,\n학습리포트가 존재하지않습니다.\n교육을 시작해보세요!</string>
     <string name="report_title">학습리포트</string>수
     <string name="report_kind">현재까지 종합친절도</string>
-    <string name="report_analysis_count"><u>s%개 분석중</u></string>
+    <string name="report_analysis_count"><u>%s개 분석중</u></string>
     <string name="report_quality">고객응대 퀄리티</string>
     <string name="report_detail">교육별 상세 리포트</string>
     <string name="report_total_point">종합점수</string>
@@ -187,7 +190,7 @@
     <string name="report_kind_point_1">내 <font color='#6967F9'><b>CS점수</b></font>는</string>
     <string name="report_kind_point_2">평균보다</string>
     <string name="report_kind_point_3">높아요</string>
-
+    <string name="cdata"><![CDATA[%s]]></string>
     <!--    <string name="report_sample"><![CDATA[<font size="22" color=\'#6967F9\'><b>%s</b></font>]]></string>-->
     <string name="report_sample">김친절 님은 AI 교육평가 결과 CS 종합등급은 <font color='#6967F9'>A</font> 입니다.</string>
 

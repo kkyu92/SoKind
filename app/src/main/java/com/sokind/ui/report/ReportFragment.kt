@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding4.view.clicks
@@ -12,13 +14,13 @@ import com.sokind.data.remote.report.ReportItem
 import com.sokind.databinding.FragmentReportBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.ui.report.detail.DetailReportActivity
-import com.sokind.util.dialog.BottomSheetExplainDialog
 import com.sokind.util.Constants
 import com.sokind.util.adapter.ReportAdapter
+import com.sokind.util.dialog.BottomSheetExplainDialog
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
-import kotlin.math.roundToInt
+import kotlin.math.abs
 
 @AndroidEntryPoint
 class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_report) {
@@ -26,32 +28,83 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
 
     private lateinit var reportBaseAdapter: ReportAdapter
     private lateinit var reportDeepAdapter: ReportAdapter
-    val dummyData = mutableListOf<ReportItem>()
 
-    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode == Activity.RESULT_OK) {
-            // reFresh
-            Timber.e("reFresh")
+    private val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                // reFresh
+                Timber.e("reFresh")
+            }
         }
-    }
-
-    fun initializeList() { //임의로 데이터 넣어서 만들어봄
-        with(dummyData) {
-            add(ReportItem(1, "긍정 에너지를 전파하는 입점인사", null, 90))
-            add(ReportItem(2, "제품에 불만이 있는 고객을 대할 때", null, 90))
-            add(ReportItem(3, "긍정 에너지를 전파하는 입점인사", null, 90))
-            add(ReportItem(4, "제품에 불만이 있는 고객을 대할 때", null, 90))
-        }
-    }
 
     override fun init() {
-        initializeList()
-        setRecyclerView()
         setBinding()
+        setViewModel()
     }
 
-    private fun setRecyclerView() {
-        reportBaseAdapter = ReportAdapter(dummyData)
+    private fun setViewModel() {
+        viewModel.report.observe(viewLifecycleOwner, {
+            binding.apply {
+                when {
+                    it.allAvg < it.mAvg -> {
+                        kindGap.text = "평균보다"
+                        kindGapPoint.visibility = View.VISIBLE
+                        kindGapText.text = "높아요"
+                        underline.visibility = View.VISIBLE
+                    }
+                    it.allAvg > it.mAvg -> {
+                        kindGap.text = "평균보다"
+                        kindGapPoint.visibility = View.VISIBLE
+                        kindGapText.text = "낮아요"
+                        underline.visibility = View.VISIBLE
+                    }
+                    else -> {
+                        kindGap.text = "평균과 일치해요"
+                        kindGapPoint.visibility = View.GONE
+                        kindGapText.text = ""
+                        underline.visibility = View.GONE
+                    }
+                }
+                pbCsLv.progress = it.lvRatio.toFloat()
+                tvCsLv.text = getString(R.string.lv, it.lv.toString())
+                tvCsDay.text = getString(R.string.cs_day, it.eduDate.toString())
+                tvAnalysisCount.text = getString(R.string.report_analysis_count, it.analysisCnt.toString())
+                val gap = abs(it.allAvg - it.mAvg).toString()
+                kindGapPoint.text = getString(R.string.point, gap)
+                kindPer.text = getString(R.string.per, it.mPer.toInt().toString())
+                chartProgress.sbTotalPoint.progress = it.mAvg.toFloat()
+                chartProgress.tvKindPoint.text = it.mAvg.toString()
+
+                var comment = it.qualityComment.replace("'", "")
+                comment = comment.replace("%","%%")
+                comment = getString(R.string.cdata, comment)
+                qualityComment.text = fromHtml(comment, null)
+
+                chartKind.avgKind.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                    horizontalBias = it.allAvg.toFloat() / 100
+                }
+                chartKind.myKind.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                    horizontalBias = it.mAvg.toFloat() / 100
+                }
+                chartTriangle.setData(it.speak, it.emotion, it.posture)
+            }
+            setRecyclerView(it.reportList)
+        })
+    }
+
+    private fun setRecyclerView(reportList: List<ReportItem>) {
+        val baseReportList: ArrayList<ReportItem> = arrayListOf()
+        val deepReportList: ArrayList<ReportItem> = arrayListOf()
+        for (report in reportList) {
+            if (report.type == 1) {
+                baseReportList.add(report)
+            } else {
+                deepReportList.add(report)
+            }
+        }
+
+        reportBaseAdapter = ReportAdapter()
+        reportBaseAdapter.reportList = baseReportList
         binding.rvReportBase.layoutManager = LinearLayoutManager(requireContext())
         binding.rvReportBase.adapter = reportBaseAdapter
         reportBaseAdapter.setOnItemClickListener(object : ReportAdapter.OnItemClickListener {
@@ -61,7 +114,8 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
             }
         })
 
-        reportDeepAdapter = ReportAdapter(dummyData)
+        reportDeepAdapter = ReportAdapter()
+        reportDeepAdapter.reportList = deepReportList
         binding.rvReportDeep.layoutManager = LinearLayoutManager(requireContext())
         binding.rvReportDeep.adapter = reportDeepAdapter
         reportDeepAdapter.setOnItemClickListener(object : ReportAdapter.OnItemClickListener {
@@ -74,13 +128,12 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
 
     private fun setBinding() {
         binding.apply {
-            chartTriangle.setData(40,40,40)
+            refreshLayout.setOnRefreshListener {
+                viewModel.getReport()
+                refreshLayout.isRefreshing = false
+            }
 
             tvKind1.text = getText(R.string.report_kind_point_1)
-            kindGapPoint.text = "15점"
-            kindPer.text = "10%"
-            chartProgress.tvKindPoint.text = "90"
-            qualityComment.text = getText(R.string.report_sample)
 
             tvKindTitle
                 .clicks()
@@ -93,17 +146,6 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
                     )
                     dialog.show(parentFragmentManager, dialog.tag)
                 }, { it.printStackTrace() })
-
-            svSticky.run {
-                header = reportBaseTitleContainer
-                header2 = reportDeepTitleContainer
-                stickListener = { _ ->
-                    Timber.e("stickListener")
-                }
-                freeListener = { _ ->
-                    Timber.e("freeListener")
-                }
-            }
         }
     }
 
@@ -112,6 +154,7 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
         intent.putExtra("report", "base")
         startForResult.launch(intent)
     }
+
     private fun startDetailDeep() {
         val intent = Intent(requireContext(), DetailReportActivity::class.java)
         intent.putExtra("report", "deep")

@@ -10,10 +10,9 @@ import com.sokind.databinding.ItemReportBinding
 import com.sokind.util.Constants
 import java.util.concurrent.TimeUnit
 
-class ReportAdapter(
-    private var reportList: List<ReportItem> = listOf()
-) : RecyclerView.Adapter<ReportAdapter.ReportViewHolder>() {
-    private var listener: OnItemClickListener? = null
+class ReportAdapter : RecyclerView.Adapter<ReportAdapter.ReportViewHolder>() {
+    private lateinit var listener: OnItemClickListener
+    var reportList: List<ReportItem> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReportViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -39,13 +38,13 @@ class ReportAdapter(
                 tvNum.text = (adapterPosition + 1).toString()
                 tvTitle.text = report.title
                 tvSubTitle.text = report.subTitle
-                tvPoint.text = report.point.toString()
+                tvPoint.text = report.score.toString()
             }
             itemView
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    listener?.onItemClick(itemView, report, adapterPosition)
+                    listener.onItemClick(itemView, report, adapterPosition)
                 }, { it.printStackTrace() })
         }
     }
