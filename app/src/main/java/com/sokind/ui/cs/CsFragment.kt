@@ -18,11 +18,11 @@ import com.sokind.ui.EduNavActivity
 import com.sokind.ui.base.BaseFragment
 import com.sokind.ui.cs.tabs.CsBaseFragment
 import com.sokind.ui.cs.tabs.CsDeepFragment
-import com.sokind.util.dialog.BottomSheetExplainDialog
 import com.sokind.util.ChartLv
 import com.sokind.util.Constants
 import com.sokind.util.ShowReportFragmentListener
 import com.sokind.util.adapter.TabAdapter
+import com.sokind.util.dialog.BottomSheetExplainDialog
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -41,7 +41,7 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
                 Timber.e("data: ${it.data}")
                 Timber.e("go to : $go")
                 when (go) {
-                    "cs" -> viewModel.getEdu()
+                    "list" -> viewModel.getEdu()
                     "report" -> showReportFragmentListener.showReportFragment()
                 }
             }
@@ -81,7 +81,10 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
             nextEdu.observe(viewLifecycleOwner, {
                 nextEduData = it
                 val type = if (it.type == 1) "기본응대 - ${it.position}" else "상황응대 - "
-                binding.tvCsNext.text = "$type `${it.title}`"
+                binding.apply {
+                    cvCsContinue.visibility = View.VISIBLE
+                    tvCsNext.text = "$type `${it.title}`"
+                }
             })
             isLoading.observe(viewLifecycleOwner, { isLoading ->
                 if (isLoading) {

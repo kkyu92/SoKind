@@ -39,7 +39,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 Timber.e("data: ${it.data}")
                 Timber.e("go to : $go")
                 when (go) {
-                    "cs" -> showToast("reload")
+                    "list" -> viewModel.getEdu()
                     "report" -> showReportFragmentListener.showReportFragment()
                 }
             }
@@ -50,8 +50,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             setBinding()
             setViewModel()
         }
-
-        // refresh
     }
 
     private fun setRecyclerView(baseList: List<Edu>, deepList: List<Edu>) {
@@ -127,8 +125,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun setViewModel() {
         viewModel.apply {
-            getEdu()
-
             getMe.observe(viewLifecycleOwner, {
                 memberInfo = it
                 saveUser(it)

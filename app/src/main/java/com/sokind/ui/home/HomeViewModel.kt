@@ -28,16 +28,8 @@ class HomeViewModel @Inject constructor(
     // subject 사용
 
     init {
-        compositeDisposable.add(
-            memberRepository
-                .getMe()
-                .doOnSubscribe { showProgress() }
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnTerminate { hideProgress() }
-                .subscribe({
-                    _getMe.postValue(it)
-                }, { it.printStackTrace() })
-        )
+        getMe()
+        getEdu()
     }
 
     fun saveUser(memberInfo: MemberInfo) {
@@ -62,6 +54,19 @@ class HomeViewModel @Inject constructor(
                 .doOnTerminate { hideProgress() }
                 .subscribe({
                     _eduList.postValue(it)
+                }, { it.printStackTrace() })
+        )
+    }
+
+    fun getMe() {
+        compositeDisposable.add(
+            memberRepository
+                .getMe()
+                .doOnSubscribe { showProgress() }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate { hideProgress() }
+                .subscribe({
+                    _getMe.postValue(it)
                 }, { it.printStackTrace() })
         )
     }

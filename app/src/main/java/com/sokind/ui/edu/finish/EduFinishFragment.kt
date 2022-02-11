@@ -82,7 +82,7 @@ class EduFinishFragment : BaseFragment<FragmentEduFinishBinding>(R.layout.fragme
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    val intent = Intent().putExtra(Constants.MOVE_TO, "cs")
+                    val intent = Intent().putExtra(Constants.MOVE_TO, "list")
                     requireActivity().setResult(RESULT_OK, intent)
                     requireActivity().finish()
                 }, { it.printStackTrace() })
