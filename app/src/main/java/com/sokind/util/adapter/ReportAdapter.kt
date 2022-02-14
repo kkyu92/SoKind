@@ -37,15 +37,51 @@ class ReportAdapter : RecyclerView.Adapter<ReportAdapter.ReportViewHolder>() {
             binding.apply {
                 tvNum.text = (adapterPosition + 1).toString()
                 tvTitle.text = report.title
+                if (report.subTitle == "none") {
+                    tvSubTitle.visibility = View.GONE
+                }
                 tvSubTitle.text = report.subTitle
-                tvPoint.text = report.score.toString()
+                setListData(report)
             }
+
             itemView
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
                     listener.onItemClick(itemView, report, adapterPosition)
                 }, { it.printStackTrace() })
+        }
+
+        private fun setListData(report : ReportItem) {
+            binding.apply {
+                when (report.status) {
+                    1 -> {
+                        dataContainer.visibility = View.VISIBLE
+                        noDataContainer.visibility = View.GONE
+                        tvPoint.text = report.score.toString()
+                        tvAnalysis.text = "학습완료"
+                    }
+                    2 -> {
+                        dataContainer.visibility = View.VISIBLE
+                        noDataContainer.visibility = View.GONE
+                        tvPoint.text = report.score.toString()
+                        tvAnalysis.text = "학습하기"
+                    }
+                    3 -> { // 진행중
+
+                    }
+                    4 -> {
+                        dataContainer.visibility = View.GONE
+                        noDataContainer.visibility = View.VISIBLE
+                        tvAnalysis.text = "분석중"
+                    }
+                    5 -> {
+                        dataContainer.visibility = View.GONE
+                        noDataContainer.visibility = View.VISIBLE
+                        tvAnalysis.text = "분석오류"
+                    }
+                }
+            }
         }
     }
 
