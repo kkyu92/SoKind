@@ -1,6 +1,7 @@
 package com.sokind.data.repository.report
 
 import com.sokind.data.local.user.UserDataSource
+import com.sokind.data.local.user.UserEntity
 import com.sokind.data.remote.report.ReportDataSource
 import com.sokind.data.remote.report.ReportResponse
 import com.sokind.data.repository.token.TokenRepository
@@ -27,5 +28,10 @@ class ReportRepositoryImpl @Inject constructor(
                             }
                     }
             }
+    }
+
+    override fun getMe(): Single<UserEntity> {
+        return userDataSource
+            .getUser()
     }
 }
