@@ -24,7 +24,7 @@
         <TextView
             android:id="@+id/tv_dialog_content"
             style="@style/black_14_400"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
         <TextView
             android:id="@+id/tv_dialog_content2"
             style="@style/lightGray_14_400"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
