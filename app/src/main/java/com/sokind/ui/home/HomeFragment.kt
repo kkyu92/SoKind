@@ -7,7 +7,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
-import com.sokind.data.remote.edu.Edu
+import com.sokind.data.remote.edu.BaseEdu
+import com.sokind.data.remote.edu.DeepEdu
 import com.sokind.data.remote.member.MemberInfo
 import com.sokind.databinding.FragmentHomeBinding
 import com.sokind.ui.base.BaseFragment
@@ -40,7 +41,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 Timber.e("go to : $go")
                 when (go) {
                     "list" -> viewModel.getEdu()
-                    "report" -> showReportFragmentListener.showReportFragment()
+                    "report" -> {
+                        viewModel.getEdu()
+                        showReportFragmentListener.showReportFragment()
+                    }
                 }
             }
         }
@@ -52,7 +56,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
     }
 
-    private fun setRecyclerView(baseList: List<Edu>, deepList: List<Edu>) {
+    private fun setRecyclerView(baseList: List<BaseEdu>, deepList: List<DeepEdu>) {
         baseEduAdapter = BaseEduAdapter("Home")
         baseEduAdapter.baseList = baseList
         deepEduAdapter = DeepEduAdapter("Home")
@@ -165,7 +169,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         this.showCsListener = listenerCs
     }
 
-    companion object {
-
+    fun setShowReportFragmentListener(listener: ShowReportFragmentListener) {
+        this.showReportFragmentListener = listener
     }
+
+    companion object
 }

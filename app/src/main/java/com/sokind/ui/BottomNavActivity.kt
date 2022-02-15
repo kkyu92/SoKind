@@ -85,6 +85,12 @@ class BottomNavActivity : BaseActivity<ActivityBottomNavBinding>(R.layout.activi
                 showFragment("cs")
             }
         })
+        homeFragment.setShowReportFragmentListener(object : ShowReportFragmentListener {
+            override fun showReportFragment() {
+                underlineSelectedItem(binding.clMain, R.id.reportFragment)
+                showFragment("report")
+            }
+        })
         csFragment.setShowReportFragmentListener(object : ShowReportFragmentListener {
             override fun showReportFragment() {
                 underlineSelectedItem(binding.clMain, R.id.reportFragment)

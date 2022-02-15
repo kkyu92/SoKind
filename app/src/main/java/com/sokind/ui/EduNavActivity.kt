@@ -1,14 +1,12 @@
 package com.sokind.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.sokind.R
 import com.sokind.data.remote.edu.Edu
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class EduNavActivity : AppCompatActivity() {

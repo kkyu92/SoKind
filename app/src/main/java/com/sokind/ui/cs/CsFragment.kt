@@ -45,7 +45,10 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
                 Timber.e("go to : $go")
                 when (go) {
                     "list" -> viewModel.getEdu()
-                    "report" -> showReportFragmentListener.showReportFragment()
+                    "report" -> {
+                        viewModel.getEdu()
+                        showReportFragmentListener.showReportFragment()
+                    }
                 }
             }
         }
