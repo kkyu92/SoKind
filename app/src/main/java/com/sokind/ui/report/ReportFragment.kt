@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
+import com.sokind.data.remote.edu.EduMapper.mappingReportToEdu
 import com.sokind.data.remote.report.ReportItem
 import com.sokind.data.remote.report.ReportResponse
 import com.sokind.databinding.FragmentReportBinding
@@ -44,6 +45,12 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
     override fun init() {
         setBinding()
         setViewModel()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getReport()
+        binding.scrollView.scrollTo(0,0)
     }
 
     private fun setViewModel() {
@@ -197,7 +204,7 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
                     String.format(getString(R.string.alert_edu_error, report.title)),
                     itemClick = {
                         if (it) {
-//                        startEduActivity(report, startForResult)
+                            startEdu(mappingReportToEdu(report), startForResult)
                         }
                     }
                 )
