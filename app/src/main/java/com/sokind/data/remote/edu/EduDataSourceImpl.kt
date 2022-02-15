@@ -14,6 +14,12 @@ class EduDataSourceImpl @Inject constructor(
             .subscribeOn(Schedulers.io())
     }
 
+    override fun startEdu(access: String, key: Int, type: Int, id: String): Single<StartEdu> {
+        return eduApi
+            .startEdu(access, key, type, id)
+            .subscribeOn(Schedulers.io())
+    }
+
     override fun putEdu(
         access: String,
         eduFile: MultipartBody.Part,
