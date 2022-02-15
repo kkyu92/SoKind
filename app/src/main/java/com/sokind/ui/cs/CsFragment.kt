@@ -12,7 +12,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
+import com.sokind.data.remote.edu.BaseEdu
 import com.sokind.data.remote.edu.Edu
+import com.sokind.data.remote.edu.EduList
 import com.sokind.databinding.FragmentCsBinding
 import com.sokind.ui.EduNavActivity
 import com.sokind.ui.base.BaseFragment
@@ -33,6 +35,7 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
 
     private lateinit var showReportFragmentListener: ShowReportFragmentListener
     private lateinit var tabLayoutMediator: TabLayoutMediator
+    private lateinit var baseList: List<BaseEdu>
     private lateinit var nextEduData: Edu
 
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -55,6 +58,7 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
     private fun setViewModel() {
         viewModel.apply {
             eduList.observe(viewLifecycleOwner, {
+                baseList = it.baseCs
                 var deepVisible = true
                 for (base in it.baseCs) {
                     if (base.status == 2) {
@@ -80,7 +84,8 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
             })
             nextEdu.observe(viewLifecycleOwner, {
                 nextEduData = it
-                val type = if (it.type == 1) "기본응대 - ${it.position}" else "상황응대 - "
+                val pos = baseList.indexOf(nextEduData) + 1
+                val type = if (it.type == 1) "기본응대 - $pos" else "상황응대 - "
                 binding.apply {
                     cvCsContinue.visibility = View.VISIBLE
                     tvCsNext.text = "$type `${it.title}`"

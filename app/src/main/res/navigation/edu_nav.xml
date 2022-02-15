@@ -39,5 +39,9 @@
         <argument
             android:name="nextEdu"
             app:argType="com.sokind.data.remote.edu.NextEdu" />
+        <argument
+            android:name="pos"
+            app:argType="integer"
+            android:defaultValue="0"/>
     </fragment>
 </navigation>

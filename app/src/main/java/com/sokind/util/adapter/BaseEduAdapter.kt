@@ -54,7 +54,7 @@ class BaseEduAdapter(
                 }, { it.printStackTrace() })
 
             binding.apply {
-                tvBaseTitle.text = "기본응대 - ${baseEdu.position}"
+                tvBaseTitle.text = "기본응대 - ${adapterPosition + 1}"
                 tvBaseContents.text = baseEdu.title
 
                 when (baseEdu.status) {

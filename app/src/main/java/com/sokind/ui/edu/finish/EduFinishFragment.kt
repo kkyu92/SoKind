@@ -12,8 +12,8 @@ import com.sokind.data.remote.edu.EduMapper.mappingNextEduToEdu
 import com.sokind.data.remote.edu.NextEdu
 import com.sokind.databinding.FragmentEduFinishBinding
 import com.sokind.ui.base.BaseFragment
-import com.sokind.util.dialog.BottomSheetDialog
 import com.sokind.util.Constants
+import com.sokind.util.dialog.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 
@@ -22,10 +22,12 @@ class EduFinishFragment : BaseFragment<FragmentEduFinishBinding>(R.layout.fragme
     private val viewModel by viewModels<EduFinishViewModel>()
     private lateinit var edu: Edu
     private lateinit var nextEdu: NextEdu
+    private var pos: Int = 0
 
     override fun init() {
         edu = arguments?.getSerializable("edu") as Edu
         nextEdu = arguments?.getSerializable("nextEdu") as NextEdu
+        pos = arguments?.getInt("pos")!!
         setBinding()
     }
 
@@ -37,14 +39,17 @@ class EduFinishFragment : BaseFragment<FragmentEduFinishBinding>(R.layout.fragme
 
             when (edu.type) {
                 1 -> { // 기본응대
-                    tvType.text = "기본응대 - ${edu.position}"
+                    tvType.text = "기본응대 - $pos"
                     if (edu.type != nextEdu.type) {
                         tvEndComment.text = "기본응대 교육을 모두 이수하였습니다!"
                     }
                 }
                 2 -> { // 상황응대
                     tvType.text = "상황응대"
-                    tvSubTitle.text = edu.subTitle
+                    tvSubTitle.text = edu.title
+                    if (nextEdu.nextCsResult == EMPTY) {
+                        tvEndComment.text = "상황응대 교육을 모두 이수하였습니다!"
+                    }
                 }
             }
             tvTitle.text = edu.title
