@@ -8,6 +8,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withC
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.data.di.GlideApp
+import com.sokind.data.remote.edu.DeepEdu
 import com.sokind.data.remote.edu.Edu
 import com.sokind.databinding.ItemDeepCsBinding
 import com.sokind.util.Constants
@@ -18,7 +19,7 @@ class DeepEduAdapter(
     private val tabName: String
 ) : RecyclerView.Adapter<DeepEduAdapter.HomeCsViewHolder>() {
     private lateinit var listener: OnEduItemClickListener
-    var deepList: List<Edu> = listOf()
+    var deepList: List<DeepEdu> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeCsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -48,7 +49,7 @@ class DeepEduAdapter(
         private val binding: ItemDeepCsBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(deepEdu: Edu) {
+        fun bind(deepEdu: DeepEdu) {
              itemView
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
@@ -58,7 +59,7 @@ class DeepEduAdapter(
 
             binding.apply {
                 tvDeepTitle.text = deepEdu.title
-                tvDeepContent.text = deepEdu.contents
+                tvDeepContent.text = deepEdu.subTitle
                 GlideApp.with(ivDeepThumbnail)
                     .`as`(PictureDrawable::class.java)
                     .placeholder(R.drawable.placeholder)

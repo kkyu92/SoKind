@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
-import com.sokind.data.remote.edu.Edu
+import com.sokind.data.remote.edu.BaseEdu
 import com.sokind.databinding.ItemBaseCsBinding
 import com.sokind.util.Constants
 import com.sokind.util.OnEduItemClickListener
@@ -15,7 +15,7 @@ class BaseEduAdapter(
     private val tabName: String
 ) : RecyclerView.Adapter<BaseEduAdapter.HomeCsViewHolder>() {
     private lateinit var listener: OnEduItemClickListener
-    var baseList: List<Edu> = listOf()
+    var baseList: List<BaseEdu> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeCsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -45,7 +45,7 @@ class BaseEduAdapter(
         private val binding: ItemBaseCsBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(baseEdu: Edu) {
+        fun bind(baseEdu: BaseEdu) {
             itemView
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)

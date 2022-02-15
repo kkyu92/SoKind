@@ -5,6 +5,8 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sokind.R
+import com.sokind.data.remote.edu.BaseEdu
+import com.sokind.data.remote.edu.DeepEdu
 import com.sokind.data.remote.edu.Edu
 import com.sokind.databinding.FragmentCsBaseBinding
 import com.sokind.ui.base.BaseFragment
@@ -14,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CsBaseFragment(
-    private val baseList: List<Edu>,
+    private val baseList: List<BaseEdu>,
     private val startForResult: ActivityResultLauncher<Intent>
 ) : BaseFragment<FragmentCsBaseBinding>(R.layout.fragment_cs_base) {
     private lateinit var baseEduAdapter: BaseEduAdapter

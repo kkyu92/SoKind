@@ -5,6 +5,8 @@ import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sokind.R
+import com.sokind.data.remote.edu.BaseEdu
+import com.sokind.data.remote.edu.DeepEdu
 import com.sokind.data.remote.edu.Edu
 import com.sokind.databinding.FragmentCsDeepBinding
 import com.sokind.ui.base.BaseFragment
@@ -14,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CsDeepFragment(
-    private val deepList: List<Edu>,
+    private val deepList: List<DeepEdu>,
     private val startForResult: ActivityResultLauncher<Intent>,
     private val deepVisible: Boolean
 ) : BaseFragment<FragmentCsDeepBinding>(R.layout.fragment_cs_deep) {
