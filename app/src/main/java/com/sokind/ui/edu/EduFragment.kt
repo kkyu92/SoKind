@@ -14,11 +14,11 @@ import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.data.di.GlideApp
 import com.sokind.data.remote.edu.Edu
-import com.sokind.data.remote.edu.EduMapper.mappingRemoteDataToEdu
+import com.sokind.data.remote.edu.StartEdu
 import com.sokind.databinding.FragmentEduBinding
 import com.sokind.ui.base.BaseFragment
-import com.sokind.util.dialog.BottomSheetImgDialog
 import com.sokind.util.Constants
+import com.sokind.util.dialog.BottomSheetImgDialog
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -37,18 +37,18 @@ import java.util.concurrent.TimeUnit
 class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
     private val viewModel by viewModels<EduViewModel>()
     private lateinit var edu: Edu
+    private lateinit var startEdu: StartEdu
     private var camera: Camera? = null
     private var videoCapture: VideoCapture? = null
     private var lensFacing: Int = CameraSelector.LENS_FACING_FRONT
-    private var isRecording = false
+    private lateinit var name: String
     private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
 
     override fun init() {
-        viewModel.getUser()
-
         edu = arguments?.getSerializable("edu") as Edu
+        viewModel.startEdu(edu.key, edu.type)
 
         outputDirectory = getOutputDirectory()
         cameraExecutor = Executors.newSingleThreadExecutor()
@@ -58,7 +58,27 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
 
         viewModel.apply {
             user.observe(viewLifecycleOwner, {
-                setEduData(edu, it.memberName!!)
+                name = it.memberName!!
+            })
+
+            getStartEdu.observe(viewLifecycleOwner, {
+                binding.apply {
+                    startEdu = it
+                    if (edu.type == 1) {
+                        tvDeepContent.visibility = View.GONE
+                        tvQuestion.text = it.contents
+                        tvAnswer.text = it.title
+                    } else {
+                        tvDeepContent.visibility = View.VISIBLE
+                        tvDeepContent.text = it.title
+                        tvQuestion.text = it.contents
+                        tvAnswer.text = "이때 ${name}님의 답변은?"
+                    }
+                    pbCount.progressMax = (it.runningTime).toFloat()
+                    pbCount.progress = 0f
+                    tvCount.text =
+                        String.format(getString(R.string.edu_count, it.runningTime.toString()))
+                }
             })
 
             updateEdu.observe(viewLifecycleOwner, {
@@ -66,7 +86,8 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
                 showLoading(false, binding.pbLoading.loadingContainer)
                 when (it.analysisResult) {
                     SUCCESS -> {
-                        val action = EduFragmentDirections.actionEduFragmentToEduFinishFragment(edu, it)
+                        val action =
+                            EduFragmentDirections.actionEduFragmentToEduFinishFragment(edu, it, startEdu.position)
                         findNavController().navigate(action)
                     }
                     FAIL -> {
@@ -86,23 +107,6 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
                     }
                 }
             })
-        }
-    }
-
-    private fun setEduData(edu: Edu, name: String) {
-        binding.apply {
-            if (edu.type == 1) {
-                tvQuestion.text = edu.contents
-                tvAnswer.text = edu.ment
-            } else {
-                tvQuestion.text = edu.subTitle
-                tvAnswer.text = "이때 ${name}님의 답변은?"
-            }
-            pbCount.progressMax = (edu.runningTime).toFloat()
-            pbCount.progress = 0f
-            tvCount.text =
-                String.format(getString(R.string.edu_count, edu.runningTime.toString()))
-            Timber.e("max: ${edu.runningTime + 2f}")
         }
     }
 
@@ -199,7 +203,7 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
     @SuppressLint("RestrictedApi")
     private fun startRecording() {
         // countDown
-        val countDown = edu.runningTime
+        val countDown = startEdu.runningTime
         binding.pbCount.setProgressWithAnimation(countDown.toFloat(), (countDown * 1000).toLong())
         compositeDisposable.add(
             Observable

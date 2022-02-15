@@ -108,11 +108,18 @@
                 android:visibility="gone">
 
                 <TextView
+                    android:id="@+id/tv_deep_content"
+                    style="@style/black_14_500"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center" />
+
+                <TextView
                     android:id="@+id/tv_question"
                     style="@style/black_14_400"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     tools:text="손님이 매장에 방문했습니다.\n아래와 같이 입점인사를 해보세요." />
 
@@ -148,7 +155,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
@@ -193,14 +200,14 @@
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         app:cpb_background_progressbar_color="@color/pb_background"
-                        app:cpb_progressbar_color="@color/pb_bar"
                         app:cpb_background_progressbar_width="5dp"
+                        app:cpb_progressbar_color="@color/pb_bar"
                         app:cpb_progressbar_width="5dp"
                         app:cpb_round_border="true"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/iv_loading"
