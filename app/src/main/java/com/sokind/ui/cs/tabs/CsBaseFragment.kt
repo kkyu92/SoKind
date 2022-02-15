@@ -42,7 +42,11 @@ class CsBaseFragment(
         }
 
         baseEduAdapter.setOnItemClickListener(object : OnEduItemClickListener {
-            override fun onEduItemClick(edu: Edu, pos: Int) {
+            override fun onBaseItemClick(edu: BaseEdu, pos: Int) {
+                startEdu(edu, startForResult)
+            }
+
+            override fun onDeepItemClick(edu: DeepEdu, pos: Int) {
                 startEdu(edu, startForResult)
             }
         })

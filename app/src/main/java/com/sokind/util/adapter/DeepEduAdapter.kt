@@ -53,7 +53,7 @@ class DeepEduAdapter(
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    listener.onEduItemClick(deepEdu, adapterPosition)
+                    listener.onDeepItemClick(deepEdu, adapterPosition)
                 }, { it.printStackTrace() })
 
             binding.apply {

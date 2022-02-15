@@ -50,7 +50,7 @@ class BaseEduAdapter(
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    listener.onEduItemClick(baseEdu, adapterPosition)
+                    listener.onBaseItemClick(baseEdu, adapterPosition)
                 }, { it.printStackTrace() })
 
             binding.apply {
