@@ -50,17 +50,28 @@ class DetailReportActivity :
     )
 
     override fun init() {
-        setTabLayout()
+        val type = intent.getIntExtra("type", 1)
+        val key = intent.getIntExtra("key", 1)
+        setViewModel(key, type)
+        setTabLayout(type)
         setBinding()
     }
 
-    private fun setTabLayout() {
-        val report = intent.getStringExtra("report")
-        Timber.e("report : $report")
+    private fun setViewModel(key: Int, type: Int) {
+        viewModel.apply {
+            getReportDetail(key, type)
+
+            detailReport.observe(this@DetailReportActivity, {
+                it.date
+            })
+        }
+    }
+
+    private fun setTabLayout(type: Int) {
         binding.apply {
             vpReportDetail.apply {
                 offscreenPageLimit = 4
-                adapter = if (report == "base") {
+                adapter = if (type == 1) {
                     TabAdapter(baseList, supportFragmentManager, lifecycle)
                 } else {
                     TabAdapter(deepList, supportFragmentManager, lifecycle)

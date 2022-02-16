@@ -138,7 +138,7 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
         binding.rvReportBase.adapter = reportBaseAdapter
         reportBaseAdapter.setOnItemClickListener(object : ReportAdapter.OnItemClickListener {
             override fun onItemClick(v: View, data: ReportItem, pos: Int) {
-                startDetail(data)
+                reportItemClick(data)
             }
         })
 
@@ -148,7 +148,7 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
         binding.rvReportDeep.adapter = reportDeepAdapter
         reportDeepAdapter.setOnItemClickListener(object : ReportAdapter.OnItemClickListener {
             override fun onItemClick(v: View, data: ReportItem, pos: Int) {
-                startDetail(data)
+                reportItemClick(data)
             }
         })
     }
@@ -188,15 +188,9 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
         }
     }
 
-    private fun startDetail(report: ReportItem) {
+    private fun reportItemClick(report: ReportItem) {
         when (report.status) {
-            1 -> {
-                if (report.type == 1) {
-                    startDetailBase()
-                } else {
-                    startDetailDeep()
-                }
-            }
+            1 -> startDetail(report.key, report.type)
             4 -> showToast("분석중 새로고침")
             5 -> {
                 val dialog = BottomSheetDialog.newInstance(
@@ -214,15 +208,10 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
         }
     }
 
-    private fun startDetailBase() {
+    private fun startDetail(key: Int, type: Int) {
         val intent = Intent(requireContext(), DetailReportActivity::class.java)
-        intent.putExtra("report", "base")
-        startForResult.launch(intent)
-    }
-
-    private fun startDetailDeep() {
-        val intent = Intent(requireContext(), DetailReportActivity::class.java)
-        intent.putExtra("report", "deep")
+        intent.putExtra("key", key)
+        intent.putExtra("type", type)
         startForResult.launch(intent)
     }
 }
