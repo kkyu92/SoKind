@@ -17,6 +17,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.google.android.material.snackbar.Snackbar
 import com.sokind.R
+import com.sokind.data.di.GlideApp
+import com.sokind.databinding.LayoutLoadingBinding
 import com.sokind.util.Constants
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import timber.log.Timber
@@ -140,6 +142,17 @@ abstract class BaseActivity<B : ViewDataBinding>(
             loadingView.visibility = View.VISIBLE
         } else {
             loadingView.visibility = View.GONE
+        }
+    }
+
+    protected fun showLoading(isShow: Boolean, loadingView: LayoutLoadingBinding) {
+        if (isShow) {
+            GlideApp.with(this).load(R.raw.loading_wh)
+                .into(loadingView.loadingGif)
+            loadingView.loadingContainer.visibility = View.VISIBLE
+        } else {
+            GlideApp.with(this).clear(loadingView.loadingGif)
+            loadingView.loadingContainer.visibility = View.GONE
         }
     }
 
