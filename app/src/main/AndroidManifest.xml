@@ -41,6 +41,9 @@ package="com.sokind">
     <activity
         android:name="com.sokind.ui.report.detail.DetailReportActivity"
         android:exported="true" />
+    <activity
+        android:name="com.sokind.ui.report.detail.tabs.total.VideoViewActivity"
+        android:exported="true" />
     <!-- FileProvider used to share media with other apps -->
     <provider
         android:name="androidx.core.content.FileProvider"
