@@ -1,9 +1,11 @@
 package com.sokind.util
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Patterns
 import android.util.TypedValue
+import java.text.SimpleDateFormat
 import java.util.regex.Pattern
 
 object Constants {
@@ -13,6 +15,9 @@ object Constants {
     const val THROTTLE = 2000L
     const val BACK_BTN_EXIT_TIMEOUT = 2500L
     const val PERMISSIONS_DATA = 0
+
+    @SuppressLint("SimpleDateFormat")
+    val timeFormat = SimpleDateFormat("m:ss")
 
     val PERMISSIONS = arrayOf(
         Manifest.permission.CAMERA,
