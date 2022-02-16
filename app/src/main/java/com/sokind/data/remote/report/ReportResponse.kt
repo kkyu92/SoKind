@@ -46,3 +46,62 @@ data class ReportItem(
     @SerializedName("totalScore")
     val score: Int
 )
+
+data class ReportDetail(
+    @SerializedName("eduLevel")
+    val lv: Int,
+    @SerializedName("indvRatio")
+    val lvRatio: Double,
+    @SerializedName("eduTag")
+    val tag: String,
+    @SerializedName("eduTitle")
+    val title: String,
+    @SerializedName("eduDate")
+    val date: String,
+    val totalDetail: ReportTotal,
+    val speakDetail: ReportSpeak,
+    val emotionDetail: ReportEmotion,
+    @SerializedName("gestureDetail")
+    val postureDetail: ReportPosture
+)
+
+data class ReportTotal(
+    val totalScore: Int,
+    val avgScore: Int,
+    val per: Int,
+    val speakScore: Int,
+    val emotionScore: Int,
+    @SerializedName("gestureScore")
+    val postureScore: Int,
+)
+
+data class ReportSpeak(
+    @SerializedName("eduMent")
+    val comment: String,
+    @SerializedName("hzScore")
+    val matchRate: Int,
+    val adminHz: List<List<Float>>,
+    val userHz: List<List<Float>>,
+    val recordFile: String,
+    @SerializedName("voiceTone")
+    val tone: String,
+    @SerializedName("speechRate")
+    val speed: Int
+)
+
+data class ReportEmotion(
+    val emotion: List<Double>
+)
+
+data class ReportPosture(
+    @SerializedName("headRollCnt")
+    val headRotate: Int,
+    @SerializedName("headPitchCnt")
+    val headShake: Int,
+    @SerializedName("headYawCnt")
+    val headTurn: Int,
+    @SerializedName("shoulderUpdownCnt")
+    val shoulderShake: Int,
+    @SerializedName("shoulderLFCnt")
+    val shoulderTurn: Int
+)
