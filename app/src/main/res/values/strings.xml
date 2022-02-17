@@ -177,6 +177,7 @@
     <string name="lv">Lv. %s</string>
     <string name="point">%s점</string>
     <string name="per">%s%%</string>
+    <string name="date">교육일자 : %s</string>
     <string name="no_report_title">%s님 CS교육을 시작해보세요!</string>
     <string name="no_report_content">현재 우리 기업의 CS교육을 듣기 전이므로,\n학습리포트가 존재하지않습니다.\n교육을 시작해보세요!</string>
     <string name="report_title">학습리포트</string>수
@@ -199,16 +200,37 @@
     <string name="total">종합</string>
     <string name="report_video">교육영상</string>
 
+    // total
+    <string name="total_comment_1">
+        해당 교육 CS교육 점수 산정 결과 %s점으로\n
+        평균보다 %s점 높은 점수입니다.\n
+        상위 %s에 해당합니다
+    </string>
+    <string name="total_comment_2">
+        해당 교육 CS교육 점수 산정 결과 %s점으로\n
+        평균과 같은 점수입니다.\n
+        상위 %s에 해당합니다
+    </string>
+    <string name="total_comment_3">
+        해당 교육 CS교육 점수 산정 결과 %s점으로\n
+        평균보다 %s점 낮은 점수입니다.\n
+        상위 %s에 해당합니다
+    </string>
+
     // speech
     <string name="ment">멘트</string>
     <string name="accent">억양</string>
     <string name="tone">목소리 톤</string>
+    <string name="tone_content">
+        해당 교육에서의 목소리는\n
+        ‘%s’톤(Tone)에 가까워요!
+    </string>
     <string name="speed">말 빠르기</string>
     <string name="repeat_txt">다시 들어보기</string>
     <string name="speed_sps">syllable per second\n초당 음절 수</string>
     <string name="deep_cs_report">상황응대 CS분석</string>
     <string name="deep_cs_report_sample">손님이 “제품이 어딨는지 여쭤봐도 제대로 안내도 안해주시고 직원들끼리 떠들고만 있네요.” 라고 불만을 표하는 상황에서 김친절님은 손님에게 ‘상황 살피기’, ‘상황에 대한 인정’, ‘공감하기’, ‘개선의 표현’ 을 사용하여 고객이 만족할 수 있는 올바른 응답을 하였습니다.</string>
-    <string name="complain">컴플레인\n대처능력</string>
+    <string name="complain">컴플레인 대처능력</string>
     <string name="speech_kind">언어성향</string>
     <string name="speech_kind_comment">언어 성향 그래프는 인공지능이 교육생의 어휘를 분석하여 긍정, 부정, 중립의 정도를 나타냅니다.</string>
 
@@ -229,6 +251,7 @@
     <string name="view_point_txt_3">*영역색이 진할 수록 시선이 오래 머무른 곳이며, 영역이 널리 흩어져 있다면 시선변화가 많음을 의미합니다. 실제 응대 상황에서도 지금처럼 고객과 눈을 마주치며 말하는 것이 좋습니다.</string>
 
     // posture
+    <string name="pose_cnt">%s회</string>
     <string name="pose_1">갸웃둥 횟수</string>
     <string name="pose_2">끄덕임 횟수</string>
     <string name="pose_3">두리번 횟수</string>
@@ -262,6 +285,16 @@
         이수한 강의의 각 평가 요소를 분석을 하는데\n
         시간이 최대 30초 까지 소요될 수 있습니다.\n
         현재 %s개의 강의를 분석하고 있습니다.
+    </string>
+    <string name="complain_title">컴플레인 대처능력이란?</string>
+    <string name="complain_content">
+        없음
+    </string>
+    <string name="speed_title">말 빠르기란?</string>
+    <string name="speed_content">
+        말의 빠르기를 나타내는 단위인 sps는, <font color='#6967F9'>syllable per second</font> 의 약자로 1초당 음절 수를 의미합니다.
+        글을 따라 읽을 때, 성인기준 평균 말 빠르기는 초당 5 - 7 음절, 일반적인 대화 말 빠르기는 3.5 - 5.5 음절입니다.
+        남성이 여성보다 조금 더 빠른것으로 알려져있습니다.
     </string>
 
     // my

@@ -11,6 +11,13 @@
         android:focusable="true"
         android:visibility="gone">
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
         <ImageView
             android:id="@+id/loading_gif"
             android:layout_width="70dp"
