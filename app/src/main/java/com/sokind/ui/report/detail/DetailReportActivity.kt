@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
+import com.sokind.data.remote.report.ReportDetail
 import com.sokind.databinding.ActivityDetailReportBinding
 import com.sokind.ui.base.BaseActivity
 import com.sokind.ui.report.detail.tabs.expression.ExpressionFragment
@@ -31,29 +32,10 @@ class DetailReportActivity :
 
     private lateinit var tabLayoutMediator: TabLayoutMediator
 
-    private val totalFragment = TotalFragment()
-    private val speechFragment = SpeechFragment()
-    private val speech2Fragment = Speech2Fragment()
-    private val expressionFragment = ExpressionFragment()
-    private val postureFragment = PostureFragment()
-    private val baseList = arrayListOf<Fragment>(
-        totalFragment,
-        speechFragment,
-        expressionFragment,
-        postureFragment
-    )
-    private val deepList = arrayListOf<Fragment>(
-        totalFragment,
-        speech2Fragment,
-        expressionFragment,
-        postureFragment
-    )
-
     override fun init() {
         val type = intent.getIntExtra("type", 1)
         val key = intent.getIntExtra("key", 1)
         setViewModel(key, type)
-        setTabLayout(type)
         setBinding()
     }
 
@@ -61,13 +43,54 @@ class DetailReportActivity :
         viewModel.apply {
             getReportDetail(key, type)
 
+            getMe.observe(this@DetailReportActivity, {
+                binding.tvCsUserName.text = "${it.memberName} ${it.positionName}"
+                binding.tvCsUserEnterprise.text = "${it.enterpriseName} / ${it.storeName}"
+            })
+
             detailReport.observe(this@DetailReportActivity, {
-                it.date
+                setReportData(it)
+                setTabLayout(it, type)
+                showProgress(false, binding.pbLoading)
+            })
+
+            isLoading.observe(this@DetailReportActivity, { isLoading ->
+                if (isLoading) {
+                    showProgress(true, binding.pbLoading)
+                }
             })
         }
     }
 
-    private fun setTabLayout(type: Int) {
+    private fun setReportData(report: ReportDetail) {
+        binding.apply {
+            tvCsLv.text = getString(R.string.lv, report.lv.toString())
+            pbCsLv.progress = report.lvRatio.toInt()
+            tvTag.text = report.tag
+            tvTitle.text = report.title
+            tvDate.text = getString(R.string.date, report.date)
+        }
+    }
+
+    private fun setTabLayout(report: ReportDetail, type: Int) {
+        val totalFragment = TotalFragment(report.totalDetail)
+        val speechFragment = SpeechFragment(report.speakDetail)
+        val speech2Fragment = Speech2Fragment(report.speakDetail)
+        val expressionFragment = ExpressionFragment(report.emotionDetail)
+        val postureFragment = PostureFragment(report.postureDetail)
+        val baseList = arrayListOf<Fragment>(
+            totalFragment,
+            speechFragment,
+            expressionFragment,
+            postureFragment
+        )
+        val deepList = arrayListOf<Fragment>(
+            totalFragment,
+            speech2Fragment,
+            expressionFragment,
+            postureFragment
+        )
+
         binding.apply {
             vpReportDetail.apply {
                 offscreenPageLimit = 4

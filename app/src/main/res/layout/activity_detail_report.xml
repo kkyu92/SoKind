@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.report.detail.DetailReportActivity">
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
         <com.sokind.util.StickyScrollView
             android:id="@+id/sv_sticky"
             android:layout_width="match_parent"
@@ -87,11 +92,12 @@
                         android:layout_height="wrap_content"
                         android:indeterminateOnly="false"
                         android:max="100"
-                        android:progress="20"
+                        android:progress="0"
                         app:indicatorColor="@color/pb_bar"
                         app:indicatorSize="56dp"
                         app:layout_constraintBottom_toTopOf="@+id/tv_cs_day"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_cs_day"
+                        app:layout_constraintStart_toStartOf="@+id/tv_cs_day"
                         app:layout_constraintTop_toTopOf="parent"
                         app:trackColor="@color/pb_background"
                         app:trackCornerRadius="20dp"
@@ -103,11 +109,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
+                        android:text="교육 당시 레벨"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/pb_cs_lv"
-                        app:layout_constraintStart_toStartOf="@+id/pb_cs_lv"
-                        app:layout_constraintTop_toBottomOf="@+id/pb_cs_lv"
-                        tools:text="교육 1일차" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/pb_cs_lv" />
 
                     <TextView
                         android:id="@+id/tv_cs_lv"
@@ -122,6 +127,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
+                    android:id="@+id/tv_tag"
                     style="@style/orange_12_400"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -130,6 +136,7 @@
                     tools:text="기본응대 - 1" />
 
                 <TextView
+                    android:id="@+id/tv_title"
                     style="@style/black_16_500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -137,6 +144,7 @@
                     tools:text="긍정 에너지를 전파하는 입점인사" />
 
                 <TextView
+                    android:id="@+id/tv_date"
                     style="@style/lightGray_13_400"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,9 +157,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:layout_marginTop="10dp"
-                    android:paddingVertical="10dp"
                     android:background="@color/white"
                     android:clipToPadding="true"
+                    android:paddingVertical="10dp"
                     app:tabIconTint="#ffffff"
                     app:tabIconTintMode="multiply"
                     app:tabIndicator="@drawable/custom_tab_indicator"
@@ -167,4 +175,9 @@
                     android:layout_height="match_parent" />
             </LinearLayout>
         </com.sokind.util.StickyScrollView>
+
+        <include
+            android:id="@+id/pb_loading"
+            layout="@layout/layout_loading" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
