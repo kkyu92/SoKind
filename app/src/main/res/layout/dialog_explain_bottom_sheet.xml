@@ -43,6 +43,17 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_dialog_content"
             tool:text="* 개별 종합점수 평가 기준 - 행동, 감정, 자세, 언어, 소리 데이터 분석값" />
 
+        <ImageView
+            android:id="@+id/iv_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_dialog_content2" />
+
         <Button
             android:id="@+id/bt_check"
             style="@style/Button.Fill.Main"
@@ -53,6 +64,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_dialog_content2" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_dialog" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

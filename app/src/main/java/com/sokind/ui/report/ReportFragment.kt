@@ -50,7 +50,7 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
     override fun onResume() {
         super.onResume()
         viewModel.getReport()
-        binding.scrollView.scrollTo(0,0)
+        binding.scrollView.scrollTo(0, 0)
     }
 
     private fun setViewModel() {
@@ -169,7 +169,8 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
                     val dialog = BottomSheetExplainDialog.newInstance(
                         getString(R.string.kind_title),
                         getString(R.string.kind_content),
-                        getString(R.string.kind_content2)
+                        getString(R.string.kind_content2),
+                        null
                     )
                     dialog.show(parentFragmentManager, dialog.tag)
                 }, { it.printStackTrace() })
@@ -181,6 +182,7 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
                     val dialog = BottomSheetExplainDialog.newInstance(
                         getString(R.string.analysis_title),
                         getString(R.string.analysis_content, reportResponse.analysisCnt.toString()),
+                        null,
                         null
                     )
                     dialog.show(parentFragmentManager, dialog.tag)

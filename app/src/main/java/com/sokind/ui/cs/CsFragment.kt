@@ -178,7 +178,7 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
                     val dialog = BottomSheetExplainDialog.newInstance(
                         getString(R.string.lv_title),
                         getString(R.string.lv_content),
-                        null
+                        null, null
                     )
                     dialog.show(parentFragmentManager, dialog.tag)
                 }, { it.printStackTrace() })
