@@ -50,7 +50,7 @@ data class ReportItem(
 data class ReportDetail(
     @SerializedName("eduLevel")
     val lv: Int,
-    @SerializedName("indvRatio")
+    @SerializedName("proceedRatio")
     val lvRatio: Double,
     @SerializedName("eduTag")
     val tag: String,
@@ -58,6 +58,7 @@ data class ReportDetail(
     val title: String,
     @SerializedName("eduDate")
     val date: String,
+    @SerializedName("commonDetail")
     val totalDetail: ReportTotal,
     val speakDetail: ReportSpeak,
     val emotionDetail: ReportEmotion,
@@ -67,12 +68,16 @@ data class ReportDetail(
 
 data class ReportTotal(
     val totalScore: Int,
+    @SerializedName("allMemberAvg")
     val avgScore: Int,
+    @SerializedName("indvRatio")
     val per: Int,
     val speakScore: Int,
     val emotionScore: Int,
     @SerializedName("gestureScore")
     val postureScore: Int,
+    @SerializedName("recordVideo")
+    val recordFile: String,
 )
 
 data class ReportSpeak(
@@ -80,13 +85,20 @@ data class ReportSpeak(
     val comment: String,
     @SerializedName("hzScore")
     val matchRate: Int,
+    @SerializedName("adminHzArr")
     val adminHz: List<List<Float>>,
+    @SerializedName("userHzArr")
     val userHz: List<List<Float>>,
     val recordFile: String,
     @SerializedName("voiceTone")
     val tone: String,
     @SerializedName("speechRate")
-    val speed: Int
+    val speed: Int,
+
+    val analysisMent: String,
+    @SerializedName("answerScore")
+    val complainScore: String,
+    val sentimentScore: Double,
 )
 
 data class ReportEmotion(
