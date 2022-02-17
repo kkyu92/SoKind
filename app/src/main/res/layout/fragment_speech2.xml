@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.report.detail.tabs.speech2.Speech2Fragment">
 
     <ScrollView
@@ -17,11 +17,11 @@
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/CardView.Default"
-                app:cardBackgroundColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="@color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -33,172 +33,65 @@
                         style="@style/black_16_500"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/deep_cs"/>
+                        android:text="@string/deep_cs" />
 
                     <TextView
+                        android:id="@+id/tv_comment"
                         style="@style/black_14_400"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="@string/deep_cs_report_sample"/>
+                        android:text="@string/deep_cs_report_sample" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/CardView.Default"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginVertical="10dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/white">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="20dp">
-
-                        <com.google.android.material.progressindicator.CircularProgressIndicator
-                            android:id="@+id/pb_point"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:indeterminateOnly="false"
-                            android:max="100"
-                            android:progress="75"
-                            app:indicatorColor="@color/pb_bar"
-                            app:indicatorSize="100dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:trackColor="@color/pb_background"
-                            app:trackCornerRadius="20dp"
-                            app:trackThickness="15dp" />
-
-                        <TextView
-                            android:id="@+id/tv_point"
-                            style="@style/main_18_700"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            tools:text="75"
-                            app:layout_constraintHorizontal_chainStyle="packed"
-                            app:layout_constraintStart_toStartOf="@+id/pb_point"
-                            app:layout_constraintTop_toTopOf="@+id/pb_point"
-                            app:layout_constraintBottom_toBottomOf="@+id/pb_point"
-                            app:layout_constraintEnd_toStartOf="@+id/textView"/>
-
-                        <TextView
-                            android:id="@+id/textView"
-                            style="@style/lightGray_12_400"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="점"
-                            app:layout_constraintBaseline_toBaselineOf="@+id/tv_point"
-                            app:layout_constraintEnd_toEndOf="@+id/pb_point"
-                            app:layout_constraintStart_toEndOf="@+id/tv_point" />
-
-                        <me.tankery.lib.circularseekbar.CircularSeekBar
-                            android:id="@+id/sb_total_point"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:visibility="gone"
-                            app:cs_circle_color="@color/seekbar_bg"
-                            app:cs_circle_fill="@color/transparent"
-                            app:cs_circle_progress_color="@color/main_color"
-                            app:cs_circle_stroke_width="10dp"
-                            app:cs_circle_style="round"
-                            app:cs_circle_x_radius="100dp"
-                            app:cs_circle_y_radius="100dp"
-                            app:cs_disable_pointer="false"
-                            app:cs_disable_progress_glow="false"
-                            app:cs_end_angle="270"
-                            app:cs_hide_progress_when_empty="false"
-                            app:cs_lock_enabled="true"
-                            app:cs_maintain_equal_circle="true"
-                            app:cs_max="100"
-                            app:cs_move_outside_circle="false"
-                            app:cs_negative_enabled="false"
-                            app:cs_pointer_alpha_ontouch="10"
-                            app:cs_pointer_angle="0"
-                            app:cs_pointer_color="@color/main_color"
-                            app:cs_pointer_halo_border_width="0dp"
-                            app:cs_pointer_halo_color="@color/main_color"
-                            app:cs_pointer_halo_color_ontouch="@color/main_color"
-                            app:cs_pointer_halo_width="0dp"
-                            app:cs_pointer_stroke_width="15dp"
-                            app:cs_progress="50"
-                            app:cs_start_angle="270"
-                            app:cs_use_custom_radii="false"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/CardView.Default"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginVertical="10dp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="@color/white">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="20dp">
-
-                        <TextView
-                            android:id="@+id/tv_complain_title"
-                            style="@style/black_16_400"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/complain"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"/>
-
-                        <ImageView
-                            android:id="@+id/iv_complain_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/icon_alert"
-                            app:layout_constraintBottom_toBottomOf="@+id/tv_complain_title"
-                            app:layout_constraintStart_toEndOf="@+id/tv_complain_title"
-                            app:layout_constraintTop_toTopOf="@+id/tv_complain_title" />
-
-                        <TextView
-                            android:id="@+id/tv_complain"
-                            style="@style/main_18_700"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:textSize="30sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/tv_complain_title"
-                            app:layout_constraintStart_toStartOf="@+id/tv_complain_title"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_complain_title"
-                            tools:text="상" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/CardView.Default"
-                app:cardBackgroundColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                >
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="@color/white">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/tv_complain_title"
+                        style="@style/black_16_500"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/complain"
+                        android:drawablePadding="5dp"
+                        app:drawableEndCompat="@drawable/icon_alert"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_complain"
+                        style="@style/main_18_700"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="20dp"
+                        android:textSize="30sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_complain_title"
+                        tools:text="상" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/CardView.Default"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="@color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -211,18 +104,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="@string/speech_kind"/>
+                        android:text="@string/speech_kind" />
 
                     <include
                         android:id="@+id/pb_speech"
                         layout="@layout/chart_kind" />
 
                     <TextView
-                        style="@style/black_14_400"
+                        style="@style/lightGray_13_400"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="@string/speech_kind_comment"/>
+                        android:text="@string/speech_kind_comment" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -236,8 +129,8 @@
                     style="@style/CardView.Default"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
                     android:layout_marginVertical="10dp"
+                    android:layout_marginStart="20dp"
                     android:layout_weight="1"
                     app:cardBackgroundColor="@color/white">
 
@@ -254,6 +147,7 @@
                             android:text="@string/tone" />
 
                         <TextView
+                            android:id="@+id/tv_tone"
                             style="@style/main_18_700"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

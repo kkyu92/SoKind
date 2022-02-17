@@ -108,7 +108,7 @@
                         app:layout_constraintEnd_toStartOf="@+id/posture"
                         app:layout_constraintHorizontal_chainStyle="packed"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/chart" />
+                        app:layout_constraintTop_toBottomOf="@+id/chart_triangle" />
 
                     <TextView
                         android:id="@+id/posture"
@@ -120,29 +120,29 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/expression"
-                        app:layout_constraintTop_toBottomOf="@+id/chart" />
+                        app:layout_constraintTop_toBottomOf="@+id/chart_triangle" />
 
                     <com.sokind.util.ChartTriangle
-                        android:id="@+id/chart"
+                        android:id="@+id/chart_triangle"
                         android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:chart_full_image="@drawable/chart_triangle_bg"
+                        app:chart_line_width="0.3dp"
+                        app:layout_constraintBottom_toBottomOf="@id/img_triangle"
+                        app:layout_constraintEnd_toEndOf="@id/img_triangle"
+                        app:layout_constraintStart_toStartOf="@id/img_triangle"
+                        app:layout_constraintTop_toTopOf="@id/img_triangle" />
+
+                    <ImageView
+                        android:id="@+id/img_triangle"
+                        android:layout_width="wrap_content"
                         android:layout_height="234dp"
                         android:layout_marginTop="10dp"
                         android:adjustViewBounds="true"
-                        app:chart_full_image="@drawable/chart_triangle_bg"
-                        app:chart_line_width="0.3dp"
+                        android:src="@drawable/chart_triangle"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/speech" />
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/chart_triangle"
-                        app:layout_constraintBottom_toBottomOf="@id/chart"
-                        app:layout_constraintEnd_toEndOf="@id/chart"
-                        app:layout_constraintStart_toStartOf="@id/chart"
-                        app:layout_constraintTop_toTopOf="@id/chart" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -177,25 +177,17 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView5">
 
-                        <com.sokind.util.CustomVideoView
-                            android:id="@+id/video_view"
+                        <ImageView
+                            android:id="@+id/thumbnail"
                             android:layout_width="match_parent"
                             android:layout_height="180dp"
                             android:layout_gravity="center" />
 
-                        <LinearLayout
-                            android:id="@+id/iv_shadow"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/shadow"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/video_play_bt" />
-                        </LinearLayout>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/video_play_bt" />
                     </FrameLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
