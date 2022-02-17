@@ -18,7 +18,6 @@ import com.sokind.ui.base.BaseFragment
 import com.sokind.ui.report.detail.DetailReportActivity
 import com.sokind.util.Constants
 import com.sokind.util.adapter.ReportAdapter
-import com.sokind.util.dialog.BottomSheetDialog
 import com.sokind.util.dialog.BottomSheetExplainDialog
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -194,18 +193,7 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
         when (report.status) {
             1 -> startDetail(report.key, report.type)
             4 -> showToast("분석중 새로고침")
-            5 -> {
-                val dialog = BottomSheetDialog.newInstance(
-                    getString(R.string.alert),
-                    String.format(getString(R.string.alert_edu_error, report.title)),
-                    itemClick = {
-                        if (it) {
-                            startEdu(mappingReportToEdu(report), startForResult)
-                        }
-                    }
-                )
-                dialog.show(parentFragmentManager, dialog.tag)
-            }
+            5 -> startEdu(mappingReportToEdu(report), startForResult)
             else -> Timber.e("report status : ${report.status}")
         }
     }
