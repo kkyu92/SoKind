@@ -156,6 +156,16 @@ abstract class BaseActivity<B : ViewDataBinding>(
         }
     }
 
+    protected fun showProgress(isShow: Boolean, loadingView: LayoutLoadingBinding) {
+        if (isShow) {
+            loadingView.loadingContainer.visibility = View.VISIBLE
+            loadingView.progressBar.visibility = View.VISIBLE
+        } else {
+            loadingView.loadingContainer.visibility = View.GONE
+            loadingView.progressBar.visibility = View.GONE
+        }
+    }
+
     protected interface PermissionListener {
         fun onGranted()
         fun onDenied()
