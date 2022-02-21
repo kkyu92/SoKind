@@ -2,99 +2,73 @@ package com.sokind.ui.report.detail.tabs.total
 
 import android.annotation.SuppressLint
 import android.net.Uri
-import android.os.SystemClock
-import android.view.Gravity
-import android.view.View
-import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.widget.FrameLayout
-import android.widget.MediaController
-import android.widget.SeekBar
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.net.toUri
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
 import com.sokind.R
 import com.sokind.databinding.ActivityVideoViewBinding
 import com.sokind.ui.base.BaseActivity
-import com.sokind.util.Constants.timeFormat
-import com.sokind.util.CustomVideoView
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
 class VideoViewActivity : BaseActivity<ActivityVideoViewBinding>(R.layout.activity_video_view) {
+    private lateinit var exoPlayer: ExoPlayer
 
     @SuppressLint("ClickableViewAccessibility")
     override fun init() {
         val getStringUrl = intent.getStringExtra("url")
-//        var controller = MediaController(this)
+        setBinding(getStringUrl!!)
+    }
+
+    private fun setBinding(url: String) {
+        exoPlayer = ExoPlayer.Builder(this).build()
 
         binding.apply {
-            showLoading(true, binding.pbLoading)
-            videoView.setVideoURI(getStringUrl?.toUri())
+            playerView.player = exoPlayer
+            playerView.keepScreenOn = true
+            playerView.controllerShowTimeoutMs = 1500
 
-            seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                override fun onProgressChanged(
-                    seekBar: SeekBar?,
-                    progress: Int,
-                    fromUser: Boolean
-                ) {
-                    if (fromUser) {
-                        videoView.seekTo(progress)
-                        tvVoiceTime.text = timeFormat.format(progress)
+            exoPlayer.addListener(object : Player.Listener {
+                override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
+                    when (playbackState) {
+                        Player.STATE_BUFFERING -> {
+                            Timber.e("STATE_BUFFERING")
+                            showProgress(true, pbLoading)
+                        }
+                        Player.STATE_ENDED -> {
+                            Timber.e("STATE_ENDED")
+                        }
+                        Player.STATE_IDLE -> {
+                            Timber.e("STATE_IDLE")
+                        }
+                        Player.STATE_READY -> {
+                            Timber.e("STATE_READY")
+                            showProgress(false, pbLoading)
+                        }
+                        else -> {
+                            Timber.e("ELSE")
+                        }
                     }
                 }
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
             })
+            val videoSource = Uri.parse(url)
+            val mediaItem = MediaItem.fromUri(videoSource)
 
-            videoView.setOnPreparedListener {
-                seekBar.progress = 0
-                seekBar.max = videoView.duration
-                tvVoiceTime.text = timeFormat.format(0)
-                tvVoiceTimeMax.text = timeFormat.format(videoView.duration)
-                showLoading(false, binding.pbLoading)
-            }
-            videoView.setOnTouchListener { v, event ->
-                if (videoView.isPlaying) {
-                    videoView.pause()
-                } else {
-//                    videoView.seekTo(videoView.currentPosition)
-                    videoView.start()
-                    object : Thread() {
-                        override fun run() {
-                            super.run()
-                            while (videoView.isPlaying) {
-                                runOnUiThread {
-                                    seekBar.progress = videoView.currentPosition
-                                    Timber.e("currentPosition: ${videoView.currentPosition}")
-                                    tvVoiceTime.text =
-                                        timeFormat.format(videoView.currentPosition)
-                                }
-                                SystemClock.sleep(200)
-                            }
-                        }
-                    }.start()
-                }
-                Timber.e("touch")
-                false
-            }
-
-            videoView.setOnCompletionListener {
-                showToast("시청완료")
-                seekBar.progress = 0
-                tvVoiceTime.text = timeFormat.format(0)
-                ivShadow.visibility = View.VISIBLE
-            }
-
-            videoView.setPlayPauseListener(object : CustomVideoView.PlayPauseListener {
-                override fun onPlay() {
-                    ivShadow.visibility = View.GONE
-                }
-                override fun onPause() {
-                    ivShadow.visibility = View.VISIBLE
-                }
-            })
+            exoPlayer.setMediaItem(mediaItem)
+            exoPlayer.prepare()
+            exoPlayer.play()
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.playerView.onPause()
+        exoPlayer.pause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        exoPlayer.release()
     }
 }

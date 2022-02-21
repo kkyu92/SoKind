@@ -1,26 +1,24 @@
 package com.sokind.ui.report.detail.tabs.speech
 
 import android.annotation.SuppressLint
-import android.media.MediaPlayer
 import android.net.Uri
-import android.os.SystemClock
-import android.widget.SeekBar
 import androidx.fragment.app.viewModels
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.data.remote.report.ReportSpeak
 import com.sokind.databinding.FragmentSpeechBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.util.Constants
-import com.sokind.util.Constants.timeFormat
 import com.sokind.util.dialog.BottomSheetExplainDialog
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
@@ -28,7 +26,7 @@ class SpeechFragment(
     private val speakData: ReportSpeak
 ) : BaseFragment<FragmentSpeechBinding>(R.layout.fragment_speech) {
     private val viewModel by viewModels<SpeechViewModel>()
-    private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var exoPlayer: ExoPlayer
 
     override fun init() {
         setBinding()
@@ -44,32 +42,6 @@ class SpeechFragment(
             tvTone.text = speakData.tone
             tvToneContent.text = getString(R.string.tone_content, speakData.tone)
             tvSpeedSps.text = speakData.speed.toString()
-
-            ivPlay
-                .clicks()
-                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
-                .subscribe({
-                    if (mediaPlayer.isPlaying) {
-                        mediaPlayer.pause()
-                        ivPlay.setImageDrawable(getDrawable(R.drawable.icon_play_btn_enable))
-                    } else {
-                        mediaPlayer.start()
-                        ivPlay.setImageDrawable(getDrawable(R.drawable.icon_play_btn_disable))
-                        object : Thread() {
-                            override fun run() {
-                                super.run()
-                                while (mediaPlayer.isPlaying) {
-                                    activity?.runOnUiThread {
-                                        seekBar.progress = mediaPlayer.currentPosition
-                                        tvVoiceTime.text =
-                                            timeFormat.format(mediaPlayer.currentPosition)
-                                    }
-                                    SystemClock.sleep(200)
-                                }
-                            }
-                        }.start()
-                    }
-                }, { it.printStackTrace() })
 
             tvSpeedTitle
                 .clicks()
@@ -87,38 +59,37 @@ class SpeechFragment(
     }
 
     private fun setVoicePlayer() {
-        val url = speakData.recordFile
-        mediaPlayer = MediaPlayer.create(context, Uri.parse(url))
-
         binding.apply {
-            seekBar.progress = 0
-            seekBar.max = mediaPlayer.duration
-            tvVoiceTime.text = timeFormat.format(0)
-            tvVoiceTimeMax.text = timeFormat.format(mediaPlayer.duration)
+            exoPlayer = ExoPlayer.Builder(requireContext()).build()
+            playerView.player = exoPlayer
+            playerView.showTimeoutMs = 0
 
-            seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-                override fun onProgressChanged(
-                    seekBar: SeekBar?,
-                    progress: Int,
-                    fromUser: Boolean
-                ) {
-                    if (fromUser) {
-                        mediaPlayer.seekTo(progress)
-                        tvVoiceTime.text = timeFormat.format(progress)
+            exoPlayer.addListener(object : Player.Listener {
+                override fun onPlaybackStateChanged(playbackState: Int) {
+                    when (playbackState) {
+                        Player.STATE_BUFFERING -> {
+                            Timber.e("STATE_BUFFERING")
+                        }
+                        Player.STATE_ENDED -> {
+                            Timber.e("STATE_ENDED")
+                        }
+                        Player.STATE_IDLE -> {
+                            Timber.e("STATE_IDLE")
+                        }
+                        Player.STATE_READY -> {
+                            Timber.e("STATE_READY")
+                        }
+                        else -> {
+                            Timber.e("ELSE")
+                        }
                     }
                 }
-
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
             })
+            val videoSource = Uri.parse(speakData.recordFile)
+            val mediaItem = MediaItem.fromUri(videoSource)
 
-            mediaPlayer.setOnCompletionListener {
-                mediaPlayer.stop()
-                mediaPlayer.reset()
-                seekBar.progress = 0
-                tvVoiceTime.text = timeFormat.format(0)
-                ivPlay.setImageDrawable(getDrawable(R.drawable.icon_play_btn_enable))
-            }
+            exoPlayer.setMediaItem(mediaItem)
+            exoPlayer.prepare()
         }
     }
 
@@ -195,5 +166,15 @@ class SpeechFragment(
                 textColor = resources.getColor(R.color.font_light_gray)
             }
         }.data = lineData
+    }
+
+    override fun onPause() {
+        super.onPause()
+        exoPlayer.pause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        exoPlayer.release()
     }
 }
