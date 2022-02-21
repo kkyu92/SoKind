@@ -110,6 +110,10 @@ dependencies {
     implementation 'ca.heartlandsoftware:androidheatmap:1.2.0'
     // circular progressbar
     implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
+
+    // exo player
+    implementation "com.google.android.exoplayer:exoplayer-core:$exoplayer_version"
+    implementation "com.google.android.exoplayer:exoplayer-ui:$exoplayer_version"
 }
 
 def getBaseApiKey() {
