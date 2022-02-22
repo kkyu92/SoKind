@@ -57,12 +57,7 @@ class Speech2Fragment(
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    val dialog = BottomSheetExplainDialog.newInstance(
-                        getString(R.string.complain_title),
-                        getString(R.string.complain_content),
-                        null,
-                        null
-                    )
+                    val dialog = BottomSheetExplainDialog.newInstance(Constants.COMPLAIN_DIALOG, null)
                     dialog.show(parentFragmentManager, dialog.tag)
                 }, { it.printStackTrace() })
 
@@ -70,12 +65,7 @@ class Speech2Fragment(
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    val dialog = BottomSheetExplainDialog.newInstance(
-                        getString(R.string.speed_title),
-                        getString(R.string.speed_content),
-                        null,
-                        getDrawable(R.drawable.dialog_speed)
-                    )
+                    val dialog = BottomSheetExplainDialog.newInstance(Constants.SPEED_DIALOG, null)
                     dialog.show(parentFragmentManager, dialog.tag)
                 }, { it.printStackTrace() })
         }

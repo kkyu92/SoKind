@@ -175,11 +175,7 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    val dialog = BottomSheetExplainDialog.newInstance(
-                        getString(R.string.lv_title),
-                        getString(R.string.lv_content),
-                        null, null
-                    )
+                    val dialog = BottomSheetExplainDialog.newInstance(Constants.LV_DIALOG, null)
                     dialog.show(parentFragmentManager, dialog.tag)
                 }, { it.printStackTrace() })
         }

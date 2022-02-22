@@ -16,6 +16,13 @@ object Constants {
     const val BACK_BTN_EXIT_TIMEOUT = 2500L
     const val PERMISSIONS_DATA = 0
 
+    const val EMOTION_DIALOG = "emotion_dialog"
+    const val LV_DIALOG = "lv_dialog"
+    const val KIND_DIALOG = "kind_dialog"
+    const val ANALYSIS_DIALOG = "analysis_dialog"
+    const val COMPLAIN_DIALOG = "complain_dialog"
+    const val SPEED_DIALOG = "speed_dialog"
+
     @SuppressLint("SimpleDateFormat")
     val timeFormat = SimpleDateFormat("m:ss")
 

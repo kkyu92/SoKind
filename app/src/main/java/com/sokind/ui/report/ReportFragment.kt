@@ -165,12 +165,7 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    val dialog = BottomSheetExplainDialog.newInstance(
-                        getString(R.string.kind_title),
-                        getString(R.string.kind_content),
-                        getString(R.string.kind_content2),
-                        null
-                    )
+                    val dialog = BottomSheetExplainDialog.newInstance(Constants.KIND_DIALOG, null)
                     dialog.show(parentFragmentManager, dialog.tag)
                 }, { it.printStackTrace() })
 
@@ -178,12 +173,7 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    val dialog = BottomSheetExplainDialog.newInstance(
-                        getString(R.string.analysis_title),
-                        getString(R.string.analysis_content, reportResponse.analysisCnt.toString()),
-                        null,
-                        null
-                    )
+                    val dialog = BottomSheetExplainDialog.newInstance(Constants.ANALYSIS_DIALOG, reportResponse.analysisCnt.toString())
                     dialog.show(parentFragmentManager, dialog.tag)
                 }, { it.printStackTrace() })
         }
