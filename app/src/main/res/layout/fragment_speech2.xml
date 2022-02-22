@@ -64,8 +64,8 @@
                         style="@style/black_16_500"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/complain"
                         android:drawablePadding="5dp"
+                        android:text="@string/complain"
                         app:drawableEndCompat="@drawable/icon_alert"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -106,16 +106,28 @@
                         android:layout_marginBottom="10dp"
                         android:text="@string/speech_kind" />
 
+                    <TextView
+                        android:id="@+id/tv_speech_comment"
+                        style="@style/black_14_400"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/speech_kind_comment_1" />
+
                     <include
                         android:id="@+id/pb_speech"
-                        layout="@layout/chart_kind" />
+                        layout="@layout/chart_kind"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/speech_kind_comment_2" />
 
                     <TextView
                         style="@style/lightGray_13_400"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="@string/speech_kind_comment" />
+                        android:text="@string/speech_kind_comment_2" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

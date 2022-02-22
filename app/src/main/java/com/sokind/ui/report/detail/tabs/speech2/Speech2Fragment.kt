@@ -13,7 +13,8 @@ import com.sokind.util.dialog.BottomSheetExplainDialog
 import java.util.concurrent.TimeUnit
 
 class Speech2Fragment(
-    private val speakData: ReportSpeak
+    private val speakData: ReportSpeak,
+    private val name: String
 ) : BaseFragment<FragmentSpeech2Binding>(R.layout.fragment_speech2) {
     private val viewModel by viewModels<Speech2ViewModel>()
 
@@ -23,6 +24,8 @@ class Speech2Fragment(
 
     private fun setBinding() {
         binding.apply {
+            var speech = ""
+
             tvComment.text = speakData.analysisMent
             tvComplain.text = speakData.complainScore
 
@@ -39,18 +42,22 @@ class Speech2Fragment(
                 tvIconName.text = getString(R.string.candidate)
                 when(speakData.sentimentScore) {
                     in 0.0..0.33 -> {
+                        speech = getString(R.string.negative)
                         avgPin.setImageDrawable(getDrawable(R.drawable.icon_negative))
                     }
                     in 0.33..0.66 -> {
+                        speech = getString(R.string.neutrality)
                         avgPin.setImageDrawable(getDrawable(R.drawable.icon_neutral))
                     }
                     in 0.66..1.0 -> {
+                        speech = getString(R.string.positive)
                         avgPin.setImageDrawable(getDrawable(R.drawable.icon_positive))
                     }
                 }
             }
             tvTone.text = speakData.tone
-            tvToneContent.text = getString(R.string.tone_content, speakData.tone)
+            tvToneContent.text = getString(R.string.tone_content, name, speakData.tone)
+            tvSpeechComment.text = getString(R.string.speech_kind_comment_1, name, speech)
             tvSpeedSps.text = speakData.speed.toString()
 
             tvComplainTitle

@@ -34,4 +34,10 @@
     <color name="heat_map_3">#ff80EE64</color>
     <color name="heat_map_4">#ff66FFFF</color>
     <color name="heat_map_5">#ff7B7EFF</color>
+
+    <color name="gaze_1">#336967F9</color>
+    <color name="gaze_2">#666967F9</color>
+    <color name="gaze_3">#996967F9</color>
+    <color name="gaze_4">#cc6967F9</color>
+    <color name="gaze_5">#6967F9</color>
 </resources>

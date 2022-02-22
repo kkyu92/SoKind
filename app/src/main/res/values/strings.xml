@@ -221,10 +221,7 @@
     <string name="ment">멘트</string>
     <string name="accent">억양</string>
     <string name="tone">목소리 톤</string>
-    <string name="tone_content">
-        해당 교육에서의 목소리는\n
-        ‘%s’톤(Tone)에 가까워요!
-    </string>
+    <string name="tone_content">이 교육에서 %s님 목소리는 ‘%s’톤(Tone)에 가까워요!</string>
     <string name="speed">말 빠르기</string>
     <string name="repeat_txt">다시 들어보기</string>
     <string name="speed_sps">syllable per second\n초당 음절 수</string>
@@ -232,7 +229,8 @@
     <string name="deep_cs_report_sample">손님이 “제품이 어딨는지 여쭤봐도 제대로 안내도 안해주시고 직원들끼리 떠들고만 있네요.” 라고 불만을 표하는 상황에서 김친절님은 손님에게 ‘상황 살피기’, ‘상황에 대한 인정’, ‘공감하기’, ‘개선의 표현’ 을 사용하여 고객이 만족할 수 있는 올바른 응답을 하였습니다.</string>
     <string name="complain">컴플레인 대처능력</string>
     <string name="speech_kind">언어성향</string>
-    <string name="speech_kind_comment">언어 성향 그래프는 인공지능이 교육생의 어휘를 분석하여 긍정, 부정, 중립의 정도를 나타냅니다.</string>
+    <string name="speech_kind_comment_1">%s님은 %s 성향의 어휘를 많이 사용한 것으로 확인됩니다.</string>
+    <string name="speech_kind_comment_2">언어 성향 그래프는 인공지능이 교육생의 어휘를 분석하여 긍정, 부정, 중립의 정도를 나타냅니다.</string>
 
     // expression
     <string name="surprise">놀람</string>
@@ -246,9 +244,10 @@
     <string name="expression_txt_3">교육영상에서 놀람, 두려움, 짜증, 밝음, 공감, 흥분, 딱딱함 7가지 감정의 정도입니다.\n표정, 안면분석을 통해 친절도와 감정상태를 보여줍니다.</string>
     <string name="expression_txt_4">*두려움, 짜증, 흥분의 표정은 친절도 평가에 점수\n 감점 요인으로 적용합니다.</string>
     <string name="view_point">시선분포</string>
-    <string name="view_point_txt_1">이 교육에서 %s님 시선처리는</string>
-    <string name="view_point_txt_2">이에요!</string>
-    <string name="view_point_txt_3">*영역색이 진할 수록 시선이 오래 머무른 곳이며, 영역이 널리 흩어져 있다면 시선변화가 많음을 의미합니다. 실제 응대 상황에서도 지금처럼 고객과 눈을 마주치며 말하는 것이 좋습니다.</string>
+    <string name="view_point_txt_1">%s님은 </string>
+    <string name="view_point_txt_2">에 시선이 </string>
+    <string name="view_point_txt_3">가장 많이 머물렀네요!</string>
+    <string name="view_point_txt_4">*영역색이 진할 수록 시선이 오래 머무른 곳이며, 영역이 널리 흩어져 있다면 시선변화가 많음을 의미합니다. 실제 응대 상황에서도 지금처럼 고객과 눈을 마주치며 말하는 것이 좋습니다.</string>
 
     // posture
     <string name="pose_cnt">%s회</string>
@@ -295,6 +294,12 @@
         말의 빠르기를 나타내는 단위인 sps는, <font color='#6967F9'>syllable per second</font> 의 약자로 1초당 음절 수를 의미합니다.
         글을 따라 읽을 때, 성인기준 평균 말 빠르기는 초당 5 - 7 음절, 일반적인 대화 말 빠르기는 3.5 - 5.5 음절입니다.
         남성이 여성보다 조금 더 빠른것으로 알려져있습니다.
+    </string>
+    <string name="gaze_title">시선분포란?</string>
+    <string name="gaze_content">
+        시선분포는 눈동자 영역을 <font color='#6967F9'>9등분</font>하여 나타냅니다.\n
+        시선이 많이 밀집될 수록 진한 색을 띄며, 분산되었을 시 옅은 색으로 나타납니다.\n
+        예시의 그림에서 5번 위치가 가장 진하므로 시선이 중앙에 가장 밀집 되어있음을 알 수 있습니다.
     </string>
 
     // my

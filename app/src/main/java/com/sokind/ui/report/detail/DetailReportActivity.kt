@@ -30,6 +30,7 @@ class DetailReportActivity :
     BaseActivity<ActivityDetailReportBinding>(R.layout.activity_detail_report) {
     private val viewModel by viewModels<DetailReportViewModel>()
 
+    private lateinit var name: String
     private lateinit var tabLayoutMediator: TabLayoutMediator
 
     override fun init() {
@@ -44,6 +45,7 @@ class DetailReportActivity :
             getReportDetail(key, type)
 
             getMe.observe(this@DetailReportActivity, {
+                name = it.memberName.toString()
                 binding.tvCsUserName.text = "${it.memberName} ${it.positionName}"
                 binding.tvCsUserEnterprise.text = "${it.enterpriseName} / ${it.storeName}"
             })
@@ -74,9 +76,9 @@ class DetailReportActivity :
 
     private fun setTabLayout(report: ReportDetail, type: Int) {
         val totalFragment = TotalFragment(report.totalDetail)
-        val speechFragment = SpeechFragment(report.speakDetail)
-        val speech2Fragment = Speech2Fragment(report.speakDetail)
-        val expressionFragment = ExpressionFragment(report.emotionDetail)
+        val speechFragment = SpeechFragment(report.speakDetail, name)
+        val speech2Fragment = Speech2Fragment(report.speakDetail, name)
+        val expressionFragment = ExpressionFragment(report.emotionDetail, name)
         val postureFragment = PostureFragment(report.postureDetail)
         val baseList = arrayListOf<Fragment>(
             totalFragment,

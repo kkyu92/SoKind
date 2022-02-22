@@ -27,99 +27,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:src="@drawable/chart_hexagon_bg"
-                        app:layout_constraintBottom_toBottomOf="@+id/chart"
-                        app:layout_constraintEnd_toEndOf="@+id/chart"
-                        app:layout_constraintStart_toStartOf="@id/chart"
-                        app:layout_constraintTop_toTopOf="@+id/chart" />
-
-                    <com.sokind.util.HexagonChartView
-                        android:id="@+id/chart"
-                        android:layout_width="212dp"
-                        android:layout_height="212dp"
-                        android:layout_marginTop="5dp"
-                        app:chart_full_image="@drawable/chart_hexagon_full"
-                        app:chart_line_width="0.3dp"
-                        app:chart_stroke_image="@color/transparent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_surprise" />
-
-                    <TextView
-                        android:id="@+id/tv_surprise"
-                        style="@style/gray_14_400"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="@string/surprise"
+                    <com.sokind.util.ChartRoundBar
+                        android:id="@+id/chart_emotion"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_margin="20dp"
+                        android:clickable="false"
+                        android:focusable="false"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="SpUsage" />
-
-                    <TextView
-                        android:id="@+id/tv_glum"
-                        style="@style/gray_14_400"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/glum"
-                        app:layout_constraintBottom_toBottomOf="@id/chart"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/chart"
-                        app:layout_constraintTop_toTopOf="@+id/chart"
-                        app:layout_constraintVertical_bias="0.2" />
-
-                    <TextView
-                        android:id="@+id/tv_excitement"
-                        style="@style/gray_14_400"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/excitement"
-                        app:layout_constraintBottom_toBottomOf="@+id/chart"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/chart"
-                        app:layout_constraintTop_toTopOf="@id/chart"
-                        app:layout_constraintVertical_bias="0.8" />
-
-                    <TextView
-                        android:id="@+id/tv_sympathy"
-                        style="@style/gray_14_400"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="@string/sympathy"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/chart" />
-
-                    <TextView
-                        android:id="@+id/tv_bright"
-                        style="@style/gray_14_400"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="@string/bright"
-                        app:layout_constraintBottom_toBottomOf="@+id/chart"
-                        app:layout_constraintEnd_toStartOf="@+id/chart"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/chart"
-                        app:layout_constraintVertical_bias="0.8" />
-
-                    <TextView
-                        android:id="@+id/tv_fear"
-                        style="@style/gray_14_400"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="@string/fear"
-                        app:layout_constraintBottom_toBottomOf="@id/chart"
-                        app:layout_constraintEnd_toStartOf="@+id/chart"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/chart"
-                        app:layout_constraintVertical_bias="0.2" />
+                        app:radius="4dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -132,7 +50,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/chart">
+                        app:layout_constraintTop_toBottomOf="@+id/chart_emotion">
 
                         <TextView
                             android:id="@+id/tv_expression_name"
@@ -150,7 +68,7 @@
                                 style="@style/main_18_700"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="22sp"
+                                android:textSize="16sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@+id/textView"
                                 app:layout_constraintHorizontal_chainStyle="packed"
@@ -203,10 +121,13 @@
                     android:padding="20dp">
 
                     <TextView
+                        android:id="@+id/tv_view_title"
                         style="@style/black_16_500"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/view_point" />
+                        android:drawablePadding="5dp"
+                        android:text="@string/view_point"
+                        app:drawableEndCompat="@drawable/icon_info" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -214,34 +135,34 @@
                         android:layout_marginTop="10dp">
 
                         <ImageView
-                            android:id="@+id/heat_map_silhouette"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/iv_gaze"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/img_silhouette"
-                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginHorizontal="15dp"
+                            android:adjustViewBounds="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/chart_gaze"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <ca.hss.heatmaplib.HeatMap
-                            android:id="@+id/heat_map"
-                            android:layout_width="150dp"
+                        <include
+                            android:id="@+id/chart_gaze"
+                            layout="@layout/chart_gaze_zone"
+                            android:layout_width="0dp"
                             android:layout_height="150dp"
-                            android:background="@color/transparent"
-                            app:layout_constraintBottom_toBottomOf="@+id/heat_map_silhouette"
-                            app:layout_constraintEnd_toEndOf="@+id/heat_map_silhouette"
-                            app:layout_constraintStart_toStartOf="@+id/heat_map_silhouette"
-                            app:layout_constraintTop_toTopOf="@+id/heat_map_silhouette"
-                            app:maxOpacity="255"
-                            app:minOpacity="0"
-                            app:transparentBackground="true" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/iv_gaze"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
                             android:id="@+id/iv_gradation"
                             android:layout_width="0dp"
                             android:layout_height="8dp"
-                            app:layout_constraintEnd_toEndOf="@+id/heat_map_silhouette"
-                            app:layout_constraintStart_toStartOf="@+id/heat_map_silhouette"
-                            app:layout_constraintTop_toBottomOf="@+id/heat_map_silhouette" />
+                            android:layout_marginHorizontal="10dp"
+                            android:background="@drawable/gradation_gaze_bar"
+                            app:layout_constraintEnd_toEndOf="@+id/chart_gaze"
+                            app:layout_constraintStart_toStartOf="@+id/chart_gaze"
+                            app:layout_constraintTop_toBottomOf="@+id/chart_gaze" />
 
                         <TextView
                             android:id="@+id/textView3"
@@ -249,45 +170,53 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="낮음"
-                            app:layout_constraintStart_toStartOf="@+id/iv_gradation"
-                            app:layout_constraintTop_toBottomOf="@+id/iv_gradation" />
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/iv_gradation" />
 
                         <TextView
                             style="@style/lightGray_12_400"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="높음"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/iv_gradation"
                             app:layout_constraintTop_toBottomOf="@+id/iv_gradation" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
 
                         <TextView
                             android:id="@+id/tv_view_point_name"
                             style="@style/black_14_400"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:gravity="center"
                             android:text="@string/view_point_txt_1"
-                            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                            app:layout_constraintBaseline_toBaselineOf="@+id/tv_view_point"
+                            app:layout_constraintEnd_toStartOf="@+id/tv_view_point"
+                            app:layout_constraintHorizontal_chainStyle="packed"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/tv_view_point"
                             style="@style/main_18_700"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:textSize="22sp"
-                            app:layout_constraintEnd_toStartOf="@+id/textView2"
-                            app:layout_constraintHorizontal_chainStyle="packed"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_view_point_name"
-                            tools:text="안정적" />
+                            android:layout_marginStart="4dp"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toStartOf="@+id/textView4"
+                            app:layout_constraintStart_toEndOf="@+id/tv_view_point_name"
+                            tools:text="오른쪽 하단" />
 
                         <TextView
-                            android:id="@+id/textView2"
+                            android:id="@+id/textView4"
                             style="@style/black_14_400"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="4dp"
                             android:text="@string/view_point_txt_2"
                             app:layout_constraintBaseline_toBaselineOf="@+id/tv_view_point"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -295,11 +224,19 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
+                        android:id="@+id/textView2"
+                        style="@style/black_14_400"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/view_point_txt_3" />
+
+                    <TextView
                         style="@style/gray_14_400"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="@string/view_point_txt_3"
+                        android:text="@string/view_point_txt_4"
                         android:textColor="@color/sub_color1" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

@@ -26,4 +26,8 @@
     <declare-styleable name="RatioImageView">
         <attr name="ratio" format="float"/>
     </declare-styleable>
+
+    <declare-styleable name="RoundedBarChart">
+        <attr name="radius" format="dimension" />
+    </declare-styleable>
 </resources>

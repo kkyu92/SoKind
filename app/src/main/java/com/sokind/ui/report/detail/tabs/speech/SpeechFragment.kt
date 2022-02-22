@@ -23,7 +23,8 @@ import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class SpeechFragment(
-    private val speakData: ReportSpeak
+    private val speakData: ReportSpeak,
+    private val name: String
 ) : BaseFragment<FragmentSpeechBinding>(R.layout.fragment_speech) {
     private val viewModel by viewModels<SpeechViewModel>()
     private lateinit var exoPlayer: ExoPlayer
@@ -40,7 +41,7 @@ class SpeechFragment(
             tvMent.text = speakData.comment
             tvMatchRate.text = getString(R.string.per, speakData.matchRate.toString())
             tvTone.text = speakData.tone
-            tvToneContent.text = getString(R.string.tone_content, speakData.tone)
+            tvToneContent.text = getString(R.string.tone_content, name, speakData.tone)
             tvSpeedSps.text = speakData.speed.toString()
 
             tvSpeedTitle
