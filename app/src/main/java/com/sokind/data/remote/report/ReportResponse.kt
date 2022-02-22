@@ -102,7 +102,13 @@ data class ReportSpeak(
 )
 
 data class ReportEmotion(
-    val emotion: List<Double>
+    @SerializedName("emotionArr")
+    val emotionList: List<Double>,
+    val bestEmotion: String,
+    @SerializedName("gazeArr")
+    val gazeList: List<Int>,
+    val mostGaze: String,
+    val gazeImg: String
 )
 
 data class ReportPosture(
