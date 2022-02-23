@@ -1,5 +1,7 @@
 package com.sokind.data.remote.member
 
+import com.sokind.data.remote.member.change.EmailRequest
+import com.sokind.data.remote.member.change.PwRequest
 import com.sokind.data.remote.member.join.EmailResponse
 import com.sokind.data.remote.member.join.EnterpriseInfo
 import com.sokind.data.remote.member.join.EnterpriseList
@@ -36,17 +38,6 @@ interface MemberApi {
     @POST("member/signup/")
     fun signUp(@Body joinInfo: JoinInfo) : Completable
 
-//    // 기업 하위 점포정보
-//    @GET("enterprise/storeinfo/")
-//    fun getStoreInfo(
-//        @Query("enterprise_key") enterpriseKey: String,
-//        @Query("store_key") storeKey: String
-//    ): Single<StoreList>
-//
-//    // 기업 직위정보
-//    @GET("enterprise/positioninfo/")
-//    fun getPositionInfo(@Query("enterprise_key") enterpriseKey: String): Single<PositionList>
-
     // 로그인
     @POST("member/memberLogin/")
     fun login(@Body loginRequest: LoginRequest): Single<LoginResponse>
@@ -71,4 +62,18 @@ interface MemberApi {
         @Header("accessToken") access: String,
         @Query("memberid") id: String
     ): Single<MemberInfo>
+
+    // 이메일 변경
+    @PUT("member/changeEmail/")
+    fun changeEmail(
+        @Header("accessToken") access: String,
+        @Body request: EmailRequest
+    ): Completable
+
+    // 비밀번호 변경
+    @PUT("member/changePw/")
+    fun changePw(
+        @Header("accessToken") access: String,
+        @Body request: PwRequest
+    ): Completable
 }

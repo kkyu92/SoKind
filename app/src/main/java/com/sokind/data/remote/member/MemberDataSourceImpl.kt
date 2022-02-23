@@ -1,5 +1,7 @@
 package com.sokind.data.remote.member
 
+import com.sokind.data.remote.member.change.EmailRequest
+import com.sokind.data.remote.member.change.PwRequest
 import com.sokind.data.remote.member.join.EmailResponse
 import com.sokind.data.remote.member.join.EnterpriseInfo
 import com.sokind.data.remote.member.join.EnterpriseList
@@ -67,6 +69,18 @@ class MemberDataSourceImpl @Inject constructor(
     override fun getMe(access: String, id: String): Single<MemberInfo> {
         return memberApi
             .getMe(access, id)
+            .subscribeOn(Schedulers.io())
+    }
+
+    override fun changeEmail(access: String, request: EmailRequest): Completable {
+        return memberApi
+            .changeEmail(access, request)
+            .subscribeOn(Schedulers.io())
+    }
+
+    override fun changePw(access: String, request: PwRequest): Completable {
+        return memberApi
+            .changePw(access, request)
             .subscribeOn(Schedulers.io())
     }
 }
