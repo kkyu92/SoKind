@@ -1,11 +1,14 @@
 package com.sokind.data.remote.member
 
+import java.io.Serializable
+
 data class MemberInfo(
     val memberKey: Int,
     val memberId: String,
     val memberName: String,
+    val profileImg: String,
     val memberEmail: String,
-    val memberGender: String,
+    val memberGender: Int,
     val memberStatus: String,
 
     val enterpriseKey: Int,
@@ -22,4 +25,4 @@ data class MemberInfo(
     val eventYN:Int,
     val emailYN:Int,
     val pushYN:Int,
-)
+) : Serializable

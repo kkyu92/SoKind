@@ -8,5 +8,4 @@ import com.sokind.data.local.user.UserEntity
 @Database(entities = [UserEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
-//    abstract fun recentSearchDao(): RecentSearchDao
 }

@@ -8,8 +8,9 @@ data class UserEntity(
     val memberKey: Int?,
     val memberId: String?,
     val memberName: String?,
+    val profileImg: String?,
     val memberEmail: String?,
-    val memberGender: String?,
+    val memberGender: Int?,
     val memberStatus: String?,
 
     val enterpriseKey: Int?,

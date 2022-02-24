@@ -11,6 +11,7 @@ object UserMapper {
             memberInfo.memberKey,
             memberInfo.memberId,
             memberInfo.memberName,
+            memberInfo.profileImg,
             memberInfo.memberEmail,
             memberInfo.memberGender,
             memberInfo.memberStatus,
