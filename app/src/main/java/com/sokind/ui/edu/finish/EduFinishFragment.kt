@@ -73,6 +73,7 @@ class EduFinishFragment : BaseFragment<FragmentEduFinishBinding>(R.layout.fragme
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
                     val dialog = BottomSheetDialog.newInstance(
+                        Constants.SIMPLE_DIALOG,
                         getString(R.string.alert),
                         String.format(getString(R.string.alert_edu_fin, edu.title)),
                         itemClick = { okClick ->

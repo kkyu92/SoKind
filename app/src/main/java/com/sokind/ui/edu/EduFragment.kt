@@ -18,7 +18,7 @@ import com.sokind.data.remote.edu.StartEdu
 import com.sokind.databinding.FragmentEduBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.util.Constants
-import com.sokind.util.dialog.BottomSheetImgDialog
+import com.sokind.util.dialog.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -87,13 +87,17 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
                 when (it.analysisResult) {
                     SUCCESS -> {
                         val action =
-                            EduFragmentDirections.actionEduFragmentToEduFinishFragment(edu, it, startEdu.position)
+                            EduFragmentDirections.actionEduFragmentToEduFinishFragment(
+                                edu,
+                                it,
+                                startEdu.position
+                            )
                         findNavController().navigate(action)
                     }
                     FAIL -> {
-                        val dialog = BottomSheetImgDialog.newInstance(
+                        val dialog = BottomSheetDialog.newInstance(
+                            Constants.ANALYSIS_ERROR_DIALOG,
                             getString(R.string.alert),
-                            getDrawable(R.drawable.img_error)!!,
                             getString(R.string.dialog_error),
                             itemClick = { okClick ->
                                 if (okClick) {
@@ -308,54 +312,4 @@ class EduFragment : BaseFragment<FragmentEduBinding>(R.layout.fragment_edu) {
         const val SUCCESS = "SUCCESS"
         const val FAIL = "FAIL"
     }
-//    private fun startCamera() {
-//        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
-//
-//        cameraProviderFuture.addListener({
-//            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-//
-//            val preview = Preview.Builder()
-//                .build()
-//                .also { mPreview ->
-//                    mPreview.setSurfaceProvider(
-//                        binding.cameraPreview.surfaceProvider
-//                    )
-//                }
-//            imageCapture = ImageCapture.Builder().build()
-//            val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
-//
-//            try {
-//                cameraProvider.unbindAll()
-//                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
-//            } catch (e: Exception) {
-//                Timber.e(e)
-//            }
-//        }, ContextCompat.getMainExecutor(this))
-//    }
-//    private fun takePhoto() {
-//        val imageCapture = imageCapture ?: return
-//        val photoFile = File(
-//            outputDirectory,
-//            SimpleDateFormat(
-//                Constants.FILE_NAME_FORMAT,
-//                Locale.getDefault()
-//            ).format(System.currentTimeMillis()) + ".jpg"
-//        )
-//        val outputOption = ImageCapture.OutputFileOptions.Builder(photoFile).build()
-//
-//        imageCapture.takePicture(
-//            outputOption,
-//            ContextCompat.getMainExecutor(this),
-//            object : ImageCapture.OnImageSavedCallback {
-//                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-//                    val savedUri = Uri.fromFile(photoFile)
-//                    val msg = "Photo Saved"
-//                    showToast("$msg $savedUri")
-//                }
-//
-//                override fun onError(exception: ImageCaptureException) {
-//                    Timber.e(exception)
-//                }
-//            })
-//    }
 }

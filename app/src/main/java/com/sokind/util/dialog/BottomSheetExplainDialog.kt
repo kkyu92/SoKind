@@ -16,19 +16,13 @@ class BottomSheetExplainDialog(
     private val dialogTag: String,
     private val content: String?,
 ) : BottomSheetDialogFragment() {
-    private lateinit var emotionBinding: DialogExplainEmotionBinding
-    private lateinit var lvBinding: DialogExplainLvBinding
-    private lateinit var kindBinding: DialogExplainKindBinding
-    private lateinit var analysisBinding: DialogExplainAnalysisBinding
-    private lateinit var complainBinding: DialogExplainComplainBinding
-    private lateinit var speedBinding: DialogExplainSpeechBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        when(dialogTag) {
+        when (dialogTag) {
             Constants.EMOTION_DIALOG -> return emotionDialog(inflater, container)
             Constants.LV_DIALOG -> return lvDialog(inflater, container)
             Constants.KIND_DIALOG -> return kindDialog(inflater, container)
@@ -41,82 +35,88 @@ class BottomSheetExplainDialog(
     }
 
     private fun speechDialog(inflater: LayoutInflater, container: ViewGroup?): View {
-        speedBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_explain_speech, container, false)
+        val binding: DialogExplainSpeechBinding =
+            DataBindingUtil.inflate(inflater, R.layout.dialog_explain_speech, container, false)
 
-        speedBinding.btCheck
+        binding.btCheck
             .clicks()
             .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
             .subscribe({
                 dialog?.dismiss()
             }, { it.printStackTrace() })
 
-        return speedBinding.root
+        return binding.root
     }
 
     private fun complainDialog(inflater: LayoutInflater, container: ViewGroup?): View {
-        complainBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_explain_complain, container, false)
+        val binding: DialogExplainComplainBinding =
+            DataBindingUtil.inflate(inflater, R.layout.dialog_explain_complain, container, false)
 
-        complainBinding.btCheck
+        binding.btCheck
             .clicks()
             .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
             .subscribe({
                 dialog?.dismiss()
             }, { it.printStackTrace() })
 
-        return complainBinding.root
+        return binding.root
     }
 
     private fun analysisDialog(inflater: LayoutInflater, container: ViewGroup?): View {
-        analysisBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_explain_analysis, container, false)
+        val binding: DialogExplainAnalysisBinding =
+            DataBindingUtil.inflate(inflater, R.layout.dialog_explain_analysis, container, false)
 
-        analysisBinding.tvContent.text = getString(R.string.analysis_content, content)
-        analysisBinding.btCheck
+        binding.tvContent.text = getString(R.string.analysis_content, content)
+        binding.btCheck
             .clicks()
             .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
             .subscribe({
                 dialog?.dismiss()
             }, { it.printStackTrace() })
 
-        return analysisBinding.root
+        return binding.root
     }
 
     private fun kindDialog(inflater: LayoutInflater, container: ViewGroup?): View {
-        kindBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_explain_kind, container, false)
+        val binding: DialogExplainKindBinding =
+            DataBindingUtil.inflate(inflater, R.layout.dialog_explain_kind, container, false)
 
-        kindBinding.btCheck
+        binding.btCheck
             .clicks()
             .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
             .subscribe({
                 dialog?.dismiss()
             }, { it.printStackTrace() })
 
-        return kindBinding.root
+        return binding.root
     }
 
     private fun lvDialog(inflater: LayoutInflater, container: ViewGroup?): View {
-        lvBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_explain_lv, container, false)
+        val binding: DialogExplainLvBinding =
+            DataBindingUtil.inflate(inflater, R.layout.dialog_explain_lv, container, false)
 
-        lvBinding.btCheck
+        binding.btCheck
             .clicks()
             .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
             .subscribe({
                 dialog?.dismiss()
             }, { it.printStackTrace() })
 
-        return lvBinding.root
+        return binding.root
     }
 
     private fun emotionDialog(inflater: LayoutInflater, container: ViewGroup?): View {
-        emotionBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_explain_emotion, container, false)
+        val binding: DialogExplainEmotionBinding =
+            DataBindingUtil.inflate(inflater, R.layout.dialog_explain_emotion, container, false)
 
-        emotionBinding.btCheck
+        binding.btCheck
             .clicks()
             .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
             .subscribe({
                 dialog?.dismiss()
             }, { it.printStackTrace() })
 
-        return emotionBinding.root
+        return binding.root
     }
 
     companion object {

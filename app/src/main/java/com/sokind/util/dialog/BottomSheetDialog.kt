@@ -9,27 +9,38 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.databinding.DialogBottomSheetBinding
+import com.sokind.databinding.DialogErrorAnalysisBinding
+import com.sokind.databinding.DialogProfileBinding
 import com.sokind.util.Constants
 import java.util.concurrent.TimeUnit
 
 class BottomSheetDialog(
+    private val dialogTag: String,
     private val title: String,
     private val contents: String?,
     val itemClick: (Boolean) -> Unit
 ) : BottomSheetDialogFragment() {
-    private lateinit var binding: DialogBottomSheetBinding
+    private lateinit var listener: OnProfileClickListener
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_bottom_sheet, container, false)
-        return binding.root
+        when (dialogTag) {
+            Constants.SIMPLE_DIALOG -> return simpleDialog(inflater, container)
+
+            Constants.PROFILE_DIALOG -> return profileDialog(inflater, container)
+
+            Constants.ANALYSIS_ERROR_DIALOG -> return analysisErrorDialog(inflater, container)
+        }
+
+        return simpleDialog(inflater, container)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun simpleDialog(inflater: LayoutInflater, container: ViewGroup?): View {
+        val binding: DialogBottomSheetBinding =
+            DataBindingUtil.inflate(inflater, R.layout.dialog_bottom_sheet, container, false)
 
         binding.apply {
             tvDialogTitle.text = title
@@ -51,15 +62,94 @@ class BottomSheetDialog(
                 }, { it.printStackTrace() })
         }
 
+        return binding.root
+    }
+
+    private fun profileDialog(inflater: LayoutInflater, container: ViewGroup?): View {
+        val binding: DialogProfileBinding =
+            DataBindingUtil.inflate(inflater, R.layout.dialog_profile, container, false)
+
+        binding.apply {
+            tvDialogTitle.text = title
+
+            camera
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    listener.onCameraClick()
+                }, { it.printStackTrace() })
+
+            gallery
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    listener.onGalleryClick()
+                }, { it.printStackTrace() })
+
+            btDefault
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    itemClick(false)
+                    dialog?.dismiss()
+                }, { it.printStackTrace() })
+
+            btSave
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    itemClick(true)
+                    dialog?.dismiss()
+                }, { it.printStackTrace() })
+        }
+
+        return binding.root
+    }
+
+    private fun analysisErrorDialog(inflater: LayoutInflater, container: ViewGroup?): View {
+        val binding: DialogErrorAnalysisBinding =
+            DataBindingUtil.inflate(inflater, R.layout.dialog_error_analysis, container, false)
+
+        binding.apply {
+            tvDialogTitle.text = title
+            ivImg.setImageResource(R.drawable.img_error)
+            tvDialogContents.text = contents
+            btOk
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    itemClick(true)
+                    dialog?.dismiss()
+                }, { it.printStackTrace() })
+            btOk
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    itemClick(false)
+                    dialog?.dismiss()
+                }, { it.printStackTrace() })
+        }
+
+        return binding.root
+    }
+
+    interface OnProfileClickListener {
+        fun onCameraClick()
+        fun onGalleryClick()
+    }
+
+    fun setOnProfileClickListener(listener: OnProfileClickListener) {
+        this.listener = listener
     }
 
     companion object {
         fun newInstance(
+            tag: String,
             title: String,
             contents: String,
             itemClick: (Boolean) -> Unit
         ): BottomSheetDialogFragment {
-            return BottomSheetDialog(title, contents, itemClick)
+            return BottomSheetDialog(tag, title, contents, itemClick)
         }
     }
 }

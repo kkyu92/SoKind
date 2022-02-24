@@ -121,7 +121,8 @@ abstract class BaseFragment<B : ViewDataBinding>(
                             snackBar.setAction("확인") {
                                 val intent = Intent()
                                 intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                                val uri = Uri.fromParts("package", requireActivity().packageName, null)
+                                val uri =
+                                    Uri.fromParts("package", requireActivity().packageName, null)
                                 intent.data = uri
                                 startActivity(intent)
                             }
@@ -139,10 +140,14 @@ abstract class BaseFragment<B : ViewDataBinding>(
                     Timber.e("권한이 승인된 상태")
                 }
                 else -> {
-                    Timber.e("PERMISSION : ${ContextCompat.checkSelfPermission(
-                        requireContext(),
-                        aPermission
-                    )}")
+                    Timber.e(
+                        "PERMISSION : ${
+                            ContextCompat.checkSelfPermission(
+                                requireContext(),
+                                aPermission
+                            )
+                        }"
+                    )
                 }
             }
         }
@@ -255,6 +260,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
         when (edu.status) {
             1 -> { // 교육완료
                 val dialog = BottomSheetDialog.newInstance(
+                    Constants.SIMPLE_DIALOG,
                     getString(R.string.alert),
                     String.format(getString(R.string.alert_edu_fin, edu.title)),
                     itemClick = {
@@ -276,6 +282,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
             }
             5 -> { // 분석오류
                 val dialog = BottomSheetDialog.newInstance(
+                    Constants.SIMPLE_DIALOG,
                     getString(R.string.alert),
                     String.format(getString(R.string.alert_edu_error, edu.title)),
                     itemClick = {
