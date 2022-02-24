@@ -13,6 +13,7 @@ import com.sokind.data.remote.member.login.RefreshResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class MemberDataSourceImpl @Inject constructor(
@@ -81,6 +82,28 @@ class MemberDataSourceImpl @Inject constructor(
     override fun changePw(access: String, request: PwRequest): Completable {
         return memberApi
             .changePw(access, request)
+            .subscribeOn(Schedulers.io())
+    }
+
+    override fun changeProfile(
+        access: String,
+        profile: MultipartBody.Part,
+        id: String
+    ): Completable {
+        return memberApi
+            .changeProfile(access, profile, id)
+            .subscribeOn(Schedulers.io())
+    }
+
+    override fun changeExtra(
+        access: String,
+        event: Int,
+        email: Int,
+        app: Int,
+        id: String
+    ): Completable {
+        return memberApi
+            .changeExtra(access, event, email, app, id)
             .subscribeOn(Schedulers.io())
     }
 }

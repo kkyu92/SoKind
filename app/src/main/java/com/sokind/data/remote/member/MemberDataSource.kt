@@ -12,6 +12,8 @@ import com.sokind.data.remote.member.login.RefreshRequest
 import com.sokind.data.remote.member.login.RefreshResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
+import okhttp3.MultipartBody
+import retrofit2.http.*
 
 interface MemberDataSource {
     fun searchEnterpriseList(keyword: String): Single<EnterpriseList>
@@ -25,4 +27,6 @@ interface MemberDataSource {
     fun getMe(access: String, id: String): Single<MemberInfo>
     fun changeEmail(access: String, request: EmailRequest): Completable
     fun changePw(access: String, request: PwRequest): Completable
+    fun changeProfile(access: String, profile: MultipartBody.Part, id: String): Completable
+    fun changeExtra(access: String, event: Int, email: Int, app: Int, id: String): Completable
 }

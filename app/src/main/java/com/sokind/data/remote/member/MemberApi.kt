@@ -12,6 +12,7 @@ import com.sokind.data.remote.member.login.RefreshRequest
 import com.sokind.data.remote.member.login.RefreshResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
+import okhttp3.MultipartBody
 import retrofit2.http.*
 
 interface MemberApi {
@@ -75,5 +76,24 @@ interface MemberApi {
     fun changePw(
         @Header("accessToken") access: String,
         @Body request: PwRequest
+    ): Completable
+
+    // 프로필 변경
+    @Multipart
+    @PUT("member/changeMemberProfile")
+    fun changeProfile(
+        @Header("accessToken") access: String,
+        @Part profile: MultipartBody.Part,
+        @Query("memberId") id: String,
+    ): Completable
+
+    // 부가정보 변경
+    @PUT("member/changeExtraInfo")
+    fun changeExtra(
+        @Header("accessToken") access: String,
+        @Query("eventYN") event: Int,
+        @Query("emailYN") email: Int,
+        @Query("pushYN") app: Int,
+        @Query("memberId") id: String,
     ): Completable
 }
