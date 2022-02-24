@@ -20,6 +20,7 @@
     <string name="show_permit">개인정보 처리방침 보기</string>
     <string name="id">아이디</string>
     <string name="pw">비밀번호</string>
+    <string name="pw_new">변경할 비밀번호</string>
     <string name="pw_check">비밀번호 확인</string>
     <string name="email">Email</string>
     <string name="email_">내 정보에 등록된 이메일 인증</string>
@@ -107,6 +108,7 @@
     </string>
 
     // dialog
+    <string name="dialog_profile">%s님,\n프로필 이미지를 변경해보세요.</string>
     <string name="dialog_logout">정말 로그아웃을 하시겠어요?</string>
     <string name="dialog_secession">정말 탈퇴 신청을 하시겠어요?</string>
     <string name="dialog_error">교육 분석이 원활하게 이루어지지 않았습니다.</string>
@@ -330,6 +332,8 @@
 
 
     // %s
+    <string name="name_form">%s %s</string>
+    <string name="enterprise_form">%s / %s</string>
     <string name="join_date">%s 가입</string>
     <string name="send_email_content"><b>%s</b> 으로\n비밀번호 변경 이메일을 발송했습니다.</string>
     <string name="change_main_color"><![CDATA[<font color=\'#6967F9\'><b>%s</b></font>]]></string>
