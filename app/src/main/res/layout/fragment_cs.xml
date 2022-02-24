@@ -36,18 +36,32 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="30dp">
+                        android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/iv_cs_profile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/img_profile"
-                            app:layout_constraintBottom_toBottomOf="@+id/tv_cs_day"
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cv_user_profile"
+                            style="@style/CardView.Profile"
+                            android:layout_marginVertical="30dp"
+                            android:layout_marginStart="20dp"
+                            app:cardCornerRadius="15dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/tv_cs_user_name" />
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/icon_profile_default" />
+
+                            <ImageView
+                                android:id="@+id/iv_profile"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_gravity="center"
+                                android:adjustViewBounds="true" />
+                        </com.google.android.material.card.MaterialCardView>
 
                         <TextView
                             android:id="@+id/tv_cs_user_name"
@@ -56,8 +70,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
                             app:layout_constraintBottom_toTopOf="@+id/tv_cs_user_enterprise"
-                            app:layout_constraintStart_toEndOf="@+id/iv_cs_profile"
-                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/cv_user_profile"
+                            app:layout_constraintTop_toTopOf="@+id/cv_user_profile"
                             tools:text="김진철 사원" />
 
                         <TextView
@@ -75,9 +89,8 @@
                             style="@style/lightGray_12_400"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
                             android:textSize="10sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintBottom_toBottomOf="@+id/cv_user_profile"
                             app:layout_constraintStart_toStartOf="@+id/tv_cs_user_name"
                             app:layout_constraintTop_toBottomOf="@+id/tv_cs_user_enterprise"
                             tools:ignore="SmallSp"
