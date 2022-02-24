@@ -140,7 +140,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                     }
                     if (loginInfo) {
                         viewModel.doLoginRequest(
-                            binding.etIdInput.text.toString(),
+                            binding.etIdInput.text.toString().trim(),
                             binding.etPwInput.text.toString()
                         )
                     } else {

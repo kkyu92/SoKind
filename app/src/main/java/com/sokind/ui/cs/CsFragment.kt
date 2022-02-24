@@ -12,6 +12,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
+import com.sokind.data.di.GlideApp
 import com.sokind.data.remote.edu.BaseEdu
 import com.sokind.data.remote.edu.Edu
 import com.sokind.data.remote.edu.EduList
@@ -81,6 +82,10 @@ class CsFragment : BaseFragment<FragmentCsBinding>(R.layout.fragment_cs) {
             })
             getMe.observe(viewLifecycleOwner, {
                 binding.apply {
+                    GlideApp.with(requireContext())
+                        .load(it.profileImg)
+                        .error(R.drawable.icon_profile_default)
+                        .into(ivProfile)
                     tvCsUserName.text = it.memberName + it.positionName
                     tvCsUserEnterprise.text = it.enterpriseName + " / " + it.storeName
                 }

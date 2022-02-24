@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -164,6 +165,13 @@ abstract class BaseActivity<B : ViewDataBinding>(
             loadingView.loadingContainer.visibility = View.GONE
             loadingView.progressBar.visibility = View.GONE
         }
+    }
+
+    protected fun hideKeyboard() {
+        binding.root.clearFocus()
+        val imm =
+            this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
     }
 
     protected interface PermissionListener {

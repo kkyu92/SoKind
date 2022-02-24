@@ -22,8 +22,6 @@ class LoginViewModel @Inject constructor(
         compositeDisposable.add(
             repository
                 .login(LoginRequest(id, password))
-                .andThen(Single.just(BaseNetworkCallResult<Unit>()))
-                .onErrorReturn{ BaseNetworkCallResult(throwable = it) }
                 .doOnSubscribe { showProgress() }
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnTerminate{ hideProgress() }

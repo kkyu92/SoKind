@@ -68,15 +68,6 @@
                             app:layout_constraintTop_toBottomOf="@+id/tv_hello"
                             tools:text="김친절 사원님!" />
 
-                        <ImageView
-                            android:id="@+id/imageView4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/img_profile"
-                            app:layout_constraintBottom_toBottomOf="@+id/tv_user_name"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView3"
-                            app:layout_constraintTop_toTopOf="@+id/tv_hello" />
-
                         <com.google.android.material.card.MaterialCardView
                             android:id="@+id/cv_user_info"
                             style="@style/CardView.Default"
