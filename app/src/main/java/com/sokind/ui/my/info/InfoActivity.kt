@@ -7,20 +7,16 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.provider.MediaStore
-import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.core.view.isVisible
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.data.di.GlideApp
 import com.sokind.data.remote.member.MemberInfo
 import com.sokind.databinding.ActivityInfoBinding
-import com.sokind.ui.EduNavActivity
 import com.sokind.ui.base.BaseActivity
 import com.sokind.ui.my.info.change.ChangeActivity
 import com.sokind.util.Constants
-import com.sokind.util.ToggleAnimation
 import com.sokind.util.dialog.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -190,22 +186,8 @@ class InfoActivity : BaseActivity<ActivityInfoBinding>(R.layout.activity_info) {
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
                     val intent = Intent(this@InfoActivity, ChangeActivity::class.java)
-                    intent.putExtra("title", "비밀번호 변경")
+                    intent.putExtra("title", "이메일 변경")
                     startForResultChange.launch(intent)
-
-                    toggleLayout(!llEmailContainer.isVisible, llEmailContainer)
-                }, { it.printStackTrace() })
-
-            tvEmailSend
-                .clicks()
-                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
-                .subscribe({
-                    if (Constants.validateEmail(etNewEmail.text.toString())) {
-                        hideKeyboard()
-                        viewModel.sendEmail(etNewEmail.text.toString())
-                    } else {
-                        showToast("이메일 주소를 확인해주세요.")
-                    }
                 }, { it.printStackTrace() })
 
             tvPwChange
@@ -213,7 +195,7 @@ class InfoActivity : BaseActivity<ActivityInfoBinding>(R.layout.activity_info) {
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
                     val intent = Intent(this@InfoActivity, ChangeActivity::class.java)
-                    intent.putExtra("title", "이메일 변경")
+                    intent.putExtra("title", "비밀번호 변경")
                     startForResultChange.launch(intent)
                 }, { it.printStackTrace() })
 
@@ -275,17 +257,5 @@ class InfoActivity : BaseActivity<ActivityInfoBinding>(R.layout.activity_info) {
 
         val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
         return MultipartBody.Part.createFormData("profileImg", file.name, requestBody)
-    }
-
-    private fun toggleLayout(
-        isExpanded: Boolean,
-        layoutExpand: LinearLayout
-    ): Boolean {
-        if (isExpanded) {
-            ToggleAnimation.expand(layoutExpand)
-        } else {
-            ToggleAnimation.collapse(layoutExpand)
-        }
-        return isExpanded
     }
 }

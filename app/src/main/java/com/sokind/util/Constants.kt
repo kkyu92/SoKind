@@ -17,6 +17,7 @@ object Constants {
     const val PERMISSIONS_DATA = 0
 
     const val SIMPLE_DIALOG = "simple_dialog"
+    const val CHANGE_DIALOG = "change_dialog"
     const val ANALYSIS_ERROR_DIALOG = "analysis_error_dialog"
 
     const val EMOTION_DIALOG = "emotion_dialog"

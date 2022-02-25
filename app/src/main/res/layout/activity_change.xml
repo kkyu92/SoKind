@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.my.info.change.ChangeActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/bt_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
+            android:src="@drawable/icon_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/black_16_500"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/bt_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bt_back" />
+
+        <LinearLayout
+            android:id="@+id/email_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="30dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_back">
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/lightGray_12_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="변경할 이메일"
+                android:textColor="@color/font_gray" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <EditText
+                    android:id="@+id/et_new_email"
+                    style="@style/EditText.Input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="새로운 이메일 주소를 입력해주세요."
+                    android:imeOptions="actionDone"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="36" />
+
+                <TextView
+                    android:id="@+id/tv_email_send"
+                    style="@style/lightGray_14_400"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="20dp"
+                    android:text="인증하기"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/error_email"
+                style="@style/orange_12_400"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/email_error"
+                android:visibility="gone" />
+
+            <TextView
+                style="@style/lightGray_12_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="인증번호"
+                android:textColor="@color/font_gray" />
+
+            <EditText
+                android:id="@+id/et_code"
+                style="@style/EditText.Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="이메일로 발송된 인증번호를 입력해주세요."
+                android:inputType="number"
+                android:maxLength="6" />
+
+            <TextView
+                android:id="@+id/error_code"
+                style="@style/orange_12_400"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/code_error"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/bt_email"
+                style="@style/Button.Fill.Main.Selector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="@string/change" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pw_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="30dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bt_back">
+
+            <TextView
+                style="@style/lightGray_12_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="현재 비밀번호" />
+
+            <EditText
+                android:id="@+id/et_pw_now"
+                style="@style/EditText.Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="현재 사용하시는 비밀번호를 입력해주세요."
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:maxLength="20"
+                android:nextFocusDown="@+id/et_pw_new" />
+
+            <TextView
+                android:id="@+id/error_pw"
+                style="@style/orange_12_400"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/pw_error"
+                android:visibility="gone" />
+
+            <TextView
+                style="@style/lightGray_12_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/pw_new"
+                android:textColor="@color/font_gray" />
+
+            <EditText
+                android:id="@+id/et_pw_new"
+                style="@style/EditText.Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="@string/hint_pw"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:maxLength="20"
+                android:nextFocusDown="@+id/et_pw_new_check" />
+
+            <TextView
+                android:id="@+id/error_pw_new"
+                style="@style/orange_12_400"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/login_pw_error"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_error_pw"
+                style="@style/orange_12_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/join_pw_error"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_pw_check_title"
+                style="@style/lightGray_12_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/pw_check"
+                android:textColor="@color/font_gray" />
+
+            <EditText
+                android:id="@+id/et_pw_new_check"
+                style="@style/EditText.Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="@string/hint_pw_check"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword" />
+
+            <TextView
+                android:id="@+id/error_pw_check"
+                style="@style/orange_12_400"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/pw_check_error"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_error_pw_check"
+                style="@style/orange_12_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/pw_check_error"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/bt_pw"
+                style="@style/Button.Fill.Main.Selector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="@string/change" />
+        </LinearLayout>
+
+        <include
+            android:id="@+id/loading"
+            layout="@layout/loading"
+            android:visibility="gone"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

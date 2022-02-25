@@ -9,6 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.databinding.DialogBottomSheetBinding
+import com.sokind.databinding.DialogChangeBinding
 import com.sokind.databinding.DialogErrorAnalysisBinding
 import com.sokind.databinding.DialogProfileBinding
 import com.sokind.util.Constants
@@ -29,6 +30,7 @@ class BottomSheetDialog(
     ): View {
         when (dialogTag) {
             Constants.SIMPLE_DIALOG -> return simpleDialog(inflater, container)
+            Constants.CHANGE_DIALOG -> return changeDialog(inflater, container)
 
             Constants.PROFILE_DIALOG -> return profileDialog(inflater, container)
 
@@ -52,6 +54,26 @@ class BottomSheetDialog(
                     itemClick(false)
                     dialog?.dismiss()
                 }, { it.printStackTrace() })
+
+            btYes
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    itemClick(true)
+                    dialog?.dismiss()
+                }, { it.printStackTrace() })
+        }
+
+        return binding.root
+    }
+
+    private fun changeDialog(inflater: LayoutInflater, container: ViewGroup?): View {
+        val binding: DialogChangeBinding =
+            DataBindingUtil.inflate(inflater, R.layout.dialog_change, container, false)
+
+        binding.apply {
+            tvDialogTitle.text = title
+            tvDialogContents.text = contents
 
             btYes
                 .clicks()
