@@ -34,6 +34,7 @@ import com.sokind.databinding.LayoutLoadingBinding
 import com.sokind.ui.EduNavActivity
 import com.sokind.util.Constants
 import com.sokind.util.dialog.BottomSheetDialog
+import com.sokind.util.dialog.LottieDialogFragment
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import timber.log.Timber
 
@@ -44,6 +45,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
     protected val binding get() = _binding!!
     protected val compositeDisposable = CompositeDisposable()
 
+    lateinit var lottieDialog: LottieDialogFragment
     private lateinit var mListener: PermissionListener
 
     override fun onCreateView(
@@ -54,6 +56,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
         requireActivity().window.setSoftInputMode(SOFT_INPUT_ADJUST_PAN)
 
         _binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        lottieDialog = LottieDialogFragment.newInstance()
 
         binding.root.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
@@ -245,6 +248,19 @@ abstract class BaseFragment<B : ViewDataBinding>(
             textView.setTextColor(getColor(R.color.main_color))
         } else {
             textView.setTextColor(getColor(R.color.font_light_gray))
+        }
+    }
+
+    protected fun showProgressDialog() {
+        lottieDialog.show(
+            requireActivity().supportFragmentManager,
+            lottieDialog.tag
+        )
+    }
+
+    protected fun hideProgressDialog() {
+        if (lottieDialog.isAdded) {
+            lottieDialog.dismissAllowingStateLoss()
         }
     }
 

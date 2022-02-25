@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,7 @@ import com.sokind.R
 import com.sokind.data.di.GlideApp
 import com.sokind.databinding.LayoutLoadingBinding
 import com.sokind.util.Constants
+import com.sokind.util.dialog.LottieDialogFragment
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import timber.log.Timber
 
@@ -29,6 +31,7 @@ abstract class BaseActivity<B : ViewDataBinding>(
 ) : AppCompatActivity() {
     private var _binding: B? = null
     protected val binding get() = _binding!!
+    lateinit var lottieDialog: LottieDialogFragment
     protected val compositeDisposable = CompositeDisposable()
 
     private lateinit var mListener: PermissionListener
@@ -36,6 +39,7 @@ abstract class BaseActivity<B : ViewDataBinding>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = DataBindingUtil.setContentView(this, layoutId)
+        lottieDialog = LottieDialogFragment.newInstance()
         binding.lifecycleOwner = this
         init()
     }
@@ -164,6 +168,27 @@ abstract class BaseActivity<B : ViewDataBinding>(
         } else {
             loadingView.loadingContainer.visibility = View.GONE
             loadingView.progressBar.visibility = View.GONE
+        }
+    }
+
+    protected fun showProgressDialog() {
+        lottieDialog.show(
+            supportFragmentManager,
+            lottieDialog.tag
+        )
+    }
+
+    protected fun hideProgressDialog() {
+        if (lottieDialog.isAdded) {
+            lottieDialog.dismissAllowingStateLoss()
+        }
+    }
+
+    protected fun errorVisible(textView: TextView, visible: Boolean) {
+        if (visible) {
+            textView.visibility = View.VISIBLE
+        } else {
+            textView.visibility = View.GONE
         }
     }
 
