@@ -114,11 +114,14 @@ class MemberRepositoryImpl @Inject constructor(
             .isLogin()
     }
 
-    override fun changeEmail(request: EmailRequest): Completable {
+    override fun changeEmail(newEmail: String): Completable {
         return userDataSource
-            .getAccessToken()
-            .flatMapCompletable { access ->
-                memberDataSource.changeEmail(access, request)
+            .getUser()
+            .flatMapCompletable { user ->
+                memberDataSource.changeEmail(
+                    user.access,
+                    EmailRequest(user.memberId!!, user.memberEmail!!, newEmail)
+                )
             }
             .retryWhen { error ->
                 return@retryWhen error
@@ -130,11 +133,11 @@ class MemberRepositoryImpl @Inject constructor(
             }
     }
 
-    override fun changePw(request: PwRequest): Completable {
+    override fun changePw(pw: String, newPw: String): Completable {
         return userDataSource
-            .getAccessToken()
-            .flatMapCompletable { access ->
-                memberDataSource.changePw(access, request)
+            .getUser()
+            .flatMapCompletable { user ->
+                memberDataSource.changePw(user.access, PwRequest(newPw, user.memberId!!, user.memberKey!!, pw))
             }
             .retryWhen { error ->
                 return@retryWhen error

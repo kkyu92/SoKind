@@ -22,8 +22,8 @@ interface MemberRepository {
     fun getMe(): Single<MemberInfo>
     fun saveUser(memberInfo: MemberInfo): Completable
     fun isLogin(): Single<String>
-    fun changeEmail(request: EmailRequest): Completable
-    fun changePw(request: PwRequest): Completable
+    fun changeEmail(newEmail: String): Completable
+    fun changePw(pw: String, newPw: String): Completable
     fun changeProfile(profile: MultipartBody.Part): Completable
     fun changeExtra(event: Int, email: Int, app: Int): Completable
 }
