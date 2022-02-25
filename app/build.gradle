@@ -114,6 +114,8 @@ dependencies {
     // exo player
     implementation "com.google.android.exoplayer:exoplayer-core:$exoplayer_version"
     implementation "com.google.android.exoplayer:exoplayer-ui:$exoplayer_version"
+
+    implementation "com.airbnb.android:lottie:$lottie_version"
 }
 
 def getBaseApiKey() {

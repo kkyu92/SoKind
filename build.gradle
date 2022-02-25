@@ -10,6 +10,7 @@ buildscript {
         room_version = "2.3.0"
         camerax_version = "1.0.2"
         exoplayer_version = "2.16.1"
+        lottie_version = "5.0.1"
     }
     repositories {
         google()
