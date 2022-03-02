@@ -14,8 +14,10 @@ import com.sokind.R
 import com.sokind.data.di.GlideApp
 import com.sokind.data.remote.member.MemberInfo
 import com.sokind.databinding.ActivityInfoBinding
+import com.sokind.ui.MainActivity
 import com.sokind.ui.base.BaseActivity
 import com.sokind.ui.my.info.change.ChangeActivity
+import com.sokind.ui.my.info.secession.SecessionActivity
 import com.sokind.util.Constants
 import com.sokind.util.dialog.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +34,6 @@ import java.util.concurrent.TimeUnit
 @AndroidEntryPoint
 class InfoActivity : BaseActivity<ActivityInfoBinding>(R.layout.activity_info) {
     private val viewModel by viewModels<InfoViewModel>()
-    private lateinit var dialog: BottomSheetDialog
 
     private val startForResultCamera =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -103,6 +104,13 @@ class InfoActivity : BaseActivity<ActivityInfoBinding>(R.layout.activity_info) {
                     Timber.e("extras change FAIL")
                 }
             })
+            isLogout.observe(this@InfoActivity, {
+                if (it) {
+                    val intent = Intent(this@InfoActivity, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    startActivity(intent)
+                }
+            })
         }
     }
 
@@ -148,7 +156,7 @@ class InfoActivity : BaseActivity<ActivityInfoBinding>(R.layout.activity_info) {
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    dialog =
+                    val dialog =
                         BottomSheetDialog.newInstance(
                             Constants.PROFILE_DIALOG,
                             getString(R.string.dialog_profile, user.memberName),
@@ -203,13 +211,14 @@ class InfoActivity : BaseActivity<ActivityInfoBinding>(R.layout.activity_info) {
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    dialog = BottomSheetDialog.newInstance(
+                    val dialog = BottomSheetDialog.newInstance(
                         Constants.SIMPLE_DIALOG,
                         getString(R.string.dialog_logout),
                         "",
                         itemClick = { okClick ->
                             if (okClick) {
                                 // logout
+                                viewModel.logout()
                             }
                         }
                     ) as BottomSheetDialog
@@ -219,29 +228,20 @@ class InfoActivity : BaseActivity<ActivityInfoBinding>(R.layout.activity_info) {
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-
+                    showToast("약관주소이동")
                 }, { it.printStackTrace() })
             tvPrivacy
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-
+                    showToast("개인정보주소이동")
                 }, { it.printStackTrace() })
             tvSecession
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    dialog = BottomSheetDialog.newInstance(
-                        Constants.SIMPLE_DIALOG,
-                        getString(R.string.dialog_secession),
-                        "",
-                        itemClick = { okClick ->
-                            if (okClick) {
-                                // 탈퇴
-                            }
-                        }
-                    ) as BottomSheetDialog
-                    dialog.show(supportFragmentManager, dialog.tag)
+                    val intent = Intent(this@InfoActivity, SecessionActivity::class.java)
+                    startForResultChange.launch(intent)
                 }, { it.printStackTrace() })
         }
     }

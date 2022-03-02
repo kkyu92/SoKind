@@ -7,7 +7,6 @@ import com.sokind.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import okhttp3.MultipartBody
-import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,6 +19,9 @@ class InfoViewModel @Inject constructor(
     val code: LiveData<String> = _code
     private val _extras: MutableLiveData<Boolean> = MutableLiveData()
     val extras: LiveData<Boolean> = _extras
+
+    private val _isLogout: MutableLiveData<Boolean> = MutableLiveData()
+    val isLogout: LiveData<Boolean> = _isLogout
 
     init {
 
@@ -67,6 +69,19 @@ class InfoViewModel @Inject constructor(
                     _extras.postValue(false)
                     it.printStackTrace()
                 })
+        )
+    }
+
+    fun logout() {
+        compositeDisposable.add(
+            repository
+                .logout()
+                .doOnSubscribe { showProgress() }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate { hideProgress() }
+                .subscribe({
+                    _isLogout.postValue(true)
+                }, { it.printStackTrace() })
         )
     }
 }
