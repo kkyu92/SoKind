@@ -67,8 +67,8 @@ class ChangeActivity : BaseActivity<ActivityChangeBinding>(R.layout.activity_cha
                 getCode = it
             })
 
-            isPwChange.observe(this@ChangeActivity, { emailChange ->
-                if (emailChange) {
+            isPwChange.observe(this@ChangeActivity, { pwChange ->
+                if (pwChange) {
                     val dialog = BottomSheetDialog.newInstance(
                         Constants.CHANGE_DIALOG,
                         getString(R.string.alert_pw_title),
@@ -80,11 +80,13 @@ class ChangeActivity : BaseActivity<ActivityChangeBinding>(R.layout.activity_cha
                         }
                     )
                     dialog.show(supportFragmentManager, dialog.tag)
+                } else {
+                    showToast("현재 비밀번호가 일치하지 않습니다.")
                 }
             })
 
-            isEmailChange.observe(this@ChangeActivity, { pwChange ->
-                if (pwChange) {
+            isEmailChange.observe(this@ChangeActivity, { emailChange ->
+                if (emailChange) {
                     val dialog = BottomSheetDialog.newInstance(
                         Constants.CHANGE_DIALOG,
                         getString(R.string.alert_email_title),
@@ -167,12 +169,12 @@ class ChangeActivity : BaseActivity<ActivityChangeBinding>(R.layout.activity_cha
                             )
                             errorVisible(
                                 errorPwCheck,
-                                (!Constants.validatePw(newPwCheckResult.toString()) && newPwCheckResult.isNotEmpty())
+                                (newPwResult.toString() != newPwCheckResult.toString() && newPwCheckResult.isNotEmpty())
                             )
                             return@Function3 nowPwResult.isBlank() || newPwResult.isBlank() || newPwCheckResult.isBlank()
-                                    || !Constants.validateEmail(nowPwResult.toString())
-                                    || !Constants.validateEmail(newPwResult.toString())
-                                    || !Constants.validateEmail(newPwCheckResult.toString())
+                                    || !Constants.validatePw(nowPwResult.toString())
+                                    || !Constants.validatePw(newPwResult.toString())
+                                    || newPwResult.toString() != newPwCheckResult.toString()
                         }
                     )
                     .subscribe({ blank ->

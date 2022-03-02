@@ -2,13 +2,13 @@ package com.sokind.ui.my.info.change
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.sokind.data.remote.member.change.EmailRequest
+import com.sokind.data.remote.base.transformCompletableToSingleDefault
 import com.sokind.data.repository.member.MemberRepository
 import com.sokind.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import okhttp3.MultipartBody
-import java.io.File
+import retrofit2.HttpException
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -60,12 +60,23 @@ class ChangeViewModel @Inject constructor(
         compositeDisposable.add(
             repository
                 .changePw(pw, newPw)
+                .transformCompletableToSingleDefault()
                 .doOnSubscribe { showProgress() }
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnTerminate { hideProgress() }
                 .subscribe({
-                    _isPwChange.postValue(true)
+                    if (it.throwable != null) {
+                        val status = it.throwable as HttpException
+                        if (status.code() == 400) {
+                            _isPwChange.postValue(false)
+                        }
+                        Timber.e("onError : ${it.throwable}")
+                    } else {
+                        _isPwChange.postValue(true)
+                        Timber.e("onSuccess : $it")
+                    }
                 }, {
+                    Timber.e("onError : $it")
                     _isPwChange.postValue(false)
                     it.printStackTrace()
                 })
