@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
+import com.sokind.data.di.GlideApp
 import com.sokind.data.remote.edu.EduMapper.mappingReportToEdu
 import com.sokind.data.remote.report.ReportItem
 import com.sokind.data.remote.report.ReportResponse
@@ -56,8 +57,14 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
         viewModel.apply {
             getMe.observe(viewLifecycleOwner, { user ->
                 binding.apply {
-                    tvCsUserName.text = user.memberName
-                    tvCsUserEnterprise.text = "${user.enterpriseName} / ${user.positionName}"
+                    GlideApp.with(requireContext())
+                        .load(user.profileImg)
+                        .error(R.drawable.icon_profile_default)
+                        .into(ivCsProfile)
+                    tvCsUserName.text =
+                        getString(R.string.name_form, user.memberName, user.positionName)
+                    tvCsUserEnterprise.text =
+                        getString(R.string.enterprise_form, user.enterpriseName, user.storeName)
                 }
             })
 
@@ -173,7 +180,10 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    val dialog = BottomSheetExplainDialog.newInstance(Constants.ANALYSIS_DIALOG, reportResponse.analysisCnt.toString())
+                    val dialog = BottomSheetExplainDialog.newInstance(
+                        Constants.ANALYSIS_DIALOG,
+                        reportResponse.analysisCnt.toString()
+                    )
                     dialog.show(parentFragmentManager, dialog.tag)
                 }, { it.printStackTrace() })
         }
