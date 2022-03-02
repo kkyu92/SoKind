@@ -1,7 +1,8 @@
 package com.sokind.data.remote.member
 
-import com.sokind.data.remote.member.change.EmailRequest
-import com.sokind.data.remote.member.change.PwRequest
+import com.sokind.data.remote.member.info.EmailRequest
+import com.sokind.data.remote.member.info.PwRequest
+import com.sokind.data.remote.member.info.SecessionRequest
 import com.sokind.data.remote.member.join.EmailResponse
 import com.sokind.data.remote.member.join.EnterpriseInfo
 import com.sokind.data.remote.member.join.EnterpriseList
@@ -95,5 +96,12 @@ interface MemberApi {
         @Query("emailYN") email: Int,
         @Query("pushYN") app: Int,
         @Query("memberId") id: String,
+    ): Completable
+
+    // 회원탈퇴
+    @POST("member/quit")
+    fun secession(
+        @Header("accessToken") access: String,
+        @Body request: SecessionRequest
     ): Completable
 }

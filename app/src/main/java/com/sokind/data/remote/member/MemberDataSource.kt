@@ -1,7 +1,8 @@
 package com.sokind.data.remote.member
 
-import com.sokind.data.remote.member.change.EmailRequest
-import com.sokind.data.remote.member.change.PwRequest
+import com.sokind.data.remote.member.info.EmailRequest
+import com.sokind.data.remote.member.info.PwRequest
+import com.sokind.data.remote.member.info.SecessionRequest
 import com.sokind.data.remote.member.join.EmailResponse
 import com.sokind.data.remote.member.join.EnterpriseInfo
 import com.sokind.data.remote.member.join.EnterpriseList
@@ -13,7 +14,6 @@ import com.sokind.data.remote.member.login.RefreshResponse
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.MultipartBody
-import retrofit2.http.*
 
 interface MemberDataSource {
     fun searchEnterpriseList(keyword: String): Single<EnterpriseList>
@@ -29,4 +29,5 @@ interface MemberDataSource {
     fun changePw(access: String, request: PwRequest): Completable
     fun changeProfile(access: String, profile: MultipartBody.Part, id: String): Completable
     fun changeExtra(access: String, event: Int, email: Int, app: Int, id: String): Completable
+    fun secession(access: String, request: SecessionRequest): Completable
 }

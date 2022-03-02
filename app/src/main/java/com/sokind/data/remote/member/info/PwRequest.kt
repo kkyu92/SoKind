@@ -1,4 +1,4 @@
-package com.sokind.data.remote.member.change
+package com.sokind.data.remote.member.info
 
 data class PwRequest(
     val changePw: String,

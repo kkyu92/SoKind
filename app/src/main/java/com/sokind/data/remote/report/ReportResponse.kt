@@ -106,7 +106,7 @@ data class ReportEmotion(
     val emotionList: List<Double>,
     val bestEmotion: String,
     @SerializedName("gazeArr")
-    val gazeList: List<Int>,
+    val gazeList: List<Double>,
     val mostGaze: String,
     val gazeImg: String
 )

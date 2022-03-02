@@ -1,7 +1,8 @@
 package com.sokind.data.remote.member
 
-import com.sokind.data.remote.member.change.EmailRequest
-import com.sokind.data.remote.member.change.PwRequest
+import com.sokind.data.remote.member.info.EmailRequest
+import com.sokind.data.remote.member.info.PwRequest
+import com.sokind.data.remote.member.info.SecessionRequest
 import com.sokind.data.remote.member.join.EmailResponse
 import com.sokind.data.remote.member.join.EnterpriseInfo
 import com.sokind.data.remote.member.join.EnterpriseList
@@ -104,6 +105,12 @@ class MemberDataSourceImpl @Inject constructor(
     ): Completable {
         return memberApi
             .changeExtra(access, event, email, app, id)
+            .subscribeOn(Schedulers.io())
+    }
+
+    override fun secession(access: String, request: SecessionRequest): Completable {
+        return memberApi
+            .secession(access, request)
             .subscribeOn(Schedulers.io())
     }
 }
