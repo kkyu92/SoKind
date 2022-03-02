@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="department_test">
-        <item>소속</item>
-        <item>gmail.com</item>
-        <item>daum.net</item>
-        <item>hanmail.net</item>
-        <item>nate.com</item>
-        <item>empal.com</item>
-        <item>paran.com</item>
-        <item>hotmail.com</item>
-        <item>korea.com</item>
-        <item>lycos.co.kr</item>
-    </string-array>
-    <string-array name="position_test">
-        <item>직책</item>
-        <item>gmail.com</item>
-        <item>daum.net</item>
-        <item>hanmail.net</item>
-        <item>nate.com</item>
-        <item>empal.com</item>
-        <item>paran.com</item>
-        <item>hotmail.com</item>
-        <item>korea.com</item>
-        <item>lycos.co.kr</item>
+    <string-array name="secession_reason">
+        <item>선택해주세요.</item>
+        <item>기업을 퇴사하였습니다.</item>
+        <item>기업에서 더이상 서비스를 제공하지 않습니다.</item>
+        <item>교육을 모두 끝내어 마쳤습니다.</item>
+        <item>교육 효과가 미미합니다.</item>
+        <item>기타(직접입력)</item>
     </string-array>
 </resources>
