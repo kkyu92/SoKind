@@ -11,6 +11,8 @@ import com.sokind.data.remote.member.MemberInfo
 import com.sokind.databinding.FragmentMyBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.ui.my.info.InfoActivity
+import com.sokind.ui.my.info.inquiry.InquiryActivity
+import com.sokind.ui.my.info.notice.NoticeActivity
 import com.sokind.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
@@ -68,14 +70,14 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-//                    startView()
+                    startView(NoticeActivity::class.java)
                 },{ it.printStackTrace() })
 
             llMyQuestion
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-//                    startView()
+                    startView(InquiryActivity::class.java)
                 },{ it.printStackTrace() })
 
             clMyUpdate
