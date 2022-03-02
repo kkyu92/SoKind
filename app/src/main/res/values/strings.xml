@@ -312,6 +312,9 @@
     <string name="my_certification">교육 이수증</string>
     <string name="my_notice">공지사항</string>
     <string name="my_question">문의하기</string>
+    <string name="inquiry_form">문의하기</string>
+    <string name="inquiry_end"><font color='#6967F9'>답변완료</font></string>
+    <string name="inquiry_ing">답변 대기중</string>
     <string name="my_version">버전정보</string>
     <string name="latest_version">최신버전입니다.</string>
     <string name="update"><u>업데이트</u></string>
