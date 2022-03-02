@@ -1,6 +1,7 @@
 package com.sokind.data.di
 
 import com.sokind.BuildConfig
+import com.sokind.data.remote.common.CommonApi
 import com.sokind.data.remote.edu.EduApi
 import com.sokind.data.remote.guide.GuideApi
 import com.sokind.data.remote.member.MemberApi
@@ -98,6 +99,12 @@ object NetworkModule {
     @Provides
     fun provideReportApi(@Named("base_retrofit") retrofit: Retrofit): ReportApi {
         return retrofit.create(ReportApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideCommonApi(@Named("base_retrofit") retrofit: Retrofit): CommonApi {
+        return retrofit.create(CommonApi::class.java)
     }
 //
 //    @Singleton

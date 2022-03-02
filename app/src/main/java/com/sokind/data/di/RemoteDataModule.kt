@@ -1,5 +1,7 @@
 package com.sokind.data.di
 
+import com.sokind.data.remote.common.CommonDataSource
+import com.sokind.data.remote.common.CommonDataSourceImpl
 import com.sokind.data.remote.edu.EduDataSource
 import com.sokind.data.remote.edu.EduDataSourceImpl
 import com.sokind.data.remote.guide.GuideDataSource
@@ -27,10 +29,7 @@ abstract class RemoteDataModule {
 
     @Binds
     abstract fun bindReportDataSource(reportDataSourceImpl: ReportDataSourceImpl): ReportDataSource
-//
-//    @Binds
-//    abstract fun bindSearchDataSource(searchDataSourceImpl: SearchDataSourceImpl) : SearchDataSource
-//
-//    @Binds
-//    abstract fun bindHomeDataSource(homeDataSourceImpl: HomeDataSourceImpl) : HomeDataSource
+
+    @Binds
+    abstract fun bindCommonDataSource(commonDataSourceImpl: CommonDataSourceImpl): CommonDataSource
 }
