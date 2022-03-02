@@ -1,8 +1,6 @@
 package com.sokind.data.repository.member
 
 import com.sokind.data.remote.member.MemberInfo
-import com.sokind.data.remote.member.change.EmailRequest
-import com.sokind.data.remote.member.change.PwRequest
 import com.sokind.data.remote.member.join.EmailResponse
 import com.sokind.data.remote.member.join.EnterpriseInfo
 import com.sokind.data.remote.member.join.EnterpriseList
@@ -26,4 +24,6 @@ interface MemberRepository {
     fun changePw(pw: String, newPw: String): Completable
     fun changeProfile(profile: MultipartBody.Part): Completable
     fun changeExtra(event: Int, email: Int, app: Int): Completable
+    fun logout(): Completable
+    fun secession(reason: String): Completable
 }

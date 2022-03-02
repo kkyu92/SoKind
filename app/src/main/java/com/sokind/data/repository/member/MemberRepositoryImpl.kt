@@ -5,18 +5,19 @@ import com.sokind.data.local.user.UserEntity
 import com.sokind.data.local.user.UserMapper.mappingRemoteDataToLocal
 import com.sokind.data.remote.member.MemberDataSource
 import com.sokind.data.remote.member.MemberInfo
-import com.sokind.data.remote.member.change.EmailRequest
-import com.sokind.data.remote.member.change.PwRequest
+import com.sokind.data.remote.member.info.EmailRequest
+import com.sokind.data.remote.member.info.PwRequest
+import com.sokind.data.remote.member.info.SecessionRequest
 import com.sokind.data.remote.member.join.EmailResponse
 import com.sokind.data.remote.member.join.EnterpriseInfo
 import com.sokind.data.remote.member.join.EnterpriseList
 import com.sokind.data.remote.member.join.JoinInfo
 import com.sokind.data.remote.member.login.LoginRequest
-import com.sokind.data.remote.member.login.RefreshRequest
 import com.sokind.data.repository.token.TokenRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.MultipartBody
+import timber.log.Timber
 import javax.inject.Inject
 
 class MemberRepositoryImpl @Inject constructor(
@@ -137,11 +138,22 @@ class MemberRepositoryImpl @Inject constructor(
         return userDataSource
             .getUser()
             .flatMapCompletable { user ->
-                memberDataSource.changePw(user.access, PwRequest(newPw, user.memberId!!, user.memberKey!!, pw))
+                memberDataSource.changePw(
+                    user.access,
+                    PwRequest(newPw, user.memberId!!, user.memberKey!!, pw)
+                )
+//                    .onErrorResumeNext {
+//                        val status = it as HttpException
+//                        if (status.code() == 400) {
+//                            return@onErrorResumeNext
+//                        }
+//                    }
             }
             .retryWhen { error ->
                 return@retryWhen error
                     .flatMapSingle {
+                        Timber.e("error : ${it.localizedMessage}")
+                        Timber.e("it : ${it.message}")
                         return@flatMapSingle tokenRepository
                             .checkToken()
                             .andThen(Single.just(Unit))
@@ -170,6 +182,28 @@ class MemberRepositoryImpl @Inject constructor(
             .getUser()
             .flatMapCompletable { user ->
                 memberDataSource.changeExtra(user.access, event, email, app, user.memberId!!)
+            }
+            .retryWhen { error ->
+                return@retryWhen error
+                    .flatMapSingle {
+                        return@flatMapSingle tokenRepository
+                            .checkToken()
+                            .andThen(Single.just(Unit))
+                    }
+            }
+    }
+
+    override fun logout(): Completable {
+        return userDataSource
+            .deleteUser()
+    }
+
+    override fun secession(reason: String): Completable {
+        return userDataSource
+            .getUser()
+            .flatMapCompletable { user ->
+                memberDataSource.secession(user.access, SecessionRequest(user.memberId!!, reason))
+                    .andThen(userDataSource.deleteUser())
             }
             .retryWhen { error ->
                 return@retryWhen error
