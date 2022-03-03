@@ -124,8 +124,7 @@ class ExpressionFragment(
     private fun setGazeChart() {
         binding.apply {
             for (i in emotionData.gazeList.indices) {
-                val alpha = (100f - (emotionData.gazeList[i].toFloat() * 0.75f)) / 100f
-
+                val alpha = (emotionData.gazeList[i] * 1.5).toFloat()
                 when (i) {
                     0 -> chartGaze.n1.alpha = alpha
                     1 -> chartGaze.n2.alpha = alpha

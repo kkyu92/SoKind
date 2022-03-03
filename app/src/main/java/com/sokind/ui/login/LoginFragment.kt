@@ -72,7 +72,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                         findNavController().navigate(R.id.action_loginFragment_to_boardingFragment)
                     }
                 } else {
-                    showToast("")
+                    showToast("아이디 또는 비밀번호를 확인 해 주십시오.")
                 }
             })
             isLoading.observe(viewLifecycleOwner, { isLoading ->
