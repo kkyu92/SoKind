@@ -125,7 +125,14 @@
     <style name="CheckBox.Selector" parent="Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:button">@null</item>
         <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/gender_text_selector</item>
+        <item name="android:textColor">@color/black_text_selector</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/noto_sans_regular</item>
+    </style>
+    <style name="CheckBox.Selector.Main" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/main_text_selector</item>
         <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/noto_sans_regular</item>
     </style>
@@ -151,6 +158,20 @@
         <item name="android:imeOptions">actionDone</item>
         <item name="android:inputType">text</item>
         <item name="android:singleLine">true</item>
+        <item name="android:fontFamily">@font/noto_sans_regular</item>
+        <item name="android:background">@drawable/custom_input</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+    <style name="EditText.Input.MultiLine" parent="android:Widget.EditText">
+        <item name="android:paddingVertical">15dp</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:textColor">@color/font_black</item>
+        <item name="android:textColorHint">@color/font_light_gray</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:minHeight">200dp</item>
+        <item name="android:maxHeight">300dp</item>
+        <item name="android:gravity">top</item>
         <item name="android:fontFamily">@font/noto_sans_regular</item>
         <item name="android:background">@drawable/custom_input</item>
         <item name="android:includeFontPadding">false</item>
