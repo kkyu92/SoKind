@@ -2,6 +2,7 @@ package com.sokind.data.repository.report
 
 import com.sokind.data.local.user.UserDataSource
 import com.sokind.data.local.user.UserEntity
+import com.sokind.data.remote.base.errorHandlerSingle
 import com.sokind.data.remote.report.ReportDataSource
 import com.sokind.data.remote.report.ReportDetail
 import com.sokind.data.remote.report.ReportResponse
@@ -21,14 +22,7 @@ class ReportRepositoryImpl @Inject constructor(
                 reportDataSource
                     .getReport(user.access, user.enterpriseKey!!, user.memberId!!)
             }
-            .retryWhen { error ->
-                return@retryWhen error
-                    .flatMapSingle {
-                        return@flatMapSingle tokenRepository
-                            .checkToken()
-                            .andThen(Single.just(Unit))
-                    }
-            }
+            .compose(errorHandlerSingle(tokenRepository))
     }
 
     override fun getMe(): Single<UserEntity> {
@@ -43,13 +37,6 @@ class ReportRepositoryImpl @Inject constructor(
                 reportDataSource
                     .detailReport(user.access, key, type, user.memberId!!)
             }
-//            .retryWhen { error ->
-//                return@retryWhen error
-//                    .flatMapSingle {
-//                        return@flatMapSingle tokenRepository
-//                            .checkToken()
-//                            .andThen(Single.just(Unit))
-//                    }
-//            }
+            .compose(errorHandlerSingle(tokenRepository))
     }
 }

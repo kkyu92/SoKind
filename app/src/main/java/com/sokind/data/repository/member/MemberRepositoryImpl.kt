@@ -3,6 +3,9 @@ package com.sokind.data.repository.member
 import com.sokind.data.local.user.UserDataSource
 import com.sokind.data.local.user.UserEntity
 import com.sokind.data.local.user.UserMapper.mappingRemoteDataToLocal
+import com.sokind.data.remote.base.ErrorEntity
+import com.sokind.data.remote.base.errorHandlerCompletable
+import com.sokind.data.remote.base.errorHandlerSingle
 import com.sokind.data.remote.member.MemberDataSource
 import com.sokind.data.remote.member.MemberInfo
 import com.sokind.data.remote.member.info.EmailRequest
@@ -17,7 +20,7 @@ import com.sokind.data.repository.token.TokenRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.MultipartBody
-import timber.log.Timber
+import retrofit2.HttpException
 import javax.inject.Inject
 
 class MemberRepositoryImpl @Inject constructor(
@@ -91,14 +94,7 @@ class MemberRepositoryImpl @Inject constructor(
                 memberDataSource
                     .getMe(user.access, user.memberId!!)
             }
-            .retryWhen { error ->
-                return@retryWhen error
-                    .flatMapSingle {
-                        return@flatMapSingle tokenRepository
-                            .checkToken()
-                            .andThen(Single.just(Unit))
-                    }
-            }
+            .compose(errorHandlerSingle(tokenRepository))
     }
 
     override fun saveUser(memberInfo: MemberInfo): Completable {
@@ -124,14 +120,7 @@ class MemberRepositoryImpl @Inject constructor(
                     EmailRequest(user.memberId!!, user.memberEmail!!, newEmail)
                 )
             }
-            .retryWhen { error ->
-                return@retryWhen error
-                    .flatMapSingle {
-                        return@flatMapSingle tokenRepository
-                            .checkToken()
-                            .andThen(Single.just(Unit))
-                    }
-            }
+            .compose(errorHandlerCompletable(tokenRepository))
     }
 
     override fun changePw(pw: String, newPw: String): Completable {
@@ -142,23 +131,17 @@ class MemberRepositoryImpl @Inject constructor(
                     user.access,
                     PwRequest(newPw, user.memberId!!, user.memberKey!!, pw)
                 )
-//                    .onErrorResumeNext {
-//                        val status = it as HttpException
-//                        if (status.code() == 400) {
-//                            return@onErrorResumeNext
-//                        }
-//                    }
             }
-            .retryWhen { error ->
-                return@retryWhen error
-                    .flatMapSingle {
-                        Timber.e("error : ${it.localizedMessage}")
-                        Timber.e("it : ${it.message}")
-                        return@flatMapSingle tokenRepository
-                            .checkToken()
-                            .andThen(Single.just(Unit))
+            .onErrorResumeNext {
+                if (it is HttpException) {
+                    if (it.code() == 400) {
+                        return@onErrorResumeNext Completable.error(ErrorEntity.InvalidPw)
                     }
+                }
+                return@onErrorResumeNext Completable.error(it)
             }
+            .compose(errorHandlerCompletable(tokenRepository))
+
     }
 
     override fun changeProfile(profile: MultipartBody.Part): Completable {
@@ -167,14 +150,7 @@ class MemberRepositoryImpl @Inject constructor(
             .flatMapCompletable { user ->
                 memberDataSource.changeProfile(user.access, profile, user.memberId!!)
             }
-            .retryWhen { error ->
-                return@retryWhen error
-                    .flatMapSingle {
-                        return@flatMapSingle tokenRepository
-                            .checkToken()
-                            .andThen(Single.just(Unit))
-                    }
-            }
+            .compose(errorHandlerCompletable(tokenRepository))
     }
 
     override fun changeExtra(event: Int, email: Int, app: Int): Completable {
@@ -183,14 +159,7 @@ class MemberRepositoryImpl @Inject constructor(
             .flatMapCompletable { user ->
                 memberDataSource.changeExtra(user.access, event, email, app, user.memberId!!)
             }
-            .retryWhen { error ->
-                return@retryWhen error
-                    .flatMapSingle {
-                        return@flatMapSingle tokenRepository
-                            .checkToken()
-                            .andThen(Single.just(Unit))
-                    }
-            }
+            .compose(errorHandlerCompletable(tokenRepository))
     }
 
     override fun logout(): Completable {
@@ -205,13 +174,6 @@ class MemberRepositoryImpl @Inject constructor(
                 memberDataSource.secession(user.access, SecessionRequest(user.memberId!!, reason))
                     .andThen(userDataSource.deleteUser())
             }
-            .retryWhen { error ->
-                return@retryWhen error
-                    .flatMapSingle {
-                        return@flatMapSingle tokenRepository
-                            .checkToken()
-                            .andThen(Single.just(Unit))
-                    }
-            }
+            .compose(errorHandlerCompletable(tokenRepository))
     }
 }

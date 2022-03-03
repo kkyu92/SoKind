@@ -2,6 +2,7 @@ package com.sokind.ui.my.info.change
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.sokind.data.remote.base.ErrorEntity
 import com.sokind.data.remote.base.transformCompletableToSingleDefault
 import com.sokind.data.repository.member.MemberRepository
 import com.sokind.ui.base.BaseViewModel
@@ -66,14 +67,11 @@ class ChangeViewModel @Inject constructor(
                 .doOnTerminate { hideProgress() }
                 .subscribe({
                     if (it.throwable != null) {
-                        val status = it.throwable as HttpException
-                        if (status.code() == 400) {
+                        if (it.throwable is ErrorEntity.InvalidPw) {
                             _isPwChange.postValue(false)
                         }
-                        Timber.e("onError : ${it.throwable}")
                     } else {
                         _isPwChange.postValue(true)
-                        Timber.e("onSuccess : $it")
                     }
                 }, {
                     Timber.e("onError : $it")

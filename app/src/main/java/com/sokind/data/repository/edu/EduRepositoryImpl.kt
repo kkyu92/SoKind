@@ -2,6 +2,7 @@ package com.sokind.data.repository.edu
 
 import com.sokind.data.local.user.UserDataSource
 import com.sokind.data.local.user.UserEntity
+import com.sokind.data.remote.base.errorHandlerSingle
 import com.sokind.data.remote.edu.*
 import com.sokind.data.repository.token.TokenRepository
 import io.reactivex.rxjava3.core.Single
@@ -20,14 +21,7 @@ class EduRepositoryImpl @Inject constructor(
                 eduDataSource
                     .getEdu(user.access, user.memberId!!)
             }
-            .retryWhen { error ->
-                return@retryWhen error
-                    .flatMapSingle {
-                        return@flatMapSingle tokenRepository
-                            .checkToken()
-                            .andThen(Single.just(Unit))
-                    }
-            }
+            .compose(errorHandlerSingle(tokenRepository))
     }
 
     override fun startEdu(eduKey: Int, eduType: Int): Single<StartEdu> {
@@ -37,14 +31,7 @@ class EduRepositoryImpl @Inject constructor(
                 eduDataSource
                     .startEdu(user.access, eduKey, eduType, user.memberId!!)
             }
-            .retryWhen { error ->
-                return@retryWhen error
-                    .flatMapSingle {
-                        return@flatMapSingle tokenRepository
-                            .checkToken()
-                            .andThen(Single.just(Unit))
-                    }
-            }
+            .compose(errorHandlerSingle(tokenRepository))
     }
 
     override fun putEdu(
@@ -58,14 +45,7 @@ class EduRepositoryImpl @Inject constructor(
                 eduDataSource
                     .putEdu(user.access, file, eduKey, eduType, user.memberId!!, user.memberKey!!)
             }
-            .retryWhen { error ->
-                return@retryWhen error
-                    .flatMapSingle {
-                        return@flatMapSingle tokenRepository
-                            .checkToken()
-                            .andThen(Single.just(Unit))
-                    }
-            }
+            .compose(errorHandlerSingle(tokenRepository))
     }
 
     override fun getMe(): Single<UserEntity> {
