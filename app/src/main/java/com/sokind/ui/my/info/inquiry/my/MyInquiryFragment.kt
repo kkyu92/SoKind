@@ -8,7 +8,9 @@ import com.sokind.data.remote.common.Inquiry
 import com.sokind.databinding.FragmentMyInquiryBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.ui.my.info.inquiry.InquiryAdapter
+import com.sokind.util.Constants
 import com.sokind.util.OnInquiryItemClickListener
+import com.sokind.util.dialog.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.core.Completable
 import java.util.concurrent.TimeUnit
@@ -20,14 +22,24 @@ class MyInquiryFragment : BaseFragment<FragmentMyInquiryBinding>(R.layout.fragme
     private lateinit var adapter: InquiryAdapter
 
     override fun init() {
-
         setViewModel()
+    }
+
+    fun callRefresh() {
+        viewModel.myInquiry()
     }
 
     private fun setViewModel() {
         viewModel.apply {
             getInquiry.observe(viewLifecycleOwner, {
                 setData(it.inquiryList)
+            })
+
+            isDeleted.observe(viewLifecycleOwner, {
+                if (it) {
+                    showToast("문의를 삭제하였습니다.")
+                    callRefresh()
+                }
             })
         }
     }
@@ -49,6 +61,20 @@ class MyInquiryFragment : BaseFragment<FragmentMyInquiryBinding>(R.layout.fragme
                                 rvInquiry.smoothScrollToPosition(pos)
                             }, { it.printStackTrace() })
                     )
+                }
+
+                override fun deleteInquiryItem(id: Int) {
+                    val dialog = BottomSheetDialog.newInstance(
+                        Constants.SIMPLE_DIALOG,
+                        getString(R.string.alert_delete),
+                        "",
+                        itemClick = {
+                            if (it) {
+                                viewModel.deleteInquiry(id)
+                            }
+                        }
+                    )
+                    dialog.show(parentFragmentManager, dialog.tag)
                 }
             })
 

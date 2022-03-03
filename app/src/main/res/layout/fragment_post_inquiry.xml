@@ -3,57 +3,95 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.my.info.inquiry.post.PostInquiryFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/white">
+        android:fillViewport="true">
 
-        <TextView
-            style="@style/black_16_400"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="문의 유형"
-            android:layout_margin="20dp"/>
-
-
-        <TextView
-            style="@style/black_16_400"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="제목"/>
-
-        <EditText
-            android:id="@+id/et_title"
-            style="@style/EditText.Input"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="문의 제목을 입력해주세요."
-            android:layout_marginHorizontal="20dp"/>
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-        <EditText
-            android:id="@+id/et_contents"
-            style="@style/EditText.Input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:minHeight="200dp"
-            android:gravity="top"
-            android:hint="어떤 문제가 있으신가요?\n문의하실 내용을 입력해주세요."
-            android:layout_marginHorizontal="20dp"/>
+            <TextView
+                style="@style/black_16_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="문의 유형" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            <RadioGroup
+                android:id="@+id/type_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/inquiry_send"
-            style="@style/Button.Fill.Main.Selector"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/my_question"
-            android:layout_margin="20dp"/>
-    </LinearLayout>
+                <RadioButton
+                    android:id="@+id/type_app"
+                    style="@style/CheckBox.Selector.Main"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_main_selector_l"
+                    android:checked="true"
+                    android:text="@string/inquiry_app" />
+
+                <RadioButton
+                    android:id="@+id/type_edu"
+                    style="@style/CheckBox.Selector.Main"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_main_selector_c"
+                    android:text="@string/inquiry_edu" />
+
+                <RadioButton
+                    android:id="@+id/type_else"
+                    style="@style/CheckBox.Selector.Main"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_main_selector_r"
+                    android:text="@string/inquiry_else" />
+            </RadioGroup>
+
+            <TextView
+                style="@style/black_16_400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="제목" />
+
+            <EditText
+                android:id="@+id/et_title"
+                style="@style/EditText.Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="문의 제목을 입력해주세요." />
+
+            <EditText
+                android:id="@+id/et_contents"
+                style="@style/EditText.Input.MultiLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="어떤 문제가 있으신가요?\n문의하실 내용을 입력해주세요." />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/inquiry_send"
+                style="@style/Button.Fill.Main.Selector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/my_question" />
+        </LinearLayout>
+    </ScrollView>
 </layout>

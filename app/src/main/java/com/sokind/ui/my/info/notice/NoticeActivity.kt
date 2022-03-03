@@ -2,11 +2,13 @@ package com.sokind.ui.my.info.notice
 
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.data.remote.common.Notice
 import com.sokind.databinding.ActivityNoticeBinding
 import com.sokind.ui.base.BaseActivity
 import com.sokind.ui.guide.tabs.manual.ManualAdapter
+import com.sokind.util.Constants
 import com.sokind.util.OnManualItemClickListener
 import com.sokind.util.OnNoticeItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +28,12 @@ class NoticeActivity : BaseActivity<ActivityNoticeBinding>(R.layout.activity_not
 
     private fun setBinding() {
         binding.apply {
-
+            btBack
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    onBackPressed()
+                }, { it.printStackTrace() })
         }
     }
 

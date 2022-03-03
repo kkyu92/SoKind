@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Inquiry(
     @SerializedName("questionId")
-    val id: String,
+    val id: Int,
     @SerializedName("questionType")
     val type: String,
     @SerializedName("questionTitle")

@@ -11,12 +11,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyInquiryViewModel @Inject constructor(
-    repository: CommonRepository
+    private val repository: CommonRepository
 ) : BaseViewModel() {
     private val _getInquiry: MutableLiveData<InquiryResponse> = MutableLiveData()
     val getInquiry: LiveData<InquiryResponse> = _getInquiry
+    private val _isDeleted: MutableLiveData<Boolean> = MutableLiveData()
+    val isDeleted: LiveData<Boolean> = _isDeleted
 
     init {
+        myInquiry()
+    }
+
+    fun myInquiry() {
         compositeDisposable.add(
             repository
                 .getInquiry()
@@ -26,6 +32,22 @@ class MyInquiryViewModel @Inject constructor(
                 .subscribe({
                     _getInquiry.postValue(it)
                 }, { it.printStackTrace() })
+        )
+    }
+
+    fun deleteInquiry(id: Int) {
+        compositeDisposable.add(
+            repository
+                .deleteInquiry(id)
+                .doOnSubscribe { showProgress() }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnTerminate { hideProgress() }
+                .subscribe({
+                    _isDeleted.postValue(true)
+                }, {
+                    _isDeleted.postValue(false)
+                    it.printStackTrace()
+                })
         )
     }
 }
