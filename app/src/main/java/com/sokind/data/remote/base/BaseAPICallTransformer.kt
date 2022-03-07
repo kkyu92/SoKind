@@ -28,7 +28,7 @@ fun <T> errorHandlerSingle(tokenRepository: TokenRepository) =
                 return@retryWhen error
                     .flatMapSingle {
                         if (it is HttpException) {
-                            if (it.code() == 400) {
+                            if (it.code() == 401) {
                                 return@flatMapSingle tokenRepository
                                     .checkToken()
                                     .andThen(Single.just(Unit))

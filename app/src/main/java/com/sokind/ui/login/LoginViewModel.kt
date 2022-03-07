@@ -16,7 +16,7 @@ class LoginViewModel @Inject constructor(
     private val repository: MemberRepository
 ) : BaseViewModel() {
     private val _loginResult: MutableLiveData<Boolean> = MutableLiveData()
-    val loginResult: LiveData<Boolean> get() = _loginResult
+    val loginResult: LiveData<Boolean> = _loginResult
 
     fun doLoginRequest(id: String, password: String) {
         compositeDisposable.add(
@@ -26,10 +26,10 @@ class LoginViewModel @Inject constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnTerminate{ hideProgress() }
                 .subscribe({
-                    _loginResult.value = true
+                    _loginResult.postValue(true)
                 }, {
                     it.printStackTrace()
-                    _loginResult.value = false
+                    _loginResult.postValue(false)
                 })
         )
     }

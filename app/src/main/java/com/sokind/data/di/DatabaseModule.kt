@@ -22,7 +22,7 @@ object DatabaseModule {
             AppDatabase::class.java,
             "word_database"
         ).build()
-//         .fallbackToDestructiveMigration().build()
+//        ).fallbackToDestructiveMigration().build()
 
     @Provides
     @Singleton
