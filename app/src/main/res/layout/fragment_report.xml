@@ -104,20 +104,20 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="20dp"
+                        android:text="교육 0일차"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/pb_cs_lv"
-                        tools:text="교육 n일차" />
+                        app:layout_constraintTop_toBottomOf="@+id/pb_cs_lv" />
 
                     <TextView
                         android:id="@+id/tv_cs_lv"
                         style="@style/black_14_400"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="Lv. 1"
                         app:layout_constraintBottom_toBottomOf="@+id/pb_cs_lv"
                         app:layout_constraintEnd_toEndOf="@+id/pb_cs_lv"
                         app:layout_constraintStart_toStartOf="@+id/pb_cs_lv"
-                        app:layout_constraintTop_toTopOf="@+id/pb_cs_lv"
-                        tools:text="Lv. 1" />
+                        app:layout_constraintTop_toTopOf="@+id/pb_cs_lv" />
 
                     <View
                         android:id="@+id/line"

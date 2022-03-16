@@ -55,8 +55,9 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
 
     private fun setViewModel() {
         viewModel.apply {
-            getMe.observe(viewLifecycleOwner, { user ->
+            getMe.observe(viewLifecycleOwner) { user ->
                 binding.apply {
+                    tvNoReportTitle.text = getString(R.string.no_report_title, user.memberName)
                     GlideApp.with(requireContext())
                         .load(user.profileImg)
                         .error(R.drawable.icon_profile_default)
@@ -66,11 +67,11 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
                     tvCsUserEnterprise.text =
                         getString(R.string.enterprise_form, user.enterpriseName, user.storeName)
                 }
-            })
+            }
 
-            report.observe(viewLifecycleOwner, {
+            report.observe(viewLifecycleOwner) {
                 binding.apply {
-                    if (it.reportList.isNullOrEmpty()) {
+                    if (it == null) {
                         noReportContainer.visibility = View.VISIBLE
                         reportContainer.visibility = View.GONE
                     } else {
@@ -123,7 +124,7 @@ class ReportFragment : BaseFragment<FragmentReportBinding>(R.layout.fragment_rep
                         setRecyclerView(it.reportList)
                     }
                 }
-            })
+            }
         }
     }
 
