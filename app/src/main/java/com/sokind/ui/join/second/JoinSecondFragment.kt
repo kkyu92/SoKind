@@ -113,6 +113,7 @@ class JoinSecondFragment : BaseFragment<FragmentJoinSecondBinding>(R.layout.frag
                     if (mEmailCode.isNullOrEmpty() || mEmailCode != etCodeInput.text.toString()) {
                         showToast("인증번호를 확인해주세요.")
                     } else {
+                        showToast("이메일 인증에 성공하였습니다.")
                         tvCodeCheck.visibility = View.GONE
                         etCodeInput.isEnabled = false
                         etCodeInput.text = etCodeInput.text
