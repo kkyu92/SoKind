@@ -2,6 +2,7 @@ package com.sokind.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.sokind.data.remote.edu.Edu
 import com.sokind.data.remote.edu.EduList
 import com.sokind.data.remote.member.MemberInfo
 import com.sokind.data.remote.member.login.RefreshRequest
@@ -21,7 +22,8 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel() {
     private val _getMe: MutableLiveData<MemberInfo> = MutableLiveData()
     val getMe: LiveData<MemberInfo> = _getMe
-
+    private val _nextEdu: MutableLiveData<Edu> = MutableLiveData()
+    var nextEdu: LiveData<Edu> = _nextEdu
     private val _eduList: MutableLiveData<EduList> = MutableLiveData()
     val eduList: LiveData<EduList> = _eduList
 
@@ -54,6 +56,7 @@ class HomeViewModel @Inject constructor(
                 .doOnTerminate { hideProgress() }
                 .subscribe({
                     _eduList.postValue(it)
+                    findNextEdu(it)
                 }, { it.printStackTrace() })
         )
     }
@@ -69,5 +72,23 @@ class HomeViewModel @Inject constructor(
                     _getMe.postValue(it)
                 }, { it.printStackTrace() })
         )
+    }
+
+    private fun findNextEdu(eduList: EduList) {
+        val baseList = eduList.baseCs
+        val deepList = eduList.deepCs
+
+        for (deep in deepList) {
+            if (deep.status == 2) {
+                _nextEdu.postValue(deep)
+                break
+            }
+        }
+        for (base in baseList) {
+            if (base.status == 2) {
+                _nextEdu.postValue(base)
+                break
+            }
+        }
     }
 }

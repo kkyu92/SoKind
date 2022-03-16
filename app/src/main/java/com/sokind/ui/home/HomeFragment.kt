@@ -1,6 +1,7 @@
 package com.sokind.ui.home
 
 import android.app.Activity
+import android.content.Intent
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
@@ -9,8 +10,10 @@ import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.data.remote.edu.BaseEdu
 import com.sokind.data.remote.edu.DeepEdu
+import com.sokind.data.remote.edu.Edu
 import com.sokind.data.remote.member.MemberInfo
 import com.sokind.databinding.FragmentHomeBinding
+import com.sokind.ui.EduNavActivity
 import com.sokind.ui.base.BaseFragment
 import com.sokind.util.Constants
 import com.sokind.util.OnEduItemClickListener
@@ -31,6 +34,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private lateinit var baseEduAdapter: BaseEduAdapter
     private lateinit var deepEduAdapter: DeepEduAdapter
 
+    private lateinit var nextEduData: Edu
     private lateinit var memberInfo: MemberInfo
 
     private val startForResult =
@@ -120,6 +124,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 viewModel.getEdu()
                 refreshLayout.isRefreshing = false
             }
+            btHomeContinueCs
+                .clicks()
+                .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+                .subscribe({
+                    val intent = Intent(requireContext(), EduNavActivity::class.java)
+                    intent.putExtra("edu", nextEduData)
+                    startForResult.launch(intent)
+                }, { it.printStackTrace() })
             tvBaseMore
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
@@ -141,6 +153,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 memberInfo = it
                 saveUser(it)
                 setData(it)
+            })
+            nextEdu.observe(viewLifecycleOwner, {
+                nextEduData = it
             })
             eduList.observe(viewLifecycleOwner, {
                 setRecyclerView(it.baseCs, it.deepCs)
