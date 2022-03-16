@@ -21,6 +21,7 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.MultipartBody
 import retrofit2.HttpException
+import timber.log.Timber
 import javax.inject.Inject
 
 class MemberRepositoryImpl @Inject constructor(
@@ -84,6 +85,22 @@ class MemberRepositoryImpl @Inject constructor(
                             )
                         )
                     )
+            }
+            .onErrorResumeNext {
+                if (it is HttpException) {
+                    when {
+                        it.code() == 400 -> {
+                            return@onErrorResumeNext Completable.error(ErrorEntity.FailLogin)
+                        }
+                        it.code() == 402 -> {
+                            return@onErrorResumeNext Completable.error(ErrorEntity.SecessionLoginRequest)
+                        }
+                        it.code() == 403 -> {
+                            return@onErrorResumeNext Completable.error(ErrorEntity.SecessionLogin)
+                        }
+                    }
+                }
+                return@onErrorResumeNext Completable.error(it)
             }
     }
 

@@ -29,9 +29,29 @@ class BottomSheetExplainDialog(
             Constants.ANALYSIS_DIALOG -> return analysisDialog(inflater, container)
             Constants.COMPLAIN_DIALOG -> return complainDialog(inflater, container)
             Constants.SPEED_DIALOG -> return speechDialog(inflater, container)
+            Constants.SECESSION_DIALOG -> return secessionDialog(inflater, container)
         }
 
         return emotionDialog(inflater, container)
+    }
+
+    private fun secessionDialog(inflater: LayoutInflater, container: ViewGroup?): View {
+        val binding: DialogExplainSecessionBinding =
+            DataBindingUtil.inflate(inflater, R.layout.dialog_explain_secession, container, false)
+
+        if (content == Constants.SECESSION_LOGIN_REQUEST) {
+            binding.tvDialogTitle.text = getString(R.string.dialog_secession_request_title)
+        } else if (content == Constants.SECESSION_LOGIN) {
+            binding.tvDialogTitle.text = getString(R.string.dialog_secession_title)
+        }
+        binding.btYes
+            .clicks()
+            .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+            .subscribe({
+                dialog?.dismiss()
+            }, { it.printStackTrace() })
+
+        return binding.root
     }
 
     private fun speechDialog(inflater: LayoutInflater, container: ViewGroup?): View {

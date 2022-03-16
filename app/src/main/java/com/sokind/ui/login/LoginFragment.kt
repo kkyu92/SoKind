@@ -11,6 +11,7 @@ import com.sokind.R
 import com.sokind.databinding.FragmentLoginBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.util.Constants
+import com.sokind.util.dialog.BottomSheetExplainDialog
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -22,7 +23,6 @@ import java.util.concurrent.TimeUnit
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
     private val viewModel by viewModels<LoginViewModel>()
-    private var loginTry = false
     private var loginInfo = false
     private val backBtnSubject = PublishSubject.create<Boolean>()
     private lateinit var callback: OnBackPressedCallback
@@ -64,7 +64,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         )
 
         viewModel.apply {
-            loginResult.observe(viewLifecycleOwner, {
+            loginResult.observe(viewLifecycleOwner) {
                 if (it) {
                     if (onBoardingFinished()) {
                         findNavController().navigate(R.id.action_loginFragment_to_bottomNavActivity)
@@ -73,15 +73,23 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                     }
                 } else {
                     showToast("아이디 또는 비밀번호를 확인 해 주십시오.")
+                    binding.tvErrorPw.visibility = View.VISIBLE
                 }
-            })
-            isLoading.observe(viewLifecycleOwner, { isLoading ->
+            }
+            isSecession.observe(viewLifecycleOwner) {
+                val dialog = BottomSheetExplainDialog.newInstance(
+                    Constants.SECESSION_DIALOG,
+                    it
+                )
+                dialog.show(parentFragmentManager, dialog.tag)
+            }
+            isLoading.observe(viewLifecycleOwner) { isLoading ->
                 if (isLoading) {
                     showLoading(true, binding.pbLoading)
                 } else {
                     showLoading(false, binding.pbLoading)
                 }
-            })
+            }
         }
     }
 
@@ -105,18 +113,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                         }, { it.printStackTrace() })
                 )
 
-            etPwInput
-                .textChanges()
-                .subscribe({
-                    if (loginTry) {
-                        if (Constants.validatePw(it.toString()) || it.isNullOrEmpty()) {
-                            tvErrorPw.visibility = View.GONE
-                        } else {
-                            tvErrorPw.visibility = View.VISIBLE
-                        }
-                    }
-                }, { it.printStackTrace() })
-
             tvFindId
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
@@ -135,9 +131,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    if (!loginTry) {
-                        loginTry = true
-                    }
                     if (loginInfo) {
                         viewModel.doLoginRequest(
                             binding.etIdInput.text.toString().trim(),
