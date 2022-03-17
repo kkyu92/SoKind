@@ -57,10 +57,13 @@
             android:name="com.sokind.ui.my.info.secession.SecessionActivity"
             android:exported="true" />
         <activity
-            android:name="com.sokind.ui.my.info.notice.NoticeActivity"
+            android:name="com.sokind.ui.my.notice.NoticeActivity"
             android:exported="true" />
         <activity
-            android:name="com.sokind.ui.my.info.inquiry.InquiryActivity"
+            android:name="com.sokind.ui.my.inquiry.InquiryActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.sokind.ui.my.certificate.CertificateActivity"
             android:exported="true" />
         <!-- FileProvider used to share media with other apps -->
         <provider

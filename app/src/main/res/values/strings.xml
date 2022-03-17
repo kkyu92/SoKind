@@ -336,6 +336,10 @@
     <string name="inquiry_edu">교육관련 문의</string>
     <string name="inquiry_else">기타</string>
 
+    <string name="certificate_title">%s님은 아직 교육 이수 전 입니다.</string>
+    <string name="certificate_contents">우리 기업의 모든 CS교육을 이수하고,\n종합친절도가 70점 이상일 떄\n교육 이수증을 발급받으실 수 있습니다.</string>
+    <string name="certificate_btn">교육 이수증 내보내기</string>
+
     // dialog
     <string name="alert">알림</string>
     <string name="alert_edu_fin">

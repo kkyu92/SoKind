@@ -10,6 +10,7 @@ import com.sokind.data.di.GlideApp
 import com.sokind.data.remote.member.MemberInfo
 import com.sokind.databinding.FragmentMyBinding
 import com.sokind.ui.base.BaseFragment
+import com.sokind.ui.my.certificate.CertificateActivity
 import com.sokind.ui.my.info.InfoActivity
 import com.sokind.ui.my.inquiry.InquiryActivity
 import com.sokind.ui.my.notice.NoticeActivity
@@ -63,7 +64,7 @@ class MyFragment : BaseFragment<FragmentMyBinding>(R.layout.fragment_my) {
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-//                    startView()
+                    startView(CertificateActivity::class.java)
                 },{ it.printStackTrace() })
 
             llMyNotice
