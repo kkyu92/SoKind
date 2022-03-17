@@ -1,4 +1,4 @@
-package com.sokind.ui.my.info.inquiry.my
+package com.sokind.ui.my.inquiry.my
 
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -7,7 +7,7 @@ import com.sokind.R
 import com.sokind.data.remote.common.Inquiry
 import com.sokind.databinding.FragmentMyInquiryBinding
 import com.sokind.ui.base.BaseFragment
-import com.sokind.ui.my.info.inquiry.InquiryAdapter
+import com.sokind.ui.my.inquiry.InquiryAdapter
 import com.sokind.util.Constants
 import com.sokind.util.OnInquiryItemClickListener
 import com.sokind.util.dialog.BottomSheetDialog

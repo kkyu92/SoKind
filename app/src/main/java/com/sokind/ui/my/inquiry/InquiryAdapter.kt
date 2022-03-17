@@ -1,4 +1,4 @@
-package com.sokind.ui.my.info.inquiry
+package com.sokind.ui.my.inquiry
 
 import android.view.LayoutInflater
 import android.view.View

@@ -1,4 +1,4 @@
-package com.sokind.ui.my.info.notice
+package com.sokind.ui.my.notice
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.sokind.ui.my.info.inquiry
+package com.sokind.ui.my.inquiry
 
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
@@ -6,9 +6,9 @@ import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
 import com.sokind.databinding.ActivityInquiryBinding
 import com.sokind.ui.base.BaseActivity
-import com.sokind.ui.my.info.inquiry.my.MyInquiryFragment
-import com.sokind.ui.my.info.inquiry.post.PostInquiryFragment
-import com.sokind.ui.my.info.inquiry.post.PostInquiryFragment.PostInquiryListener
+import com.sokind.ui.my.inquiry.my.MyInquiryFragment
+import com.sokind.ui.my.inquiry.post.PostInquiryFragment
+import com.sokind.ui.my.inquiry.post.PostInquiryFragment.PostInquiryListener
 import com.sokind.util.Constants
 import com.sokind.util.adapter.TabAdapter
 import dagger.hilt.android.AndroidEntryPoint

@@ -11,8 +11,8 @@ import com.sokind.data.remote.member.MemberInfo
 import com.sokind.databinding.FragmentMyBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.ui.my.info.InfoActivity
-import com.sokind.ui.my.info.inquiry.InquiryActivity
-import com.sokind.ui.my.info.notice.NoticeActivity
+import com.sokind.ui.my.inquiry.InquiryActivity
+import com.sokind.ui.my.notice.NoticeActivity
 import com.sokind.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit

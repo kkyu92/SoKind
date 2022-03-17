@@ -1,4 +1,4 @@
-package com.sokind.ui.my.info.notice
+package com.sokind.ui.my.notice
 
 import android.view.LayoutInflater
 import android.view.View

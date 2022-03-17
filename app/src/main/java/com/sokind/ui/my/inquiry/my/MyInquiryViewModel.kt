@@ -1,4 +1,4 @@
-package com.sokind.ui.my.info.inquiry.my
+package com.sokind.ui.my.inquiry.my
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,17 +1,14 @@
-package com.sokind.ui.my.info.inquiry.post
+package com.sokind.ui.my.inquiry.post
 
 import android.widget.RadioButton
-import androidx.core.view.get
 import androidx.fragment.app.viewModels
 import com.jakewharton.rxbinding4.view.clicks
-import com.jakewharton.rxbinding4.widget.checked
 import com.jakewharton.rxbinding4.widget.checkedChanges
 import com.jakewharton.rxbinding4.widget.textChanges
 import com.sokind.R
 import com.sokind.databinding.FragmentPostInquiryBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.util.Constants
-import com.sokind.util.OnInquiryItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.functions.Function5
