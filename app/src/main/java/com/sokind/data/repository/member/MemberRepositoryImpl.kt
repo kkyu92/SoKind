@@ -54,10 +54,10 @@ class MemberRepositoryImpl @Inject constructor(
             .signUp(joinInfo)
     }
 
-    override fun login(loginRequest: LoginRequest): Completable {
+    override fun login(loginRequest: LoginRequest): Single<Int> {
         return memberDataSource
             .login(loginRequest)
-            .flatMapCompletable { response ->
+            .flatMap { response ->
                 userDataSource
                     .deleteUser()
                     .andThen(
@@ -77,7 +77,7 @@ class MemberRepositoryImpl @Inject constructor(
                                 null,
                                 null,
                                 null,
-                                null,
+                                response.availableYn,
                                 null,
                                 null,
                                 null,
@@ -85,22 +85,7 @@ class MemberRepositoryImpl @Inject constructor(
                             )
                         )
                     )
-            }
-            .onErrorResumeNext {
-                if (it is HttpException) {
-                    when {
-                        it.code() == 400 -> {
-                            return@onErrorResumeNext Completable.error(ErrorEntity.FailLogin)
-                        }
-                        it.code() == 402 -> {
-                            return@onErrorResumeNext Completable.error(ErrorEntity.SecessionLoginRequest)
-                        }
-                        it.code() == 403 -> {
-                            return@onErrorResumeNext Completable.error(ErrorEntity.SecessionLogin)
-                        }
-                    }
-                }
-                return@onErrorResumeNext Completable.error(it)
+                    .andThen(Single.just(response.availableYn))
             }
     }
 

@@ -2,8 +2,6 @@ package com.sokind.ui.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.sokind.data.remote.base.ErrorEntity
-import com.sokind.data.remote.base.transformCompletableToSingleDefault
 import com.sokind.data.remote.member.login.LoginRequest
 import com.sokind.data.repository.member.MemberRepository
 import com.sokind.ui.base.BaseViewModel
@@ -16,38 +14,25 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val repository: MemberRepository
 ) : BaseViewModel() {
-    private val _loginResult: MutableLiveData<Boolean> = MutableLiveData()
-    val loginResult: LiveData<Boolean> = _loginResult
-    private val _isSecession: MutableLiveData<String> = MutableLiveData()
-    val isSecession: LiveData<String> = _isSecession
+    private val _loginResult: MutableLiveData<Int> = MutableLiveData()
+    val loginResult: LiveData<Int> = _loginResult
 
     fun doLoginRequest(id: String, password: String) {
         compositeDisposable.add(
             repository
                 .login(LoginRequest(id, password))
-                .transformCompletableToSingleDefault()
                 .doOnSubscribe { showProgress() }
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnTerminate { hideProgress() }
-                .subscribe({
-                    if (it.throwable != null) {
-                        when (it.throwable) {
-                            is ErrorEntity.SecessionLoginRequest -> {
-                                _isSecession.postValue(Constants.SECESSION_LOGIN_REQUEST)
-                            }
-                            is ErrorEntity.SecessionLogin -> {
-                                _isSecession.postValue(Constants.SECESSION_LOGIN)
-                            }
-                            is ErrorEntity.FailLogin -> {
-                                _loginResult.postValue(false)
-                            }
+                .subscribe({ data ->
+                        when (data) {
+                            0 -> _loginResult.postValue(Constants.SECESSION_LOGIN)
+                            1 -> _loginResult.postValue(Constants.SUCCESS_LOGIN)
+                            2 -> _loginResult.postValue(Constants.SECESSION_LOGIN_REQUEST)
                         }
-                    } else {
-                        _loginResult.postValue(true)
-                    }
                 }, {
                     it.printStackTrace()
-                    _loginResult.postValue(false)
+                    _loginResult.postValue(Constants.FAIL_LOGIN)
                 })
         )
     }

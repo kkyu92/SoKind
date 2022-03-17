@@ -64,24 +64,28 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         )
 
         viewModel.apply {
-            loginResult.observe(viewLifecycleOwner) {
-                if (it) {
-                    if (onBoardingFinished()) {
-                        findNavController().navigate(R.id.action_loginFragment_to_bottomNavActivity)
-                    } else {
-                        findNavController().navigate(R.id.action_loginFragment_to_boardingFragment)
+            loginResult.observe(viewLifecycleOwner) { available ->
+                Timber.e("get available data : $available")
+                when(available) {
+                    -1 -> {
+                        showToast("아이디 또는 비밀번호를 확인 해 주십시오.")
+                        binding.tvErrorPw.visibility = View.VISIBLE
                     }
-                } else {
-                    showToast("아이디 또는 비밀번호를 확인 해 주십시오.")
-                    binding.tvErrorPw.visibility = View.VISIBLE
+                    0 or 2 -> {
+                        val dialog = BottomSheetExplainDialog.newInstance(
+                            Constants.SECESSION_DIALOG,
+                            available.toString()
+                        )
+                        dialog.show(parentFragmentManager, dialog.tag)
+                    }
+                    1 -> {
+                        if (onBoardingFinished()) {
+                            findNavController().navigate(R.id.action_loginFragment_to_bottomNavActivity)
+                        } else {
+                            findNavController().navigate(R.id.action_loginFragment_to_boardingFragment)
+                        }
+                    }
                 }
-            }
-            isSecession.observe(viewLifecycleOwner) {
-                val dialog = BottomSheetExplainDialog.newInstance(
-                    Constants.SECESSION_DIALOG,
-                    it
-                )
-                dialog.show(parentFragmentManager, dialog.tag)
             }
             isLoading.observe(viewLifecycleOwner) { isLoading ->
                 if (isLoading) {

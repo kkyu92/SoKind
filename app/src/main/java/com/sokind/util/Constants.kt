@@ -29,8 +29,10 @@ object Constants {
     const val PROFILE_DIALOG = "profile_dialog"
     const val SECESSION_DIALOG = "secession_dialog"
 
-    const val SECESSION_LOGIN_REQUEST = "session_login_request"
-    const val SECESSION_LOGIN = "session_login"
+    const val FAIL_LOGIN = -1
+    const val SECESSION_LOGIN = 0
+    const val SUCCESS_LOGIN = 1
+    const val SECESSION_LOGIN_REQUEST = 2
 
     val PERMISSIONS = arrayOf(
         Manifest.permission.CAMERA,

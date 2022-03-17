@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class UserEntity(
     val memberKey: Int?,
-    val memberId: String?,
+    val memberId: String,
     val memberName: String?,
     val profileImg: String?,
     val memberEmail: String?,
@@ -23,12 +23,12 @@ data class UserEntity(
     val positionKey: Int?,
     val positionName: String?,
 
-    val availableYN: Int?,
+    val availableYN: Int,
     val eventYN:Int?,
     val emailYN:Int?,
     val pushYN:Int?,
 
-    val access: String
+    val access: String?
 ) {
     @PrimaryKey
     var id: Int = 0
