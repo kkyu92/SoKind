@@ -40,9 +40,9 @@ class BottomSheetExplainDialog(
             DataBindingUtil.inflate(inflater, R.layout.dialog_explain_secession, container, false)
 
         if (content == Constants.SECESSION_LOGIN_REQUEST.toString()) {
-            binding.tvDialogTitle.text = getString(R.string.dialog_secession_request_title)
+            binding.tvDialogContents.text = getString(R.string.dialog_secession_request_title)
         } else if (content == Constants.SECESSION_LOGIN.toString()) {
-            binding.tvDialogTitle.text = getString(R.string.dialog_secession_title)
+            binding.tvDialogContents.text = getString(R.string.dialog_secession_title)
         }
         binding.btYes
             .clicks()
