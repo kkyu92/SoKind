@@ -18,6 +18,7 @@ interface MemberRepository {
     fun signUp(joinInfo: JoinInfo): Completable
     fun login(loginRequest: LoginRequest): Single<Int>
     fun getMe(): Single<MemberInfo>
+    fun checkCertificate(): Completable
     fun saveUser(memberInfo: MemberInfo): Completable
     fun isLogin(): Single<String>
     fun changeEmail(newEmail: String): Completable

@@ -98,6 +98,16 @@ class MemberRepositoryImpl @Inject constructor(
             .compose(errorHandlerSingle(tokenRepository))
     }
 
+    override fun checkCertificate(): Completable {
+        return userDataSource
+            .getUser()
+            .flatMapCompletable { user ->
+                memberDataSource
+                    .checkCertificate(user.access!!, user.memberId)
+            }
+            .compose(errorHandlerCompletable(tokenRepository))
+    }
+
     override fun saveUser(memberInfo: MemberInfo): Completable {
         return userDataSource
             .getAccessToken()
