@@ -10,6 +10,7 @@ import com.sokind.ui.home.HomeViewModel
 import com.sokind.ui.join.first.JoinFirstViewModel
 import com.sokind.ui.login.LoginViewModel
 import com.sokind.ui.my.MyViewModel
+import com.sokind.ui.my.certificate.CertificateViewModel
 import com.sokind.ui.my.info.InfoViewModel
 import com.sokind.ui.report.ReportViewModel
 import dagger.Module
@@ -51,6 +52,11 @@ object ViewModelModule {
     @Provides
     fun provideMyViewModel(repository: MemberRepository): MyViewModel {
         return MyViewModel(repository)
+    }
+
+    @Provides
+    fun provideCertificateViewModel(repository: MemberRepository): CertificateViewModel {
+        return CertificateViewModel(repository)
     }
 //    @Provides
 //    fun provideMyPageViewModel(repository: MyPageRepository): MyPageViewModel {
