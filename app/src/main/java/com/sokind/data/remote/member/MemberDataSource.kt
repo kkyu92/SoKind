@@ -25,6 +25,7 @@ interface MemberDataSource {
     fun refreshToken(access: String, request: RefreshRequest): Single<RefreshResponse>
     fun checkToken(access: String, id: String): Completable
     fun getMe(access: String, id: String): Single<MemberInfo>
+    fun checkCertificate(access: String, id: String): Completable
     fun changeEmail(access: String, request: EmailRequest): Completable
     fun changePw(access: String, request: PwRequest): Completable
     fun changeProfile(access: String, profile: MultipartBody.Part, id: String): Completable

@@ -74,6 +74,12 @@ class MemberDataSourceImpl @Inject constructor(
             .subscribeOn(Schedulers.io())
     }
 
+    override fun checkCertificate(access: String, id: String): Completable {
+        return memberApi
+            .checkCertificate(access, id)
+            .subscribeOn(Schedulers.io())
+    }
+
     override fun changeEmail(access: String, request: EmailRequest): Completable {
         return memberApi
             .changeEmail(access, request)

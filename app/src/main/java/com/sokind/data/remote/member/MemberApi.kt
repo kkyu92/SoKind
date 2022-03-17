@@ -38,7 +38,7 @@ interface MemberApi {
 
     // 회원가입
     @POST("member/signup/")
-    fun signUp(@Body joinInfo: JoinInfo) : Completable
+    fun signUp(@Body joinInfo: JoinInfo): Completable
 
     // 로그인
     @POST("member/memberLogin/")
@@ -64,6 +64,12 @@ interface MemberApi {
         @Header("accessToken") access: String,
         @Query("memberid") id: String
     ): Single<MemberInfo>
+
+    @GET("edu/chkGraduate")
+    fun checkCertificate(
+        @Header("accessToken") access: String,
+        @Query("memberId") id: String
+    ): Completable
 
     // 이메일 변경
     @PUT("member/changeEmail/")
