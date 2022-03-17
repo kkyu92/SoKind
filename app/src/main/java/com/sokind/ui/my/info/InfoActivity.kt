@@ -6,6 +6,7 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.provider.MediaStore
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -228,13 +229,15 @@ class InfoActivity : BaseActivity<ActivityInfoBinding>(R.layout.activity_info) {
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    showToast("약관주소이동")
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://marazoa.com/sokind/terms"))
+                    startActivity(intent)
                 }, { it.printStackTrace() })
             tvPrivacy
                 .clicks()
                 .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
                 .subscribe({
-                    showToast("개인정보주소이동")
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://marazoa.com/sokind/policy"))
+                    startActivity(intent)
                 }, { it.printStackTrace() })
             tvSecession
                 .clicks()
