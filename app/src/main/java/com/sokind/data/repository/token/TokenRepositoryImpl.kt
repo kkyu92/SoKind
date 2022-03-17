@@ -16,7 +16,7 @@ class TokenRepositoryImpl @Inject constructor (
             .getUser()
             .flatMapCompletable { user ->
                 memberDataSource
-                    .checkToken(user.access, user.memberId!!)
+                    .checkToken(user.access!!, user.memberId)
             }
             .retryWhen { error ->
                 return@retryWhen error
@@ -25,7 +25,7 @@ class TokenRepositoryImpl @Inject constructor (
                             .getUser()
                             .flatMap { user ->
                                 memberDataSource
-                                    .refreshToken(user.access, RefreshRequest(user.memberId!!))
+                                    .refreshToken(user.access!!, RefreshRequest(user.memberId))
                             }
                             .flatMap { response ->
                                 userDataSource.updateAccessToken(response.accessToken)

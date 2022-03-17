@@ -23,7 +23,7 @@ class CommonRepositoryImpl @Inject constructor(
             .getUser()
             .flatMapCompletable { user ->
                 commonDataSource
-                    .postInquiry(InquiryRequest(user.memberId!!, type, title, contents))
+                    .postInquiry(InquiryRequest(user.memberId, type, title, contents))
             }
     }
 
@@ -32,7 +32,7 @@ class CommonRepositoryImpl @Inject constructor(
             .getUser()
             .flatMap { user ->
                 commonDataSource
-                    .getInquiry(user.memberId!!)
+                    .getInquiry(user.memberId)
             }
     }
 

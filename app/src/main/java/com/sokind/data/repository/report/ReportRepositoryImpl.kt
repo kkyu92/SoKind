@@ -23,7 +23,7 @@ class ReportRepositoryImpl @Inject constructor(
             .getUser()
             .flatMap { user ->
                 reportDataSource
-                    .getReport(user.access, user.enterpriseKey!!, user.memberId!!)
+                    .getReport(user.access!!, user.enterpriseKey!!, user.memberId)
             }
             .onErrorResumeNext {
                 if (it is HttpException) {
@@ -46,7 +46,7 @@ class ReportRepositoryImpl @Inject constructor(
             .getUser()
             .flatMap { user ->
                 reportDataSource
-                    .detailReport(user.access, key, type, user.memberId!!)
+                    .detailReport(user.access!!, key, type, user.memberId)
             }
             .compose(errorHandlerSingle(tokenRepository))
     }

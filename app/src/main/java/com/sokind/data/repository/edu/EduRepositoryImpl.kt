@@ -19,7 +19,7 @@ class EduRepositoryImpl @Inject constructor(
             .getUser()
             .flatMap { user ->
                 eduDataSource
-                    .getEdu(user.access, user.memberId!!)
+                    .getEdu(user.access!!, user.memberId)
             }
             .compose(errorHandlerSingle(tokenRepository))
     }
@@ -29,7 +29,7 @@ class EduRepositoryImpl @Inject constructor(
             .getUser()
             .flatMap { user ->
                 eduDataSource
-                    .startEdu(user.access, eduKey, eduType, user.memberId!!)
+                    .startEdu(user.access!!, eduKey, eduType, user.memberId)
             }
             .compose(errorHandlerSingle(tokenRepository))
     }
@@ -43,7 +43,7 @@ class EduRepositoryImpl @Inject constructor(
             .getUser()
             .flatMap { user ->
                 eduDataSource
-                    .putEdu(user.access, file, eduKey, eduType, user.memberId!!, user.memberKey!!)
+                    .putEdu(user.access!!, file, eduKey, eduType, user.memberId, user.memberKey!!)
             }
             .compose(errorHandlerSingle(tokenRepository))
     }

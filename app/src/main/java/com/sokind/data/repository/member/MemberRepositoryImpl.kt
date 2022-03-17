@@ -21,7 +21,6 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.MultipartBody
 import retrofit2.HttpException
-import timber.log.Timber
 import javax.inject.Inject
 
 class MemberRepositoryImpl @Inject constructor(
@@ -94,7 +93,7 @@ class MemberRepositoryImpl @Inject constructor(
             .getUser()
             .flatMap { user ->
                 memberDataSource
-                    .getMe(user.access, user.memberId!!)
+                    .getMe(user.access!!, user.memberId)
             }
             .compose(errorHandlerSingle(tokenRepository))
     }
@@ -118,8 +117,8 @@ class MemberRepositoryImpl @Inject constructor(
             .getUser()
             .flatMapCompletable { user ->
                 memberDataSource.changeEmail(
-                    user.access,
-                    EmailRequest(user.memberId!!, user.memberEmail!!, newEmail)
+                    user.access!!,
+                    EmailRequest(user.memberId, user.memberEmail!!, newEmail)
                 )
             }
             .compose(errorHandlerCompletable(tokenRepository))
@@ -130,8 +129,8 @@ class MemberRepositoryImpl @Inject constructor(
             .getUser()
             .flatMapCompletable { user ->
                 memberDataSource.changePw(
-                    user.access,
-                    PwRequest(newPw, user.memberId!!, user.memberKey!!, pw)
+                    user.access!!,
+                    PwRequest(newPw, user.memberId, user.memberKey!!, pw)
                 )
             }
             .onErrorResumeNext {
@@ -150,7 +149,7 @@ class MemberRepositoryImpl @Inject constructor(
         return userDataSource
             .getUser()
             .flatMapCompletable { user ->
-                memberDataSource.changeProfile(user.access, profile, user.memberId!!)
+                memberDataSource.changeProfile(user.access!!, profile, user.memberId)
             }
             .compose(errorHandlerCompletable(tokenRepository))
     }
@@ -159,7 +158,7 @@ class MemberRepositoryImpl @Inject constructor(
         return userDataSource
             .getUser()
             .flatMapCompletable { user ->
-                memberDataSource.changeExtra(user.access, event, email, app, user.memberId!!)
+                memberDataSource.changeExtra(user.access!!, event, email, app, user.memberId)
             }
             .compose(errorHandlerCompletable(tokenRepository))
     }
@@ -173,7 +172,7 @@ class MemberRepositoryImpl @Inject constructor(
         return userDataSource
             .getUser()
             .flatMapCompletable { user ->
-                memberDataSource.secession(user.access, SecessionRequest(user.memberId!!, reason))
+                memberDataSource.secession(user.access!!, SecessionRequest(user.memberId, reason))
                     .andThen(userDataSource.deleteUser())
             }
             .compose(errorHandlerCompletable(tokenRepository))
