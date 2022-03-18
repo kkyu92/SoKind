@@ -8,10 +8,7 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jakewharton.rxbinding4.view.clicks
 import com.sokind.R
-import com.sokind.databinding.DialogBottomSheetBinding
-import com.sokind.databinding.DialogChangeBinding
-import com.sokind.databinding.DialogErrorAnalysisBinding
-import com.sokind.databinding.DialogProfileBinding
+import com.sokind.databinding.*
 import com.sokind.util.Constants
 import java.util.concurrent.TimeUnit
 
@@ -35,9 +32,33 @@ class BottomSheetDialog(
             Constants.PROFILE_DIALOG -> return profileDialog(inflater, container)
 
             Constants.ANALYSIS_ERROR_DIALOG -> return analysisErrorDialog(inflater, container)
+            Constants.SECESSION_DIALOG -> return secessionDialog(inflater, container)
         }
 
         return simpleDialog(inflater, container)
+    }
+
+    private fun secessionDialog(inflater: LayoutInflater, container: ViewGroup?): View {
+        val binding: DialogSecessionBinding =
+            DataBindingUtil.inflate(inflater, R.layout.dialog_secession, container, false)
+
+        binding.btOk
+            .clicks()
+            .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+            .subscribe({
+                itemClick(false)
+                dialog?.dismiss()
+            }, { it.printStackTrace() })
+
+        binding.dialogJoin
+            .clicks()
+            .throttleFirst(Constants.THROTTLE, TimeUnit.MILLISECONDS)
+            .subscribe({
+                itemClick(true)
+                dialog?.dismiss()
+            }, { it.printStackTrace() })
+
+        return binding.root
     }
 
     private fun simpleDialog(inflater: LayoutInflater, container: ViewGroup?): View {

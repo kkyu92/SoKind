@@ -27,6 +27,7 @@ object Constants {
     const val COMPLAIN_DIALOG = "complain_dialog"
     const val SPEED_DIALOG = "speed_dialog"
     const val PROFILE_DIALOG = "profile_dialog"
+    const val SECESSION_REQUEST_DIALOG = "secession_request_dialog"
     const val SECESSION_DIALOG = "secession_dialog"
 
     const val FAIL_LOGIN = -1

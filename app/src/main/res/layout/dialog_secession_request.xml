@@ -39,11 +39,11 @@
             style="@style/Button.Fill.Main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/check"
             android:layout_marginTop="30dp"
-            app:layout_constraintTop_toBottomOf="@+id/tv_dialog_contents"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/check"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_dialog_contents" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

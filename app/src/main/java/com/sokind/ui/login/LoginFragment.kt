@@ -11,6 +11,7 @@ import com.sokind.R
 import com.sokind.databinding.FragmentLoginBinding
 import com.sokind.ui.base.BaseFragment
 import com.sokind.util.Constants
+import com.sokind.util.dialog.BottomSheetDialog
 import com.sokind.util.dialog.BottomSheetExplainDialog
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -71,10 +72,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                         showToast("아이디 또는 비밀번호를 확인 해 주십시오.")
                         binding.tvErrorPw.visibility = View.VISIBLE
                     }
-                    0 or 2 -> {
-                        val dialog = BottomSheetExplainDialog.newInstance(
+                    0 -> {
+                        val dialog = BottomSheetDialog.newInstance(
                             Constants.SECESSION_DIALOG,
-                            available.toString()
+                            getString(R.string.alert),
+                            "",
+                            itemClick = { okClick ->
+                                if (okClick) {
+                                    findNavController().navigate(R.id.action_loginFragment_to_joinFirstFragment)
+                                }
+                            }
                         )
                         dialog.show(parentFragmentManager, dialog.tag)
                     }
@@ -84,6 +91,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                         } else {
                             findNavController().navigate(R.id.action_loginFragment_to_boardingFragment)
                         }
+                    }
+                    2 -> {
+                        val dialog = BottomSheetExplainDialog.newInstance(
+                            Constants.SECESSION_REQUEST_DIALOG,
+                            available.toString()
+                        )
+                        dialog.show(parentFragmentManager, dialog.tag)
                     }
                 }
             }

@@ -119,6 +119,7 @@
     <string name="dialog_secession_request_title">탈퇴 신청을 한 회원입니다.\n관리자의 탈퇴 승인 전까지 서비스 이용이 제한됩니다.</string>
     <string name="dialog_secession_title">탈퇴가 완료된 회원입니다.\n그동안 쏘카인드 서비스를 이용해 주셔서 감사합니다.</string>
     <string name="dialog_secession_login_content">탈퇴 신청일시: %s\n탈퇴 승인여부: 미승인</string>
+    <string name="dialog_secession_join">신규회원가입</string>
 
     // home
     <string name="home_hello">안녕하세요,</string>
